@@ -1,0 +1,150 @@
+{
+  "output_rules": {
+    "purpose": "Generate an evidence-gap search plan that verifies the weakest links in top-journal-level scientific review.",
+    "do_not_output": [
+      "bare keyword lists without a claim being tested",
+      "generic search terms such as 'more controls' or 'recent review' without source type and decision relevance",
+      "preprint-only searches for decisive criticisms when peer-reviewed, benchmark, guideline, structure, theorem, clinical, or artifact evidence is available"
+    ],
+    "required_fields_per_hint": [
+      "evidence_gap_or_claim_tested",
+      "preferred_sources",
+      "search_strings",
+      "decision_changing_evidence",
+      "linked_issue_or_revision_action"
+    ]
+  },
+  "hint_template": {
+    "evidence_gap_or_claim_tested": "Name the exact unsupported claim, missing control, characterization gap, benchmark weakness, proof gap, clinical validation gap, alternative explanation, or interdisciplinary bridge uncertainty.",
+    "preferred_sources": "Specify primary papers, method benchmarks, official reporting guidelines, clinical trial records, public datasets, spectra/structure repositories, code artifacts, theorem sources, standards, or preprints as frontier-only signals.",
+    "search_strings": [
+      "google scholar: \"<exact claim or method>\" \"<benchmark/control/validation>\"",
+      "pubmed/arxiv/ACM/ACS/APS/MathSciNet: <field> <method> <loophole or standard>",
+      "site:<relevant repository> <dataset/compound/theorem/model> <validation/reproducibility>"
+    ],
+    "decision_changing_evidence": "State what result would strengthen, weaken, or force narrowing of the review conclusion.",
+    "linked_issue_or_revision_action": "Map the search to a specific Critical/Major issue or required revision action."
+  },
+  "evidence_gap_categories": [
+    "central-claim support",
+    "top-journal novelty and conceptual delta",
+    "controls, baselines, characterizations, proof assumptions, or validation cohorts",
+    "ground-truth benchmark and performance metrics",
+    "alternative explanation / loophole / false-positive model",
+    "statistical, causal, proof, measurement, or clinical adequacy",
+    "orthogonal validation or triangulation",
+    "interdisciplinary bridge validation",
+    "reproducibility / data, code, materials, spectra, structures, proofs, and auditability",
+    "contrary literature, contrary theorem, failed replication, or contrary benchmark"
+  ],
+  "article_specific_dossier": [
+    "google scholar: <central claim> <six-domain field> <method/source>",
+    "google scholar: <field term> landmark canonical theory method",
+    "google scholar: <method/source type> reporting guideline benchmark validation",
+    "google scholar: <field term> recent 3 years controversy review",
+    "publisher or database: <exact claim or method> citation chain",
+    "arxiv: <computational/physics/math method> benchmark limitation counterexample",
+    "pubmed: <biomedical/clinical claim> validation controls",
+    "ACS/CCDC/IUPAC: <compound/material> characterization purity structure",
+    "MathSciNet/zbMATH: <theorem> <assumption> <counterexample>",
+    "ACM/IEEE/NeurIPS/ICLR: <algorithm/system> reproducibility benchmark artifact"
+  ],
+  "biology": [
+    "pubmed: <central mechanism or phenotype> <organism/cell type> perturbation rescue",
+    "pubmed: <assay/method> benchmark sensitivity specificity controls",
+    "pubmed: <omics/lineage method> batch effect doublet false positive validation",
+    "guideline: ARRIVE 2.0 animal research reporting randomization blinding sample size"
+  ],
+  "chemistry": [
+    "ACS: <compound/material/reaction> characterization purity NMR HRMS X-ray",
+    "google scholar: <reaction/catalyst> control experiment kinetic mechanism isotope",
+    "CCDC: <compound class> crystallographic data checkCIF",
+    "IUPAC or ACS: <method> reporting standard reproducibility"
+  ],
+  "physics": [
+    "google scholar: <phenomenon> measurement uncertainty calibration systematic error",
+    "APS arxiv: <theory/model> limiting case boundary condition contrary evidence",
+    "google scholar: <simulation method> convergence finite size boundary conditions",
+    "Nature physical sciences reporting standard code algorithm reproducibility"
+  ],
+  "mathematics": [
+    "MathSciNet: <theorem/topic> <assumption> <author or keyword>",
+    "zbMATH: <result> counterexample sharpness",
+    "arxiv: <theorem> <boundary case> <regularity assumption>",
+    "google scholar: \"<exact theorem phrase>\" \"counterexample\""
+  ],
+  "medicine": [
+    "pubmed: <clinical claim> randomized trial endpoint adverse events",
+    "clinicaltrials.gov: <intervention/diagnostic> trial registration endpoint",
+    "pubmed: <diagnostic/prognostic model> external validation calibration TRIPOD",
+    "guideline: CONSORT PRISMA STROBE SPIRIT TRIPOD checklist <study type>",
+    "medrxiv: <clinical claim> validation cohort benchmark preprint"
+  ],
+  "computer_science_ai": [
+    "arxiv: <task/method> benchmark baseline ablation leakage",
+    "google scholar: \"<dataset>\" \"data leakage\" \"benchmark\"",
+    "ACM artifact review reproducibility <method or field>",
+    "NeurIPS checklist <method> reproducibility limitations ethics",
+    "ICLR reproducibility statement <algorithm> code data assumptions",
+    "github: <method or benchmark> replication baseline implementation"
+  ],
+  "fusion_fields": [
+    "pubmed arxiv: medical AI external validation calibration leakage <task>",
+    "pubmed arxiv: bioinformatics benchmark biological validation batch effect <method>",
+    "ACS pubmed: chemical biology target engagement selectivity orthogonal assay <compound>",
+    "google scholar: biophysics measurement perturbation calibration biological interpretation <method>",
+    "arxiv ACS: materials AI benchmark split leakage experimental validation uncertainty",
+    "arxiv: physics-informed machine learning boundary conditions identifiability theorem"
+  ],
+  "standards_and_reproducibility": [
+    "Nature reporting standards data materials code protocols",
+    "ACS research data guidelines reproducibility characterization",
+    "ACM artifact review badging reproducibility availability validation",
+    "IEEE reproducibility code data methodology repository",
+    "NeurIPS paper checklist reproducibility transparency limitations",
+    "ICLR author guide reproducibility statement code data proof assumptions",
+    "AMS Mathematical Reviews guide reviewers error counterexample exact reference",
+    "EQUATOR CONSORT PRISMA STROBE ARRIVE SPIRIT TRIPOD reporting guideline"
+  ],
+  "provisional_frontier": [
+    "site:arxiv.org <central claim> <method or field>",
+    "site:biorxiv.org <biomedical claim> <method or phenotype>",
+    "site:medrxiv.org <clinical claim> validation cohort benchmark",
+    "check posted date, version history, peer-reviewed publication link, replication status, and whether conclusions are independent or confirmatory"
+  ],
+  "model_output_examples": [
+    {
+      "evidence_gap_or_claim_tested": "Whether an AI model's claimed performance gain survives leakage-free evaluation against current baselines.",
+      "preferred_sources": "Benchmark papers, baseline implementations, ACM artifact guidance, NeurIPS/ICLR reproducibility guidance, and independent replications.",
+      "search_strings": [
+        "arxiv: <task> <dataset> leakage benchmark baseline",
+        "google scholar: \"<dataset>\" \"data leakage\" \"<task>\"",
+        "ACM artifact review reproducibility benchmark machine learning"
+      ],
+      "decision_changing_evidence": "Independent leakage-free benchmarks showing the same gain would strengthen the claim; leakage reports or failed replications would force claim narrowing.",
+      "linked_issue_or_revision_action": "Critical issue: benchmark validity and reproducibility."
+    },
+    {
+      "evidence_gap_or_claim_tested": "Whether a new chemical probe's biological phenotype is due to the claimed target rather than impurity or off-target activity.",
+      "preferred_sources": "ACS characterization guidance, primary target-engagement papers, orthogonal assay papers, and medicinal chemistry selectivity benchmarks.",
+      "search_strings": [
+        "ACS <compound class> characterization purity NMR HRMS",
+        "pubmed: <target> chemical probe target engagement selectivity off target",
+        "google scholar: <assay> orthogonal validation chemical biology"
+      ],
+      "decision_changing_evidence": "Complete characterization plus orthogonal target engagement would strengthen the claim; missing purity or selectivity would require narrowing to a candidate probe.",
+      "linked_issue_or_revision_action": "Major issue: chemical identity and biological specificity."
+    },
+    {
+      "evidence_gap_or_claim_tested": "Whether a theorem's assumptions exclude a boundary case that would invalidate the claimed generality.",
+      "preferred_sources": "MathSciNet/zbMATH records, prior theorem sources, counterexample papers, and canonical monographs.",
+      "search_strings": [
+        "MathSciNet: <theorem/topic> <assumption>",
+        "google scholar: \"<theorem phrase>\" counterexample",
+        "arxiv: <topic> boundary case regularity assumption"
+      ],
+      "decision_changing_evidence": "A known counterexample would force theorem narrowing; a prior theorem with identical assumptions would reduce novelty.",
+      "linked_issue_or_revision_action": "Critical issue: proof assumptions and novelty."
+    }
+  ]
+}

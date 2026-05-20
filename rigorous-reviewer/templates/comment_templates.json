@@ -1,0 +1,153 @@
+{
+  "issue_logic_chain": {
+    "required_fields": [
+      "specific_problem",
+      "why_this_is_a_problem",
+      "evidence_basis",
+      "impact_on_conclusion",
+      "alternative_explanations",
+      "how_to_resolve",
+      "decisive_readout",
+      "minimum_citation_support"
+    ],
+    "template": {
+      "specific_problem": "Identify the exact claim, figure, table, section, theorem, proof step, compound, spectrum, structure, assay, cohort, model, dataset, experiment, benchmark, statistic, algorithm, or interpretation that is problematic.",
+      "why_this_is_a_problem": "Explain the biological, chemical, physical, mathematical, clinical, computational, statistical, evidentiary, or cross-domain reason this weakens the manuscript.",
+      "evidence_basis": "Cite manuscript-internal evidence and external support such as primary literature, method benchmarks, reporting guidelines, datasets, spectra/structure repositories, theorem sources, clinical trial records, official venue policies, or field standards.",
+      "impact_on_conclusion": "State which conclusion becomes unsupported, overclaimed, ambiguous, non-reproducible, or vulnerable to a false-positive or alternative interpretation.",
+      "alternative_explanations": "Name plausible competing explanations, confounders, artifacts, impurities, systematic errors, hidden assumptions, boundary cases, data leakage routes, benchmark failures, model failures, or cross-domain mismatches that must be ruled out.",
+      "how_to_resolve": "Specify concrete experiments, analyses, controls, characterizations, benchmarks, robustness checks, proof repairs, validation cohorts, ablations, statistical tests, code/data release, reporting additions, or wording changes.",
+      "decisive_readout": "Define what outcome would support the authors' claim and what outcome would weaken or refute it.",
+      "minimum_citation_support": "Include at least one external citation, benchmark, dataset, protocol, reporting guideline, official venue policy, spectra/structure standard, clinical guideline, theorem source, or field standard. If none is available, reframe as an open question rather than a finding."
+    }
+  },
+  "professional_issue_block": {
+    "purpose": "Force each reviewer criticism to read as a detailed professional issue analysis rather than a terse bullet.",
+    "required_chinese_labels": [
+      "具体问题",
+      "为什么严重 or 为什么重要",
+      "证据",
+      "影响",
+      "替代解释/漏洞",
+      "解决",
+      "决定性 readout"
+    ],
+    "required_evidence_split": [
+      "稿件内部证据",
+      "外部证据/标准"
+    ],
+    "density_rules": [
+      "Critical issues should usually be 150-300 words and explain claim dependency, evidence, impact, resolution, and decisive readout.",
+      "Major issues should usually be 100-220 words and identify the exact figure, method, proof step, benchmark, cohort, dataset, or claim affected.",
+      "Minor issues may be shorter, but still need a precise target and actionable fix.",
+      "Do not collapse multiple required fields into one sentence.",
+      "Do not mark an issue complete unless the decisive readout states both a support condition and a weakening, refuting, or claim-narrowing condition."
+    ],
+    "template_zh": "- [Critical/Major/Minor] <短标题>\n  具体问题：<指出具体 claim / figure / table / method / proof / benchmark / cohort / dataset / code artifact / interpretation。>\n  为什么严重：<解释为什么这会威胁中心结论、创新性、因果逻辑、证明逻辑、benchmark 有效性、临床有效性、可重复性或跨学科桥接；Minor 可改为 为什么重要。>\n  证据：\n  - 稿件内部证据：<稿件中的 figure/panel/table/method/proof/data/code/source，或说明关键证据缺失。>\n  - 外部证据/标准：<primary paper/guideline/benchmark/theorem source/dataset/official policy/protocol/DOI/PMID/arXiv/link/search target。>\n  影响：<说明哪个结论变得 unsupported/overclaimed/ambiguous/non-reproducible/non-novel 或易受 false-positive 解释影响。>\n  替代解释/漏洞：<列出混杂、artifact、隐藏假设、leakage、systematics、off-target、boundary case、cohort shift 或跨领域错配。>\n  解决：<提出最小充分实验、分析、control、benchmark、proof repair、characterization、external validation、data/code release、reporting addition 或 claim narrowing。>\n  决定性 readout：<说明什么结果支持作者 claim，什么结果会削弱/反驳 claim 或迫使 claim narrowing。>"
+  },
+  "severity_calibration": {
+    "critical": "Use when a central conclusion is unsupported or likely wrong unless the issue is resolved; decisive evidence, controls, characterization, measurement, clinical validation, proof logic, benchmark validity, statistical validity, or reproducibility is missing.",
+    "major": "Use when the claim is plausible but confounded, underpowered, insufficiently benchmarked, weakly characterized, incompletely proved, not externally validated, or missing important cross-domain validation.",
+    "minor": "Use when the issue affects clarity, reporting, citation quality, terminology, figure/table readability, or limited-scope reproducibility without overturning the main claim."
+  },
+  "critical": [
+    {
+      "title": "Central conclusion is not supported by the presented evidence",
+      "prompt": "Specify the unsupported conclusion, the exact evidence gap, why available evidence is insufficient, what loophole remains, which literature/benchmark/guideline/theorem/standard establishes the evidentiary bar, and what validation would make the conclusion defensible."
+    },
+    {
+      "title": "Decisive control, benchmark, characterization, proof step, or validation is missing",
+      "prompt": "Name the missing comparison, control, benchmark, characterization, counterexample, validation cohort, proof step, calibration, or leakage check; explain why it is essential; cite the relevant method paper, reporting standard, benchmark, theorem source, clinical guideline, or canonical paper; and define the decisive readout."
+    },
+    {
+      "title": "Statistical, causal, proof, measurement, or benchmark logic cannot support the claim",
+      "prompt": "Identify the mismatch in statistics, causal identification, proof logic, model assumption, measurement uncertainty, sample size, replicate structure, multiple testing, overfitting, data leakage, benchmark design, or generalization, and specify the corrected analysis or narrower claim."
+    }
+  ],
+  "major": [
+    {
+      "title": "Alternative explanations are not ruled out",
+      "prompt": "List the plausible confounders, artifacts, impurities, systematics, hidden assumptions, edge cases, leakage routes, model failures, selection effects, or competing mechanisms; explain how each could generate the observed result; cite evidence showing the alternative is plausible; and recommend analyses or controls that discriminate among explanations."
+    },
+    {
+      "title": "Literature or source context is incomplete or outdated",
+      "prompt": "Identify the missing six-domain context, cite representative classic anchors, canonical methods, recent accepted work, contrary evidence, theorem sources, benchmark standards, and provisional frontier sources when appropriate, and explain how the missing context changes claim strength or framing."
+    },
+    {
+      "title": "Article-specific evidence threshold is not met",
+      "prompt": "Define the evidence threshold expected by the exact field and method, cite the classic experiment, chemical characterization norm, physical measurement standard, theorem source, clinical reporting guideline, computational benchmark, or official venue policy establishing that threshold, and identify which required evidence layer is missing."
+    },
+    {
+      "title": "Methods, materials, proofs, data, or code are insufficient for audit or replication",
+      "prompt": "Name the missing protocol, reagent, compound characterization, spectrum, structure file, cohort detail, instrument calibration, theorem dependency, benchmark split, preprocessing, computational environment, statistical analysis, proof step, or data-access detail and explain what a reader could not verify or reproduce."
+    }
+  ],
+  "minor": [
+    {
+      "title": "Figures, tables, proofs, or source notes lack reporting details",
+      "prompt": "Specify missing sample sizes, sources, spectra, structures, uncertainty, tests, assumptions, labels, definitions, versions, normalization, filtering, cohorts, benchmark splits, code environment, or citation details."
+    },
+    {
+      "title": "References should be tightened",
+      "prompt": "Name the claim that needs a stronger citation and suggest the source category needed: primary paper, landmark work, canonical theory, theorem source, chemical standard, structure repository, clinical guideline, benchmark, dataset, method paper, recent accepted study, or reporting guideline."
+    },
+    {
+      "title": "Provisional source status is unclear",
+      "prompt": "If a preprint, working paper, dataset, repository, model card, unpublished source, or conference submission is used as support, state its status and whether the argument relies on it as frontier context or decisive evidence."
+    },
+    {
+      "title": "Presentation obscures interpretation",
+      "prompt": "Identify the unclear label, term, workflow step, notation, proof step, source citation, typo, or visual design problem and state how to revise it."
+    }
+  ],
+  "revision_actions": {
+    "purpose": "Translate issues into a triaged editorial action plan. Required actions must be directly tied to claims that would otherwise remain unsupported.",
+    "priority_groups": [
+      "Essential for supporting the main claim",
+      "Important but not decisive",
+      "Wording/reporting only"
+    ],
+    "required_fields_per_action": [
+      "target",
+      "required_revision",
+      "minimum_acceptable_readout",
+      "rationale_with_evidence",
+      "consequence_if_unresolved"
+    ],
+    "quality_rules": [
+      "Do not ask for exploratory extensions as essential revisions unless they are needed to support a central conclusion.",
+      "Do not use generic wording such as 'add more controls'; name the positive control, negative control, benchmark, baseline, source, counterexample, or statistical check.",
+      "For computational claims, specify baselines, leakage checks, ablations, null tests, sensitivity analyses, replicate structure, and data/code reporting needed for expert reassessment.",
+      "For biological claims, specify perturbation, rescue, orthogonal validation, biological replication, batch controls, and data/code reporting needed for expert reassessment.",
+      "For chemical claims, specify identity, purity, spectra, structures, controls, yields, selectivity, mechanism evidence, and reproducibility details.",
+      "For physical claims, specify calibration, uncertainty budget, systematics, null tests, convergence, boundary conditions, and independent observables.",
+      "For mathematical claims, specify theorem assumptions, proof gaps, boundary cases, counterexamples, prior theorem dependencies, and examples showing sharpness.",
+      "For medical claims, specify clinical endpoint, cohort, bias control, registration, external validation, safety, calibration, and guideline reporting details.",
+      "For interdisciplinary claims, specify which domain bridge is unvalidated and the smallest test that would validate or narrow it.",
+      "For preliminary proposals, distinguish actions needed before the work is credible from actions that can be stated as future directions."
+    ]
+  },
+  "overall_recommendation": {
+    "required_fields": [
+      "decision",
+      "central_reason",
+      "claim_dependency",
+      "minimum_bar_for_stronger_recommendation",
+      "required_claim_narrowing_if_unresolved",
+      "residual_risk_after_revision"
+    ],
+    "decision_logic": {
+      "accept": "Use only when no Critical issues remain, Major issues are absent or already resolved, the central novelty survives the strongest prior work, decisive loopholes are closed, and the main claims are directly supported with adequate evidence, transparency, and reproducibility or auditability.",
+      "minor_revision": "Use when conclusions are supported and remaining changes are limited to clarity, reporting, citation correction, or bounded non-decisive checks.",
+      "major_revision": "Use when the work is promising and potentially publishable, but one or more central claims require additional analyses, controls, characterization, validation, proof repair, benchmark redesign, clinical external validation, reporting, or claim narrowing within the current scope.",
+      "reject": "Use when central conclusions are unsupported, decisive evidence is absent or infeasible within the current scope, dominant loopholes cannot be ruled out, claimed innovation is not established, or the manuscript would need a fundamentally different study, proof, benchmark, validation cohort, or characterization package."
+    },
+    "tone_rules": [
+      "Be direct, not theatrical.",
+      "Name the exact conclusion that is not yet supportable.",
+      "State what evidence would change the recommendation.",
+      "If revision is feasible, define the smallest decisive revision package.",
+      "If recommending rejection, distinguish weak evidence from low novelty and avoid asking for an open-ended new project."
+    ]
+  }
+}

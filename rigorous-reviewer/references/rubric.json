@@ -1,0 +1,79 @@
+{
+  "categories": {
+    "top_journal_novelty_significance": {
+      "weight": 0.20,
+      "checkpoints": [
+        "Does the work make a clear conceptual, empirical, theoretical, clinical, mathematical, computational, or methodological advance over the strongest prior literature?",
+        "Would the central claim change a field model, mechanism, theorem, treatment, measurement capability, benchmark standard, or research practice?",
+        "Is novelty judged against canonical and current sources rather than absence of an identical prior paper?",
+        "For interdisciplinary work, is the novelty in the validated bridge between fields rather than merely applying a familiar tool to a new dataset?"
+      ]
+    },
+    "domain_specific_technical_validity": {
+      "weight": 0.20,
+      "checkpoints": [
+        "Are field-specific methods, controls, characterizations, measurements, proofs, cohorts, benchmarks, or algorithms adequate for the claim?",
+        "Are assumptions, sample size, uncertainty, calibration, purity, baseline selection, proof conditions, clinical endpoints, and data provenance justified?",
+        "Does the manuscript meet the relevant six-domain standards for biology, chemistry, physics, mathematics, medicine, computer science, or their fusion?"
+      ]
+    },
+    "logic_proof_evidential_support": {
+      "weight": 0.20,
+      "checkpoints": [
+        "Are central claims directly supported by the presented evidence, proofs, data, experiments, cohorts, spectra, simulations, or benchmarks?",
+        "Does the manuscript distinguish feasibility, plausibility, correlation, mechanism, theory, clinical utility, and proof?",
+        "Are proof steps, statistical logic, causal inference, model assumptions, and interpretation internally coherent?"
+      ]
+    },
+    "loophole_alternative_explanation_control": {
+      "weight": 0.15,
+      "checkpoints": [
+        "Are the strongest alternative explanations, confounders, artifacts, edge cases, hidden assumptions, data leakage routes, and cross-domain mismatches explicitly tested?",
+        "Is there an explicit false-positive or loophole model for the central claim?",
+        "Would a specialist from each relevant domain accept that the decisive loopholes have been closed?"
+      ]
+    },
+    "literature_frontier_benchmark_awareness": {
+      "weight": 0.15,
+      "checkpoints": [
+        "Does the review build an article-specific evidence dossier rather than using a generic template?",
+        "Does the manuscript position claims against classic anchors, current accepted work, contrary evidence, standards, benchmarks, clinical guidelines, or theorem sources?",
+        "Are preprints and working papers labeled as provisional frontier evidence?",
+        "Are Major and Critical criticisms supported by literature, standards, benchmarks, datasets, guidelines, or official venue policies?"
+      ]
+    },
+    "transparency_reproducibility_reporting": {
+      "weight": 0.10,
+      "checkpoints": [
+        "Are data, code, materials, spectra, structures, protocols, cohorts, proofs, simulations, and analysis decisions available or sufficiently described for audit?",
+        "Are relevant reporting standards used, such as ARRIVE, CONSORT, PRISMA, STROBE, SPIRIT, TRIPOD, ACM artifact badges, NeurIPS checklist, ICLR reproducibility guidance, ACS data/characterization guidance, or Nature reporting standards?",
+        "Are limitations, ethics, conflicts, compute/resources, uncertainty, and scope boundaries reported clearly?"
+      ]
+    }
+  },
+  "recommendation_thresholds": {
+    "accept": 8.5,
+    "minor_revision": 7.5,
+    "major_revision": 5.5,
+    "reject": 0.0
+  },
+  "severity_levels": ["Critical", "Major", "Minor"],
+  "top_journal_gate": {
+    "accept_requires": [
+      "No unresolved Critical issues",
+      "Central novelty survives comparison to strongest prior work",
+      "Decisive loopholes for the main claim are closed",
+      "Methods, evidence, proofs, benchmarks, or clinical validation meet domain-specific standards",
+      "Reproducibility or auditability is sufficient for independent expert evaluation"
+    ],
+    "major_revision_default_when": [
+      "The main claim is plausible but needs decisive validation, proof repair, stronger benchmarks, missing characterization, external clinical validation, or claim narrowing",
+      "Interdisciplinary bridge claims are promising but not directly validated"
+    ],
+    "reject_default_when": [
+      "The central claim requires a fundamentally different study, proof, validation cohort, benchmark, characterization package, or experimental system",
+      "Dominant loopholes cannot be ruled out from the present scope",
+      "The claimed innovation is already established by stronger prior work"
+    ]
+  }
+}
