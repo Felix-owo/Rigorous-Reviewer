@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "latest_evaluated_version": "v2.0.0",
+  "results": [
+    {
+      "version": "v1.9.0",
+      "benchmark_track": "v1.0-synthetic",
+      "date": "2026-05-21",
+      "definition_validation": "pass",
+      "model_outputs_scored": false,
+      "notes": "v1.9.0 introduced synthetic benchmark definitions, golden fixtures, CI, and schema validation. No model output leaderboard recorded."
+    },
+    {
+      "version": "v2.0.0",
+      "benchmark_track": "v1.1-public",
+      "date": "2026-05-21",
+      "definition_validation": "pass",
+      "model_outputs_scored": false,
+      "notes": "Adds public-source benchmark cases, trigger routing, installable smoke checks, MCP tool-use policy, and semantic-lite scorer. Run outputs through score_benchmark_semantic.py before publishing release scores."
+    }
+  ]
+}

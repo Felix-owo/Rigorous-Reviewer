@@ -7,11 +7,15 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
       - name: Validate JSON files
         run: |
           python - <<'PY'
@@ -23,6 +27,10 @@ jobs:
           PY
       - name: Compile Python scripts
         run: python -m py_compile rigorous-reviewer/scripts/*.py
+      - name: Validate installable skill package
+        run: python rigorous-reviewer/scripts/check_installable_skill.py --skill-dir rigorous-reviewer
+      - name: Validate trigger keyword overlay
+        run: python rigorous-reviewer/scripts/apply_trigger_keywords.py --skill-md rigorous-reviewer/SKILL.md --check
       - name: Validate Markdown review fixtures
         run: |
           python rigorous-reviewer/scripts/validate_review_report.py tests/fixtures/markdown/valid_review.md --strict
@@ -30,6 +38,8 @@ jobs:
       - name: Validate structured JSON fixture
         run: python rigorous-reviewer/scripts/lint_structured_review.py tests/fixtures/json/valid_structured_review.json
       - name: Validate benchmark definitions
-        run: python rigorous-reviewer/scripts/score_benchmark.py --benchmark-root benchmarks/v1.0
+        run: |
+          python rigorous-reviewer/scripts/score_benchmark.py --benchmark-root benchmarks/v1.0
+          python rigorous-reviewer/scripts/score_benchmark_semantic.py --benchmark-root benchmarks/v1.1-public
       - name: Run unit tests
         run: python -m unittest discover -s tests

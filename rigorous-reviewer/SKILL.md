@@ -11,15 +11,123 @@ description: >
   calibration, optional companion skills or MCP capabilities, and red-line
   checks before producing one comprehensive evidence-grounded review.
 metadata:
-  version: "1.9.0"
+  version: "2.0.0"
   supported_hosts: "Agent Skills compatible hosts; Codex through skill-installer or direct folder install."
   compatibility: "Portable SKILL.md package. MCP is optional and host-provided; no MCP server is required or bundled."
   mcp_required: "false"
-  mcp_capability_reference: "references/mcp_capabilities.md"
+  mcp_tool_use_policy: "references/mcp_tool_use_policy.md"
 license: MIT
 ---
 
 # Rigorous Reviewer
+
+<!-- RR_TRIGGER_KEYWORDS_START -->
+## Trigger Keywords and Routing
+
+Use this skill when the user asks for rigorous scientific peer review, claim stress-testing, evidence sufficiency assessment, novelty evaluation, hidden-loophole detection, or journal-level recommendation for manuscripts, preprints, proposals, datasets, figures, proofs, computational models, benchmarks, or code artifacts.
+
+### Strong English triggers
+
+- rigorous review
+- scientific peer review
+- manuscript review
+- preprint review
+- proposal review
+- grant review
+- referee report
+- reviewer 2
+- editorial recommendation
+- top-journal review
+- Nature review
+- Cell review
+- Science review
+- CNS-level review
+- journal-level estimate
+- accept minor revision major revision reject
+- central claim
+- claim strength
+- decisive evidence
+- evidence sufficiency
+- evidence ledger
+- alternative explanation
+- hidden loophole
+- critical flaw
+- major issue
+- minor issue
+- red-line audit
+- novelty claim
+- overclaiming
+- reproducibility audit
+- methodological loophole
+- statistical validity
+
+### Strong Chinese triggers
+
+- 严格审稿
+- 科学审稿
+- 顶刊审稿
+- CNS审稿
+- Nature审稿
+- Cell审稿
+- Science审稿
+- 论文审稿
+- 预印本审稿
+- 基金评审
+- proposal审查
+- 审稿意见
+- 评审意见
+- reviewer 2
+- 期刊级别评估
+- 能发什么期刊
+- 顶刊水平
+- 中心claim
+- 中心结论
+- 主要结论
+- 决定性证据
+- 证据是否充分
+- 证据链
+- 替代解释
+- 隐藏漏洞
+- 关键缺陷
+- 致命缺陷
+- Major revision
+
+### Negative routing hints
+
+Do **not** trigger `rigorous-reviewer` by default when the task is only about:
+
+- protocol
+- SOP
+- bench protocol
+- wet-lab protocol
+- experimental procedure
+- 实验protocol
+- 实验步骤
+- 操作流程
+- SOP审查
+- bench note
+- polish
+- copyedit
+- language editing
+- Nature-style polishing
+- figure styling
+- figure beautification
+- PPT
+- slides
+
+### Routing precedence
+
+1. **Condition:** The user asks whether a manuscript, preprint, proposal, figure set, dataset, proof, model, code artifact, or central scientific claim is convincing, publishable, novel, or sufficiently supported.
+   **Action:** Use rigorous-reviewer.
+2. **Condition:** The user asks to rewrite or audit a biological protocol, SOP, bench note, or wet-lab workflow for execution readiness.
+   **Action:** Route to biological-protocol-reviewer if installed; otherwise state that this skill can only review the scientific claim and protocol-derived evidence, not generate a full SOP.
+3. **Condition:** The user asks only for language polishing, figure styling, reviewer response drafting, citation formatting, or paper-to-PPT conversion.
+   **Action:** Do not trigger rigorous-reviewer unless the user explicitly asks for scientific critique or claim stress-testing.
+4. **Condition:** The user asks only for paper lookup, database lookup, citation graph search, or public accession verification.
+   **Action:** Use lookup/database companion skills if installed; trigger rigorous-reviewer only for synthesis and final scientific judgment.
+
+The complete trigger registry is stored in `templates/trigger_keywords.json`; the human-readable routing guide is `references/trigger_keywords.md`.
+<!-- RR_TRIGGER_KEYWORDS_END -->
 
 Act as a portable, top-journal-calibrated scientific reviewer for any compatible
 agent host that can load Agent Skills. The default task is a comprehensive
@@ -77,8 +185,11 @@ Load by phase:
   search hints, revision actions, recommendation, and the complete output.
 - `references/external_scientific_skills_bridge.md` when K-Dense companion skills
   are installed or when the user asks for external scientific-skill support.
-- `references/mcp_capabilities.md` when the host exposes MCP servers/tools or
+- `references/mcp_tool_use_policy.md` when the host exposes MCP servers/tools or
   the user asks which MCP capabilities can strengthen the review.
+- `references/trigger_keywords.md` and `templates/trigger_keywords.json` when
+  tuning host routing, debugging multi-skill trigger ambiguity, or validating
+  installability across agent hosts.
 - `examples/full_review_example.md` and `examples/issue_block_examples.md` only
   when the user asks what the output should look like or when forward-testing
   issue depth.
@@ -103,8 +214,9 @@ Load by phase:
 5. **Use companion skills if available.** Follow
    `external_scientific_skills_bridge.md`. Companion skills supply bounded
    evidence inputs; they do not replace this reviewer's judgment.
-6. **Use MCP capabilities if available.** Follow `mcp_capabilities.md`. Treat
-   MCP tools, resources, and prompts as optional evidence-gathering or
+6. **Use MCP capabilities if available.** Follow
+   `references/mcp_tool_use_policy.md`. Treat MCP tools, resources, and prompts
+   as optional evidence-gathering, parsing, computation, source-verification, or
    validation routes, never as a required dependency or replacement for reviewer
    synthesis.
 7. **Run reviewer-panel passes.** Generate separate EIC, methods/statistics,
@@ -197,7 +309,7 @@ built-in evidence dossier, search hints, calibration protocol, and red-line audi
 
 This skill does not require or bundle an MCP server. If the host agent exposes
 MCP tools, resources, or prompts, use only the relevant capabilities described in
-`references/mcp_capabilities.md`.
+`references/mcp_tool_use_policy.md`.
 
 Minimum rules:
 

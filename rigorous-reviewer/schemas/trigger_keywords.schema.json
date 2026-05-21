@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rigorous Reviewer Trigger Keywords",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "skill_name",
+    "strong_trigger_keywords",
+    "chinese_trigger_keywords",
+    "negative_routing_keywords",
+    "routing_rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "skill_name": {
+      "const": "rigorous-reviewer"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "strong_trigger_keywords": {
+      "type": "array",
+      "minItems": 20,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "chinese_trigger_keywords": {
+      "type": "array",
+      "minItems": 15,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "weak_context_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "negative_routing_keywords": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "routing_rules": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "condition",
+          "action"
+        ],
+        "properties": {
+          "condition": {
+            "type": "string",
+            "minLength": 20
+          },
+          "action": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "activation_examples": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

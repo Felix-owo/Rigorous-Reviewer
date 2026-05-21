@@ -1,0 +1,191 @@
+{
+  "RR_PUBLIC_001_arsenic_life_claim": {
+    "must_detect": [
+      {
+        "concept": "contamination or insufficient purification",
+        "aliases": [
+          "contamination",
+          "insufficient purification",
+          "not sufficiently purified",
+          "carryover",
+          "background phosphorus"
+        ]
+      },
+      {
+        "concept": "chemical plausibility of arsenate substitution",
+        "aliases": [
+          "arsenate ester instability",
+          "chemical plausibility",
+          "arsenate cannot stably replace phosphate",
+          "biochemical feasibility"
+        ]
+      },
+      {
+        "concept": "independent replication or orthogonal validation",
+        "aliases": [
+          "independent replication",
+          "orthogonal validation",
+          "independent assay",
+          "mass spectrometry validation",
+          "x-ray spectroscopy validation"
+        ]
+      },
+      {
+        "concept": "claim exceeds growth tolerance evidence",
+        "aliases": [
+          "tolerates arsenic",
+          "growth tolerance",
+          "does not prove incorporation",
+          "substitution not established"
+        ]
+      }
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": [
+      "Accept",
+      "Minor Revision"
+    ],
+    "requires_decisive_readout": true,
+    "pass_threshold": 0.82
+  },
+  "RR_PUBLIC_002_clinical_prediction_reporting": {
+    "must_detect": [
+      {
+        "concept": "external validation",
+        "aliases": [
+          "external validation",
+          "independent validation cohort",
+          "geographic validation",
+          "temporal validation"
+        ]
+      },
+      {
+        "concept": "calibration",
+        "aliases": [
+          "calibration",
+          "calibration plot",
+          "calibration slope",
+          "calibration-in-the-large"
+        ]
+      },
+      {
+        "concept": "clinical utility",
+        "aliases": [
+          "clinical utility",
+          "decision curve",
+          "net benefit",
+          "clinical usefulness"
+        ]
+      },
+      {
+        "concept": "transparent reporting",
+        "aliases": [
+          "TRIPOD",
+          "TRIPOD+AI",
+          "transparent reporting",
+          "prediction model reporting"
+        ]
+      }
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": [
+      "Accept",
+      "Minor Revision"
+    ],
+    "requires_decisive_readout": true,
+    "pass_threshold": 0.8
+  },
+  "RR_PUBLIC_003_artifact_reproducibility": {
+    "must_detect": [
+      {
+        "concept": "artifact availability",
+        "aliases": [
+          "artifact availability",
+          "code availability",
+          "data availability",
+          "available artifact"
+        ]
+      },
+      {
+        "concept": "repeatability or reproducibility",
+        "aliases": [
+          "repeatability",
+          "reproducibility",
+          "replicability",
+          "same team same setup",
+          "different team same setup"
+        ]
+      },
+      {
+        "concept": "execution environment",
+        "aliases": [
+          "execution environment",
+          "environment file",
+          "dependency versions",
+          "container",
+          "installation instructions"
+        ]
+      },
+      {
+        "concept": "baseline and ablation sufficiency",
+        "aliases": [
+          "baseline",
+          "ablations",
+          "weak baselines",
+          "missing ablations"
+        ]
+      }
+    ],
+    "minimum_severity": "Major",
+    "forbidden_recommendations": [
+      "Accept"
+    ],
+    "requires_decisive_readout": true,
+    "pass_threshold": 0.78
+  },
+  "RR_PUBLIC_004_data_materials_code_policy": {
+    "must_detect": [
+      {
+        "concept": "data availability",
+        "aliases": [
+          "data availability",
+          "supporting data",
+          "raw data",
+          "processed data"
+        ]
+      },
+      {
+        "concept": "code availability",
+        "aliases": [
+          "code availability",
+          "analysis code",
+          "software availability"
+        ]
+      },
+      {
+        "concept": "materials or protocols availability",
+        "aliases": [
+          "materials availability",
+          "protocol availability",
+          "associated protocols",
+          "reagents"
+        ]
+      },
+      {
+        "concept": "replicate and build upon claims",
+        "aliases": [
+          "replicate",
+          "build upon",
+          "reproduce conclusions",
+          "auditability"
+        ]
+      }
+    ],
+    "minimum_severity": "Major",
+    "forbidden_recommendations": [
+      "Accept"
+    ],
+    "requires_decisive_readout": true,
+    "pass_threshold": 0.78
+  }
+}

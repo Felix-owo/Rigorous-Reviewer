@@ -1,0 +1,58 @@
+{
+  "RR_PUBLIC_001_arsenic_life_claim": {
+    "case_type": "public scientific controversy / claim stress test",
+    "source_anchors": [
+      {
+        "label": "Science response to technical comments",
+        "url": "https://www.science.org/doi/10.1126/science.1202098"
+      },
+      {
+        "label": "Science editorial context summarized by Retraction Watch, 2025",
+        "url": "https://retractionwatch.com/2025/07/24/science-retraction-arsenic-life-nasa-astrobiology/"
+      }
+    ],
+    "copyright_policy": "No full article text included; case is a short paraphrased benchmark card."
+  },
+  "RR_PUBLIC_002_clinical_prediction_reporting": {
+    "case_type": "clinical prediction model reporting audit",
+    "source_anchors": [
+      {
+        "label": "TRIPOD+AI statement",
+        "url": "https://www.bmj.com/content/385/bmj-2023-078378"
+      },
+      {
+        "label": "EQUATOR Network TRIPOD+AI guideline record",
+        "url": "https://www.equator-network.org/reporting-guidelines/tripod-statement/"
+      }
+    ],
+    "copyright_policy": "Uses reporting guideline concepts only; no article text included."
+  },
+  "RR_PUBLIC_003_artifact_reproducibility": {
+    "case_type": "computational artifact review audit",
+    "source_anchors": [
+      {
+        "label": "ACM artifact review and badging policy",
+        "url": "https://www.acm.org/publications/policies/artifact-review-badging"
+      },
+      {
+        "label": "ACM artifacts overview",
+        "url": "https://www.acm.org/publications/artifacts"
+      }
+    ],
+    "copyright_policy": "Uses public policy categories only; no copyrighted paper text included."
+  },
+  "RR_PUBLIC_004_data_materials_code_policy": {
+    "case_type": "journal reporting policy audit",
+    "source_anchors": [
+      {
+        "label": "Nature Portfolio reporting standards",
+        "url": "https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards"
+      },
+      {
+        "label": "Springer Nature research data policy",
+        "url": "https://www.springernature.com/gp/authors/research-data-policy"
+      }
+    ],
+    "copyright_policy": "Uses journal policy concepts only; no submitted manuscript text included."
+  }
+}

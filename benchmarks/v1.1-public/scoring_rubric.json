@@ -1,0 +1,15 @@
+{
+  "score_components": {
+    "concept_recall": 0.6,
+    "severity_calibration": 0.2,
+    "decisive_readout": 0.1,
+    "recommendation_safety": 0.1
+  },
+  "minimum_case_pass_score": 0.8,
+  "notes": [
+    "Concept recall is alias-aware and deterministic.",
+    "Severity calibration requires the output to include a severity at or above the expected minimum.",
+    "Recommendation safety penalizes forbidden recommendations such as Accept for critical-failure cases.",
+    "Decisive readout rewards review outputs that specify a decisive experiment, independent validation, or equivalent resolution path."
+  ]
+}
