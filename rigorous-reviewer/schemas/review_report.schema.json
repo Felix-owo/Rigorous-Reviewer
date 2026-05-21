@@ -34,6 +34,9 @@
     "external_scientific_skills_used": {
       "type": "array"
     },
+    "mcp_capabilities_used": {
+      "type": "array"
+    },
     "issues": {
       "type": "array",
       "minItems": 1,

@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.1
+
+- Fixes `apply_trigger_keywords.py` so its default trigger registry follows the provided `SKILL.md` path and works from any current working directory.
+- Adds bilingual Markdown issue-label validation and avoids false placeholder failures on mathematical comparison text.
+- Adds strict structured-review linting for source IDs, evidence-ledger linkage, decisive-readout logic, external evidence handles, and unsafe recommendations with unresolved Critical issues.
+- Reduces activation-time resource loading by moving rubric and templates to phase-gated loading.
+- Updates CI, docs, tests, and benchmark metadata for the stricter validation path.
+
 ## v2.0.0
 
 - Adds host-neutral English/Chinese trigger routing in `SKILL.md`, `references/trigger_keywords.md`, and `templates/trigger_keywords.json`.

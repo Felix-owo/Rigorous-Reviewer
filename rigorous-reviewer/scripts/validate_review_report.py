@@ -29,14 +29,44 @@ REQUIRED_SECTIONS = [
     "Overall Recommendation",
 ]
 
-REQUIRED_LABELS = [
-    "具体问题",
-    "证据",
-    "影响",
-    "替代解释/漏洞",
-    "解决",
-    "决定性 readout",
+REQUIRED_LABEL_ALIASES = {
+    "specific problem": ["具体问题", "Specific problem", "Problem"],
+    "evidence": ["证据", "Evidence"],
+    "impact": ["影响", "Impact"],
+    "alternative explanation / loophole": [
+        "替代解释/漏洞",
+        "Alternative explanation",
+        "Alternative explanations",
+        "Alternative explanation / loophole",
+        "Loophole",
+    ],
+    "resolution": ["解决", "Resolution", "Fix", "How to resolve"],
+    "decisive readout": ["决定性 readout", "Decisive readout", "Decisive experiment"],
+}
+SERIOUSNESS_LABEL_ALIASES = [
+    "为什么严重",
+    "为什么重要",
+    "Why serious",
+    "Why important",
+    "Why this is serious",
+    "Why this matters",
 ]
+EVIDENCE_SPLIT_ALIASES = {
+    "manuscript-internal evidence": [
+        "稿件内部证据",
+        "Manuscript-internal evidence",
+        "Internal evidence",
+        "Evidence from manuscript",
+    ],
+    "external evidence / standard": [
+        "外部证据/标准",
+        "External evidence/standard",
+        "External evidence / standard",
+        "External evidence",
+        "External standard",
+        "External support",
+    ],
+}
 
 SEVERITY_RE = re.compile(r"^\s*[-*]\s*\[(Critical|Major|Minor)\]\s+(.+)$", re.MULTILINE)
 HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
@@ -46,6 +76,7 @@ SOURCE_RE = re.compile(
     re.I,
 )
 RECOMMENDATIONS = ["Accept", "Minor Revision", "Major Revision", "Reject"]
+PLACEHOLDER_RE = re.compile(r"<(?:[A-Za-z][A-Za-z0-9_ /.,:+-]{1,80}|YYYY-MM-DD)>")
 VAGUE_PHRASES = [
     "more controls are needed",
     "needs more validation",
@@ -93,6 +124,13 @@ def contains_any(text: str, needles: list[str]) -> bool:
     return False
 
 
+def label_present(text: str, aliases: list[str]) -> bool:
+    for alias in aliases:
+        if f"{alias}：" in text or f"{alias}:" in text:
+            return True
+    return False
+
+
 def has_support_condition(text: str) -> bool:
     if "支持" in text:
         return True
@@ -101,16 +139,15 @@ def has_support_condition(text: str) -> bool:
 
 def validate_issue_block(severity: str, title: str, block: str, strict: bool = False) -> list[str]:
     errors: list[str] = []
-    for label in REQUIRED_LABELS:
-        if f"{label}：" not in block and f"{label}:" not in block:
+    for label, aliases in REQUIRED_LABEL_ALIASES.items():
+        if not label_present(block, aliases):
             errors.append(f"[{severity}] {title}: missing label `{label}`")
 
-    if "为什么严重：" not in block and "为什么严重:" not in block:
-        if "为什么重要：" not in block and "为什么重要:" not in block:
-            errors.append(f"[{severity}] {title}: missing `为什么严重` or `为什么重要`")
+    if not label_present(block, SERIOUSNESS_LABEL_ALIASES):
+        errors.append(f"[{severity}] {title}: missing seriousness/importance label")
 
-    for evidence_label in ["稿件内部证据", "外部证据/标准"]:
-        if evidence_label not in block:
+    for evidence_label, aliases in EVIDENCE_SPLIT_ALIASES.items():
+        if not contains_any(block, aliases):
             errors.append(f"[{severity}] {title}: missing evidence split `{evidence_label}`")
 
     if not has_support_condition(block):
@@ -172,8 +209,8 @@ def validate(path: Path, strict: bool = False) -> list[str]:
             if phrase in lowered:
                 errors.append(f"strict mode: vague phrase found: `{phrase}`")
 
-    if "<" in text and ">" in text:
-        errors.append("report still appears to contain placeholder angle brackets")
+    if PLACEHOLDER_RE.search(text):
+        errors.append("report still appears to contain template placeholders")
 
     return errors
 

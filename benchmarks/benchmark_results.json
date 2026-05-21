@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "latest_evaluated_version": "v2.0.0",
+  "latest_evaluated_version": "v2.0.1",
   "results": [
     {
       "version": "v1.9.0",
@@ -17,6 +17,14 @@
       "definition_validation": "pass",
       "model_outputs_scored": false,
       "notes": "Adds public-source benchmark cases, trigger routing, installable smoke checks, MCP tool-use policy, and semantic-lite scorer. Run outputs through score_benchmark_semantic.py before publishing release scores."
+    },
+    {
+      "version": "v2.0.1",
+      "benchmark_track": "v1.1-public",
+      "date": "2026-05-21",
+      "definition_validation": "pass",
+      "model_outputs_scored": false,
+      "notes": "Quality patch: portable trigger registry resolution, bilingual Markdown validation, strict structured-review linting, reduced activation load, and safer placeholder detection."
     }
   ]
 }

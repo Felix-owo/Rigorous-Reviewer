@@ -16,6 +16,7 @@ Contributions should improve the skill as a rigorous, auditable scientific revie
 python -m py_compile rigorous-reviewer/scripts/*.py
 python rigorous-reviewer/scripts/check_installable_skill.py --skill-dir rigorous-reviewer
 python rigorous-reviewer/scripts/apply_trigger_keywords.py --skill-md rigorous-reviewer/SKILL.md --check
+python rigorous-reviewer/scripts/lint_structured_review.py tests/fixtures/json/valid_structured_review.json --strict
 python rigorous-reviewer/scripts/score_benchmark.py --benchmark-root benchmarks/v1.0
 python rigorous-reviewer/scripts/score_benchmark_semantic.py --benchmark-root benchmarks/v1.1-public
 python -m unittest discover -s tests

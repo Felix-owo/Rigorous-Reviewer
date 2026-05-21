@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -65,6 +67,22 @@ Core workflow.
         self.assertIn("rigorous scientific peer review", patched)
         self.assertIn("references/trigger_keywords.md", patched)
         self.assertEqual(module.check_skill_text(patched), [])
+
+    def test_default_registry_follows_absolute_skill_path(self):
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT_PATH),
+                "--skill-md",
+                str(ROOT / "rigorous-reviewer" / "SKILL.md"),
+                "--check",
+            ],
+            cwd="/private/tmp",
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 
 if __name__ == "__main__":

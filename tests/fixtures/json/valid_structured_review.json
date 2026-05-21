@@ -31,7 +31,7 @@
       "impact": "The main claim must be downgraded unless causal evidence is added.",
       "alternative_explanation_or_loophole": "Batch, composition, or stress artifacts could explain the pattern.",
       "resolution": "Add perturbation and rescue or narrow the claim to association.",
-      "decisive_readout": "The phenotype changes after perturbation and is restored by rescue.",
+      "decisive_readout": "Perturbation-induced phenotype change with rescue would support the causal claim; failure to change or rescue would weaken the claim and force narrowing to association.",
       "linked_claims": ["central mechanism"],
       "source_ids": ["S1"]
     }

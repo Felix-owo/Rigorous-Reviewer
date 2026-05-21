@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,13 @@ from typing import Any
 
 SCHEMA_DIR = Path(__file__).resolve().parents[1] / "schemas"
 DEFAULT_SCHEMA = SCHEMA_DIR / "review_report.schema.json"
+SUPPORT_RE = re.compile(r"\b(support|supports|supporting|strengthen|strengthens|consistent with)\b|支持", re.I)
+WEAKEN_RE = re.compile(r"\b(narrow|narrows|narrowing|weaken|weakens|refut|force narrowing)\b|削弱|反驳", re.I)
+SOURCE_RE = re.compile(
+    r"(doi|pmid|pmcid|arxiv|https?://|clinicaltrials|geo|sra|arrayexpress|"
+    r"guideline|standard|benchmark|dataset|accession|rrid|search target)",
+    re.I,
+)
 
 
 def load_json(path: Path) -> Any:
@@ -86,10 +94,65 @@ def validate_schema(value: Any, schema: dict[str, Any], path: str = "$") -> list
     return errors
 
 
+def validate_strict_review(report: Any, schema: dict[str, Any]) -> list[str]:
+    """Add review-specific checks beyond the portable schema subset."""
+    if not isinstance(report, dict):
+        return []
+
+    errors: list[str] = []
+    allowed_top_level = set(schema.get("properties", {}))
+    unexpected = sorted(set(report) - allowed_top_level)
+    if unexpected:
+        errors.append(f"$: unexpected top-level fields in strict mode: {unexpected}")
+
+    evidence_ledger = report.get("evidence_ledger", [])
+    evidence_ids = {
+        item.get("source_id")
+        for item in evidence_ledger
+        if isinstance(item, dict) and isinstance(item.get("source_id"), str)
+    }
+
+    issues = report.get("issues", [])
+    critical_present = False
+    if isinstance(issues, list):
+        for idx, issue in enumerate(issues):
+            if not isinstance(issue, dict):
+                continue
+            path = f"$.issues[{idx}]"
+            severity = issue.get("severity")
+            if severity == "Critical":
+                critical_present = True
+
+            source_ids = issue.get("source_ids")
+            if not isinstance(source_ids, list) or not source_ids:
+                errors.append(f"{path}: strict mode requires non-empty source_ids")
+            elif evidence_ids:
+                missing = [sid for sid in source_ids if sid not in evidence_ids]
+                if missing:
+                    errors.append(f"{path}: source_ids not present in evidence_ledger: {missing}")
+
+            external_standard = str(issue.get("external_standard", ""))
+            if not SOURCE_RE.search(external_standard):
+                errors.append(f"{path}: external_standard needs an identifier, guideline, benchmark, or search target")
+
+            decisive_readout = str(issue.get("decisive_readout", ""))
+            if not SUPPORT_RE.search(decisive_readout):
+                errors.append(f"{path}: decisive_readout lacks a support condition")
+            if not WEAKEN_RE.search(decisive_readout):
+                errors.append(f"{path}: decisive_readout lacks a weakening/refuting/narrowing condition")
+
+    recommendation = report.get("overall_recommendation")
+    if critical_present and recommendation in {"Accept", "Minor Revision"}:
+        errors.append("$: strict mode forbids Accept/Minor Revision when Critical issues remain")
+
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("json_report", type=Path)
     parser.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+    parser.add_argument("--strict", action="store_true", help="Enable review-specific evidence and recommendation checks")
     args = parser.parse_args()
 
     try:
@@ -100,6 +163,8 @@ def main() -> int:
         return 2
 
     errors = validate_schema(report, schema)
+    if args.strict:
+        errors.extend(validate_strict_review(report, schema))
     if errors:
         print("Structured review validation failed:", file=sys.stderr)
         for error in errors:

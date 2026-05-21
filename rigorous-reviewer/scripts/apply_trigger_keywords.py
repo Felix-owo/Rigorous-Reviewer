@@ -122,10 +122,19 @@ def check_skill_text(text: str) -> list[str]:
     return errors
 
 
+def default_trigger_json_for(skill_md: Path) -> Path:
+    """Resolve the trigger registry from the provided SKILL.md path.
+
+    The installed skill may be checked from any working directory, so the default
+    registry must follow the actual SKILL.md location rather than the shell cwd.
+    """
+    return skill_md.parent / "templates" / "trigger_keywords.json"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skill-md", type=Path, default=Path("rigorous-reviewer/SKILL.md"))
-    parser.add_argument("--trigger-json", type=Path, default=Path("rigorous-reviewer/templates/trigger_keywords.json"))
+    parser.add_argument("--trigger-json", type=Path)
     parser.add_argument("--check", action="store_true", help="Check whether SKILL.md already contains trigger keywords.")
     parser.add_argument("--dry-run", action="store_true", help="Print the patched SKILL.md without writing.")
     args = parser.parse_args()
@@ -133,6 +142,8 @@ def main() -> int:
     if not args.skill_md.is_file():
         print(f"[ERROR] SKILL.md not found: {args.skill_md}", file=sys.stderr)
         return 2
+    if args.trigger_json is None:
+        args.trigger_json = default_trigger_json_for(args.skill_md)
     if not args.trigger_json.is_file():
         print(f"[ERROR] trigger keyword registry not found: {args.trigger_json}", file=sys.stderr)
         return 2

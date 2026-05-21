@@ -11,7 +11,7 @@ description: >
   calibration, optional companion skills or MCP capabilities, and red-line
   checks before producing one comprehensive evidence-grounded review.
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   supported_hosts: "Agent Skills compatible hosts; Codex through skill-installer or direct folder install."
   compatibility: "Portable SKILL.md package. MCP is optional and host-provided; no MCP server is required or bundled."
   mcp_required: "false"
@@ -165,13 +165,16 @@ Always load at activation:
    domain, interdisciplinary, Devil's Advocate, and synthesis passes.
 3. `references/failure_mode_playbook.md` - final red-line audit and rewrite
    rules.
-4. `references/rubric.json` - category scoring.
-5. `templates/comment_templates.json`, `templates/search_hints.json`, and
-   `templates/review_report_template.md` - issue, revision, search-hint, and
-   Markdown report structures.
 
 Load by phase:
 
+- `references/rubric.json` before scoring category quality, severity, and final
+  recommendation thresholds.
+- `templates/comment_templates.json` before drafting Critical / Major / Minor
+  issue blocks.
+- `templates/search_hints.json` before generating evidence-gap search hints.
+- `templates/review_report_template.md` before saving or validating a Markdown
+  review report.
 - `references/six_domain_review_standards.md` when identifying biology,
   chemistry, physics, mathematics, medicine, computer science, or fusion-field
   evidence thresholds.
