@@ -72,6 +72,9 @@ Load by phase:
 - `examples/full_review_example.md` and `examples/issue_block_examples.md` only
   when the user asks what the output should look like or when forward-testing
   issue depth.
+- `schemas/review_report.schema.json` and `scripts/lint_structured_review.py`
+  only when the user requests machine-readable JSON output or when validating a
+  structured review artifact.
 
 ## Core Workflow
 
@@ -121,6 +124,9 @@ Load by phase:
 14. **Validate saved reports.** If a `.md` report file is created, run
     `scripts/validate_review_report.py <report.md>` and fix any failures before
     handing it back.
+15. **Validate structured artifacts.** If a JSON review artifact is created, run
+    `scripts/lint_structured_review.py <report.json>` and fix any schema
+    failures before handing it back.
 
 ## Field Routing
 
@@ -197,3 +203,7 @@ must include:
 
 Default output is Markdown in the conversation. Create a `.md` file only when the
 user asks for a document, file, export, or archive.
+
+If the user asks for machine-readable output, create a JSON artifact matching
+`schemas/review_report.schema.json`; do not replace the normal Markdown review
+unless the user explicitly asks for JSON-only output.

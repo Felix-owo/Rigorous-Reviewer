@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "score.schema.json",
+  "type": "object",
+  "required": ["category", "score", "rationale"],
+  "properties": {
+    "category": {
+      "type": "string",
+      "minLength": 3
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 10
+    }
+  },
+  "additionalProperties": true
+}

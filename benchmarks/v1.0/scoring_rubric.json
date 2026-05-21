@@ -1,0 +1,11 @@
+{
+  "version": "v1.0",
+  "score_components": {
+    "must_detect_recall": 0.45,
+    "severity_correctness": 0.20,
+    "decisive_readout_quality": 0.20,
+    "false_positive_control": 0.10,
+    "recommendation_consistency": 0.05
+  },
+  "notes": "Synthetic benchmark cases are for regression testing and release comparison. They are not real manuscripts and must not include private user material."
+}

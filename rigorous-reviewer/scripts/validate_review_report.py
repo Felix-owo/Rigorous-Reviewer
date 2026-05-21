@@ -9,6 +9,7 @@ anatomy after drafting or editing.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -39,6 +40,32 @@ REQUIRED_LABELS = [
 
 SEVERITY_RE = re.compile(r"^\s*[-*]\s*\[(Critical|Major|Minor)\]\s+(.+)$", re.MULTILINE)
 HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
+SOURCE_RE = re.compile(
+    r"(doi|pmid|pmcid|arxiv|https?://|clinicaltrials|geo|sra|arrayexpress|"
+    r"guideline|standard|benchmark|dataset|accession|rrid|search target)",
+    re.I,
+)
+RECOMMENDATIONS = ["Accept", "Minor Revision", "Major Revision", "Reject"]
+VAGUE_PHRASES = [
+    "more controls are needed",
+    "needs more validation",
+    "improve the analysis",
+    "optimize as needed",
+    "standard conditions",
+    "appropriate amount",
+]
+
+
+def section_text(text: str, title: str) -> str:
+    pattern = re.compile(rf"^##\s+\d+\)\s+{re.escape(title)}\s*$", re.MULTILINE)
+    match = pattern.search(text)
+    if not match:
+        return ""
+    start = match.end()
+    next_heading = re.search(r"^##\s+\d+\)\s+", text[start:], re.MULTILINE)
+    end = start + next_heading.start() if next_heading else len(text)
+    return text[start:end].strip()
+
 
 def section_present(text: str, title: str) -> bool:
     pattern = re.compile(rf"^##\s+\d+\)\s+{re.escape(title)}\s*$", re.MULTILINE)
@@ -72,7 +99,7 @@ def has_support_condition(text: str) -> bool:
     return bool(re.search(r"\b(support|supports|supporting|strengthen|strengthens|consistent with)\b", text, re.I))
 
 
-def validate_issue_block(severity: str, title: str, block: str) -> list[str]:
+def validate_issue_block(severity: str, title: str, block: str, strict: bool = False) -> list[str]:
     errors: list[str] = []
     for label in REQUIRED_LABELS:
         if f"{label}：" not in block and f"{label}:" not in block:
@@ -94,6 +121,14 @@ def validate_issue_block(severity: str, title: str, block: str) -> list[str]:
             f"[{severity}] {title}: decisive readout lacks a weakening/refuting/narrowing condition"
         )
 
+    if strict and severity in {"Critical", "Major"}:
+        if len(block) < 700:
+            errors.append(f"[{severity}] {title}: issue block is too short for strict mode")
+        if not SOURCE_RE.search(block):
+            errors.append(
+                f"[{severity}] {title}: strict mode requires an external identifier, standard, benchmark, or search target"
+            )
+
     return errors
 
 
@@ -104,7 +139,7 @@ def evidence_ledger_present(text: str) -> bool:
     )
 
 
-def validate(path: Path) -> list[str]:
+def validate(path: Path, strict: bool = False) -> list[str]:
     text = path.read_text(encoding="utf-8")
     errors: list[str] = []
 
@@ -120,10 +155,22 @@ def validate(path: Path) -> list[str]:
         errors.append("no `[Critical]`, `[Major]`, or `[Minor]` issue blocks found")
     else:
         for severity, title, block in issue_blocks:
-            errors.extend(validate_issue_block(severity, title, block))
+            errors.extend(validate_issue_block(severity, title, block, strict=strict))
 
     if not evidence_ledger_present(text):
         errors.append("missing Evidence Ledger table with required columns")
+
+    if strict:
+        recommendation = section_text(text, "Overall Recommendation")
+        if recommendation and not any(decision in recommendation for decision in RECOMMENDATIONS):
+            errors.append("Overall Recommendation must include Accept, Minor Revision, Major Revision, or Reject")
+        if any(severity == "Critical" for severity, _, _ in issue_blocks):
+            if "Accept" in recommendation or "Minor Revision" in recommendation:
+                errors.append("strict mode: report with Critical issues cannot recommend Accept or Minor Revision")
+        lowered = text.lower()
+        for phrase in VAGUE_PHRASES:
+            if phrase in lowered:
+                errors.append(f"strict mode: vague phrase found: `{phrase}`")
 
     if "<" in text and ">" in text:
         errors.append("report still appears to contain placeholder angle brackets")
@@ -134,13 +181,19 @@ def validate(path: Path) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path, help="Markdown review report to validate")
+    parser.add_argument("--strict", action="store_true", help="Enable stricter regression checks for CI fixtures")
+    parser.add_argument("--json", action="store_true", help="Emit machine-readable diagnostics")
     args = parser.parse_args()
 
     if not args.report.exists():
         print(f"ERROR: file not found: {args.report}", file=sys.stderr)
         return 2
 
-    errors = validate(args.report)
+    errors = validate(args.report, strict=args.strict)
+    if args.json:
+        print(json.dumps({"ok": not errors, "errors": errors}, indent=2, ensure_ascii=False))
+        return 1 if errors else 0
+
     if errors:
         print("Review report validation failed:", file=sys.stderr)
         for error in errors:

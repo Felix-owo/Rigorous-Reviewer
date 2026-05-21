@@ -34,6 +34,9 @@
   替代解释/漏洞、解决方案和决定性 readout
 - Markdown 审稿报告输出：当用户要求保存文档时，生成带 evidence ledger 的
   `.md` 报告并可执行结构校验
+- 当用户需要机器可读输出时，支持基于 schema 的结构化 JSON 校验
+- 增加 unit tests、golden fixtures、CI 和合成 versioned benchmark set，用于
+  防止回归和行为漂移
 - 针对无 citation、泛泛 controls、重复批评、无 decisive readout 等问题的红线检查
 - `Critical` / `Major` / `Minor` 问题分级
 - 针对具体稿件建立 field evidence map
@@ -48,7 +51,7 @@
 安装稳定版，在 Codex 中输入：
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.7.2/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
 ```
 
 如果你想安装 `main` 分支上的最新开发版，则输入：
@@ -65,7 +68,7 @@ Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/t
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.7.2/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
 ```
 
 执行后重启 Codex。
@@ -113,12 +116,30 @@ rigorous-reviewer/
 │   ├── reviewer_output_standards.md
 │   └── rubric.json
 ├── scripts/
-│   └── validate_review_report.py
+│   ├── validate_review_report.py
+│   ├── lint_structured_review.py
+│   └── score_benchmark.py
+├── schemas/
+│   ├── review_report.schema.json
+│   ├── issue.schema.json
+│   ├── evidence_ledger.schema.json
+│   └── score.schema.json
 └── templates/
     ├── comment_templates.json
     ├── review_report_template.md
     └── search_hints.json
 ```
+
+仓库级工程检查位于可安装 skill 文件夹外：
+
+```text
+.github/workflows/validate.yml
+tests/
+benchmarks/v1.0/
+```
+
+benchmark cases 全部是合成材料，不应包含真实 manuscript、附件、本地路径或用户
+私人研究材料。
 
 `references/` 和 `templates/` 是 skill 的必要组成部分，安装或分享时应与
 `SKILL.md` 一起保留。

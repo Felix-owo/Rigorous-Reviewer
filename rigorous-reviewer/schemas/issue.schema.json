@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "issue.schema.json",
+  "type": "object",
+  "required": [
+    "severity",
+    "title",
+    "specific_problem",
+    "why_serious_or_important",
+    "manuscript_evidence",
+    "external_standard",
+    "impact",
+    "alternative_explanation_or_loophole",
+    "resolution",
+    "decisive_readout"
+  ],
+  "properties": {
+    "severity": {
+      "enum": ["Critical", "Major", "Minor"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5
+    },
+    "specific_problem": {
+      "type": "string",
+      "minLength": 20
+    },
+    "why_serious_or_important": {
+      "type": "string",
+      "minLength": 20
+    },
+    "manuscript_evidence": {
+      "type": "string",
+      "minLength": 10
+    },
+    "external_standard": {
+      "type": "string",
+      "minLength": 10
+    },
+    "impact": {
+      "type": "string",
+      "minLength": 20
+    },
+    "alternative_explanation_or_loophole": {
+      "type": "string",
+      "minLength": 15
+    },
+    "resolution": {
+      "type": "string",
+      "minLength": 20
+    },
+    "decisive_readout": {
+      "type": "string",
+      "minLength": 20
+    },
+    "linked_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

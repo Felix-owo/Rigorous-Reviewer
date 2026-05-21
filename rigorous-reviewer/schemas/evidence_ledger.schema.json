@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence_ledger.schema.json",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "required": ["source_id", "source", "source_type", "supports", "decision_role", "identifier"],
+    "properties": {
+      "source_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "source": {
+        "type": "string",
+        "minLength": 3
+      },
+      "source_type": {
+        "type": "string",
+        "minLength": 3
+      },
+      "supports": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string"
+        }
+      },
+      "decision_role": {
+        "enum": ["decisive", "supporting", "cautionary", "context_only", "search_target"]
+      },
+      "identifier": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "additionalProperties": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "must_detect": [
+    "pseudoreplication",
+    "wrong experimental unit",
+    "donor-level replication",
+    "batch-condition confounding"
+  ],
+  "minimum_severity": "Critical",
+  "forbidden_recommendations": ["Accept", "Minor Revision"]
+}

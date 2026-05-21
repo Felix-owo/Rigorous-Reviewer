@@ -1,0 +1,57 @@
+{
+  "category_scores": [
+    {
+      "category": "decisive_evidence",
+      "score": 5,
+      "rationale": "Associative evidence is present, but perturbation and rescue are missing."
+    }
+  ],
+  "field_evidence_map": [
+    {
+      "field": "biology",
+      "threshold": "perturbation/rescue"
+    }
+  ],
+  "calibration": {
+    "anchor_set": "synthetic positive, negative, and boundary anchors"
+  },
+  "reviewer_panel_synthesis": {
+    "eic": "Major Revision",
+    "devils_advocate": "The causal claim may reflect confounding."
+  },
+  "external_scientific_skills_used": [],
+  "issues": [
+    {
+      "severity": "Critical",
+      "title": "Causal claim is not demonstrated",
+      "specific_problem": "The central mechanism is asserted without perturbation or rescue evidence.",
+      "why_serious_or_important": "The missing causal evidence directly affects the main conclusion.",
+      "manuscript_evidence": "Association-only results are used to support causal wording.",
+      "external_standard": "Synthetic benchmark standard S1, DOI:10.0000/rr.synthetic.standard.",
+      "impact": "The main claim must be downgraded unless causal evidence is added.",
+      "alternative_explanation_or_loophole": "Batch, composition, or stress artifacts could explain the pattern.",
+      "resolution": "Add perturbation and rescue or narrow the claim to association.",
+      "decisive_readout": "The phenotype changes after perturbation and is restored by rescue.",
+      "linked_claims": ["central mechanism"],
+      "source_ids": ["S1"]
+    }
+  ],
+  "revision_actions": [
+    {
+      "priority": "essential",
+      "action": "Add causal evidence or downgrade claim."
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "source_id": "S1",
+      "source": "Synthetic benchmark standard",
+      "source_type": "benchmark",
+      "supports": ["Critical causal claim issue"],
+      "decision_role": "decisive",
+      "identifier": "DOI:10.0000/rr.synthetic.standard"
+    }
+  ],
+  "red_line_self_audit": ["Issue has decisive readout."],
+  "overall_recommendation": "Major Revision"
+}

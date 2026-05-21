@@ -39,6 +39,10 @@ It emphasizes:
   readout
 - Markdown report output with an evidence ledger and optional local `.md`
   validation when the user asks for a document
+- schema-backed structured JSON validation when machine-readable review output
+  is requested
+- unit tests, golden fixtures, CI, and a synthetic versioned benchmark set for
+  regression checks
 - red-line failure checks against uncited, generic, duplicate, or non-decisive criticism
 - Critical / Major / Minor severity grading
 - article-specific field evidence maps
@@ -54,7 +58,7 @@ It emphasizes:
 For the stable release, ask Codex:
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.7.2/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
 ```
 
 For the latest development version on `main`, ask:
@@ -71,7 +75,7 @@ If you want to run the installed skill-installer helper directly:
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.7.2/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
 ```
 
 Then restart Codex.
@@ -107,12 +111,30 @@ rigorous-reviewer/
 │   ├── reviewer_output_standards.md
 │   └── rubric.json
 ├── scripts/
-│   └── validate_review_report.py
+│   ├── validate_review_report.py
+│   ├── lint_structured_review.py
+│   └── score_benchmark.py
+├── schemas/
+│   ├── review_report.schema.json
+│   ├── issue.schema.json
+│   ├── evidence_ledger.schema.json
+│   └── score.schema.json
 └── templates/
     ├── comment_templates.json
     ├── review_report_template.md
     └── search_hints.json
 ```
+
+Repository-level engineering checks live outside the installable skill folder:
+
+```text
+.github/workflows/validate.yml
+tests/
+benchmarks/v1.0/
+```
+
+The benchmark cases are synthetic and must not contain private manuscripts,
+attachments, local paths, or user research material.
 
 The `references/` and `templates/` files are part of the skill and should be
 kept with `SKILL.md`.

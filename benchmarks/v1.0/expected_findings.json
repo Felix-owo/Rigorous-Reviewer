@@ -1,0 +1,75 @@
+{
+  "RR_001_pseudoreplication": {
+    "must_detect": [
+      "pseudoreplication",
+      "wrong experimental unit",
+      "donor-level replication",
+      "batch-condition confounding"
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": ["Accept", "Minor Revision"]
+  },
+  "RR_002_causal_overclaiming": {
+    "must_detect": [
+      "causal overclaiming",
+      "association not mechanism",
+      "missing perturbation/rescue"
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": ["Accept", "Minor Revision"]
+  },
+  "RR_003_batch_confounding": {
+    "must_detect": [
+      "batch-condition confounding",
+      "invalid differential expression interpretation",
+      "balanced design or independent validation"
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": ["Accept", "Minor Revision"]
+  },
+  "RR_004_missing_orthogonal_validation": {
+    "must_detect": [
+      "missing orthogonal validation",
+      "single-modality inference",
+      "independent assay"
+    ],
+    "minimum_severity": "Major",
+    "forbidden_recommendations": ["Accept"]
+  },
+  "RR_005_invalid_statistics": {
+    "must_detect": [
+      "multiple testing",
+      "nested samples",
+      "effect size uncertainty"
+    ],
+    "minimum_severity": "Major",
+    "forbidden_recommendations": ["Accept"]
+  },
+  "RR_006_bad_ai_benchmark": {
+    "must_detect": [
+      "data leakage",
+      "weak baselines",
+      "missing ablations"
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": ["Accept", "Minor Revision"]
+  },
+  "RR_007_unsupported_clinical_translation": {
+    "must_detect": [
+      "external validation",
+      "calibration",
+      "clinical utility"
+    ],
+    "minimum_severity": "Critical",
+    "forbidden_recommendations": ["Accept", "Minor Revision"]
+  },
+  "RR_008_weak_novelty": {
+    "must_detect": [
+      "weak novelty",
+      "prior work calibration",
+      "incremental contribution"
+    ],
+    "minimum_severity": "Major",
+    "forbidden_recommendations": ["Accept"]
+  }
+}
