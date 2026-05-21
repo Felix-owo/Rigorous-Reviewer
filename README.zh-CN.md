@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Standard-Agent_Skills-blueviolet.svg)](https://agentskills.io/specification)
-[![Version](https://img.shields.io/badge/Version-v2.0.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.0.2-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB.svg)](pyproject.toml)
 [![Works with](https://img.shields.io/badge/Works_with-Codex_%7C_Claude_Code_%7C_Cursor-blue.svg)](docs/agent_compatibility_matrix.md)
 
@@ -109,7 +109,7 @@ agent host 安装。该 skill 支持 MCP-aware 工作流，但不捆绑、也不
 在 Codex 中输入：
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.1/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
 ```
 
 安装后重启 Codex，让 skill metadata 重新加载。
@@ -118,7 +118,7 @@ Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/t
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.1/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
 ```
 
 安装后重启 agent host。
@@ -143,7 +143,7 @@ python rigorous-reviewer/scripts/check_installable_skill.py --skill-dir rigorous
 
 ### 版本固定
 
-使用 release tag `v2.0.1` 可获得可复现安装。只有在明确想安装未发布修改时才使用
+使用 release tag `v2.0.2` 可获得可复现安装。只有在明确想安装未发布修改时才使用
 `main`：
 
 ```text
@@ -468,7 +468,7 @@ A: 不能。它用于结构化 critique、evidence mapping 和 failure-mode disc
   author = {{Felix-owo}},
   title = {Rigorous Reviewer: A Portable Agent Skill for Scientific Peer Review},
   year = {2026},
-  version = {2.0.1},
+  version = {2.0.2},
   url = {https://github.com/Felix-owo/Rigorous-Reviewer}
 }
 ```
@@ -476,7 +476,7 @@ A: 不能。它用于结构化 critique、evidence mapping 和 failure-mode disc
 ### Plain text
 
 ```text
-Rigorous Reviewer v2.0.1. A portable Agent Skill for scientific peer review.
+Rigorous Reviewer v2.0.2. A portable Agent Skill for scientific peer review.
 https://github.com/Felix-owo/Rigorous-Reviewer
 ```
 

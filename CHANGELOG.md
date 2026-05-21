@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.2
+
+- Fixes the trigger keyword portability test so CI uses a cross-platform temporary directory instead of the macOS-only `/private/tmp` path.
+- Supersedes v2.0.1, whose code changes were valid locally but whose CI test fixture was not portable to Ubuntu runners.
+
 ## v2.0.1
 
 - Fixes `apply_trigger_keywords.py` so its default trigger registry follows the provided `SKILL.md` path and works from any current working directory.

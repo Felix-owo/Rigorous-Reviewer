@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Standard-Agent_Skills-blueviolet.svg)](https://agentskills.io/specification)
-[![Version](https://img.shields.io/badge/Version-v2.0.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.0.2-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB.svg)](pyproject.toml)
 [![Works with](https://img.shields.io/badge/Works_with-Codex_%7C_Claude_Code_%7C_Cursor-blue.svg)](docs/agent_compatibility_matrix.md)
 
@@ -125,7 +125,7 @@ Each release should preserve:
 Ask Codex:
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.1/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
 ```
 
 Restart Codex after installation so the skill metadata is reloaded.
@@ -134,7 +134,7 @@ Restart Codex after installation so the skill metadata is reloaded.
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.1/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
 ```
 
 Restart the agent host after installation.
@@ -160,7 +160,7 @@ manual copy or the Codex `$skill-installer` flow above.
 
 ### Version pinning
 
-Use the release tag `v2.0.1` for reproducible installs. Use the `main` branch
+Use the release tag `v2.0.2` for reproducible installs. Use the `main` branch
 only when you intentionally want unreleased changes:
 
 ```text
@@ -527,7 +527,7 @@ If you use this skill in a research workflow, cite the repository and version.
   author = {{Felix-owo}},
   title = {Rigorous Reviewer: A Portable Agent Skill for Scientific Peer Review},
   year = {2026},
-  version = {2.0.1},
+  version = {2.0.2},
   url = {https://github.com/Felix-owo/Rigorous-Reviewer}
 }
 ```
@@ -535,7 +535,7 @@ If you use this skill in a research workflow, cite the repository and version.
 ### Plain text
 
 ```text
-Rigorous Reviewer v2.0.1. A portable Agent Skill for scientific peer review.
+Rigorous Reviewer v2.0.2. A portable Agent Skill for scientific peer review.
 https://github.com/Felix-owo/Rigorous-Reviewer
 ```
 

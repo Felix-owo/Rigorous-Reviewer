@@ -11,7 +11,7 @@ description: >
   calibration, optional companion skills or MCP capabilities, and red-line
   checks before producing one comprehensive evidence-grounded review.
 metadata:
-  version: "2.0.1"
+  version: "2.0.2"
   supported_hosts: "Agent Skills compatible hosts; Codex through skill-installer or direct folder install."
   compatibility: "Portable SKILL.md package. MCP is optional and host-provided; no MCP server is required or bundled."
   mcp_required: "false"

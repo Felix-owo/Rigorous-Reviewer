@@ -4,6 +4,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -69,19 +70,20 @@ Core workflow.
         self.assertEqual(module.check_skill_text(patched), [])
 
     def test_default_registry_follows_absolute_skill_path(self):
-        result = subprocess.run(
-            [
-                sys.executable,
-                str(SCRIPT_PATH),
-                "--skill-md",
-                str(ROOT / "rigorous-reviewer" / "SKILL.md"),
-                "--check",
-            ],
-            cwd="/private/tmp",
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
+        with tempfile.TemporaryDirectory() as tmpdir:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCRIPT_PATH),
+                    "--skill-md",
+                    str(ROOT / "rigorous-reviewer" / "SKILL.md"),
+                    "--check",
+                ],
+                cwd=tmpdir,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 

@@ -1,6 +1,6 @@
 [project]
 name = "rigorous-reviewer-skill"
-version = "2.0.1"
+version = "2.0.2"
 description = "Portable agent skill for rigorous scientific peer review with benchmark, schema, and installability checks."
 readme = "README.md"
 requires-python = ">=3.10"

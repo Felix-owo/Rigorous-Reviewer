@@ -4,7 +4,7 @@ This matrix records installability and behavior expectations for the `rigorous-r
 
 | Host / installer | Status | Install path or command | Expected behavior | Smoke-test evidence |
 |---|---|---|---|---|
-| Codex `$skill-installer` | Supported | `Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.1/rigorous-reviewer` | Host imports `SKILL.md`, references, templates, schemas, scripts, examples, and agent metadata. | Run `check_installable_skill.py` locally before release. |
+| Codex `$skill-installer` | Supported | `Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer` | Host imports `SKILL.md`, references, templates, schemas, scripts, examples, and agent metadata. | Run `check_installable_skill.py` locally before release. |
 | Manual copy | Supported | Copy `rigorous-reviewer/` into the host skill directory. | The folder remains self-contained; relative references resolve. | Run `check_installable_skill.py --skill-dir rigorous-reviewer`. |
 | Claude Code | Expected compatible | Copy/import `rigorous-reviewer/` as an Agent Skill folder. | Host uses `name` and `description` frontmatter to trigger full skill loading. | Manual host test recommended before release badge. |
 | OpenCode | Expected compatible | Copy/import `rigorous-reviewer/` as an Agent Skill folder. | Same `SKILL.md` package semantics; scripts remain optional. | Manual host test recommended. |
