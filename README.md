@@ -1,8 +1,11 @@
-# Rigorous Reviewer Codex Skill
+# Rigorous Reviewer Portable Agent Skill
 
 [中文版](README.zh-CN.md)
 
-This repository contains a Codex skill named `rigorous-reviewer`.
+This repository contains a portable Agent Skill named `rigorous-reviewer`.
+Codex is a supported host, but the installable skill folder is designed to be
+usable by any agent runtime that supports the Agent Skills `SKILL.md` package
+format.
 
 It is designed for top-journal-level scientific peer review across six core
 domains:
@@ -32,6 +35,9 @@ It emphasizes:
 - calibration against gold, near-gold, negative, and boundary papers
 - optional bridge to K-Dense Scientific Agent Skills for paper lookup,
   database verification, literature review, and scientific critical thinking
+- optional MCP capability routing for host-provided paper search, public
+  database lookup, local document handling, GitHub/code inspection, and
+  benchmark/evaluation tools
 - decisive evidence thresholds by field
 - hidden loophole and alternative-explanation detection
 - professional issue blocks that force each reviewer comment to state the
@@ -51,6 +57,21 @@ It emphasizes:
   characterization, physical measurement, clinical validation, benchmarks, and
   code/data artifacts
 
+## Compatibility
+
+The installable skill is the `rigorous-reviewer/` directory. It contains:
+
+- `SKILL.md` with required name/description metadata and the core workflow
+- `references/` for progressive-disclosure domain guidance
+- `templates/` for review report and issue formatting
+- `scripts/` and `schemas/` for deterministic validation
+- `examples/` and `agents/openai.yaml` for host-facing examples and UI metadata
+
+Other agent hosts can install this repository by copying or importing the
+`rigorous-reviewer/` folder as a self-contained skill package. Host-specific
+install commands vary; keep the full folder together so references, templates,
+schemas, scripts, and examples remain available.
+
 ## Install In Codex
 
 ### Codex Conversation Install
@@ -58,7 +79,7 @@ It emphasizes:
 For the stable release, ask Codex:
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.9.0/rigorous-reviewer
 ```
 
 For the latest development version on `main`, ask:
@@ -75,7 +96,7 @@ If you want to run the installed skill-installer helper directly:
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.9.0/rigorous-reviewer
 ```
 
 Then restart Codex.
@@ -106,6 +127,7 @@ rigorous-reviewer/
 │   ├── calibration_protocol.md
 │   ├── failure_mode_playbook.md
 │   ├── external_scientific_skills_bridge.md
+│   ├── mcp_capabilities.md
 │   ├── article_specific_literature_mapping.md
 │   ├── cns_reviewer_requirements.md
 │   ├── reviewer_output_standards.md
@@ -146,6 +168,28 @@ agent-facing resources needed for the review workflow.
 Markdown review reports are returned in chat by default. If a manuscript-specific
 `.md` report is saved locally, it should remain local unless the user explicitly
 asks to publish or push it.
+
+## Optional MCP Capabilities
+
+MCP support is optional and host-provided. This repository does not bundle or
+require an MCP server. When an agent runtime exposes MCP tools, resources, or
+prompts, `rigorous-reviewer` can use them through
+`references/mcp_capabilities.md` for bounded support tasks:
+
+- paper and citation search
+- public scientific database verification
+- web/search checks for official guidelines and public standards
+- local filesystem/document parsing for PDFs, supplements, figures, code, and
+  saved reports
+- GitHub/code artifact inspection
+- citation manager or bibliography normalization
+- local benchmark, schema, and golden-fixture evaluation
+- clinical/regulatory, math/proof, chemistry, and materials checks
+
+MCP results are evidence inputs, not final reviewer judgment. The skill should
+ask before sending confidential manuscripts, private attachments, local paths,
+unpublished data, credentials, or personally identifying information to any
+networked or third-party MCP service.
 
 ## Optional K-Dense Companion Skills
 
@@ -188,6 +232,11 @@ and biological/medical reporting standards such as [CONSORT](https://pubmed.ncbi
 [ARRIVE](https://arriveguidelines.org/arrive-guidelines),
 [SPIRIT](https://www.spirit-statement.org/spirit-statement/), and
 [TRIPOD](https://www.bmj.com/content/350/bmj.g7594).
+
+The packaging and optional tool-routing design follows public Agent Skills and
+MCP concepts: skills are distributed as `SKILL.md` folders with bundled
+resources, while MCP separately exposes host-provided resources, prompts, and
+tools for data access and actions.
 
 ## References and Acknowledgements
 

@@ -1,7 +1,8 @@
-# Rigorous Reviewer Codex Skill 中文说明
+# Rigorous Reviewer 通用 Agent Skill 中文说明
 
-这个仓库包含一个面向 Codex 的顶刊级科学审稿 skill：
-`rigorous-reviewer`。
+这个仓库包含一个可移植的通用 Agent Skill：`rigorous-reviewer`。Codex 是支持
+的运行环境之一，但可安装的 skill 文件夹设计为适用于任何支持 Agent Skills
+`SKILL.md` 包格式的 agent 运行时。
 
 它重点覆盖六大领域：
 
@@ -28,6 +29,8 @@
 - 基于 gold、near-gold、negative 和 boundary papers 的校准
 - 可选桥接 K-Dense Scientific Agent Skills，用于论文检索、数据库核验、
   文献综述和 scientific critical thinking
+- 可选 MCP 能力路由，用于宿主 agent 已提供的论文检索、公共数据库核验、
+  本地文档处理、GitHub/代码检查和 benchmark/evaluation 工具
 - 按领域设定决定性证据门槛
 - 隐藏漏洞、替代解释和 false-positive 模型查找
 - 专业审稿意见块：每条意见必须写清楚具体问题、为什么严重/重要、证据、影响、
@@ -44,6 +47,20 @@
 - 针对不同学科检查实验控制、数学证明、化学表征、物理测量、临床验证、
   算法基准和代码/数据 artifact
 
+## 兼容性
+
+可安装的 skill 是 `rigorous-reviewer/` 目录。它包含：
+
+- `SKILL.md`：必需的 name/description 元数据和核心工作流
+- `references/`：按需加载的领域标准和审稿协议
+- `templates/`：审稿报告和 issue block 模板
+- `scripts/` 和 `schemas/`：确定性校验工具
+- `examples/` 和 `agents/openai.yaml`：示例输出和宿主 UI 元数据
+
+其他 agent host 可以通过复制或导入完整的 `rigorous-reviewer/` 文件夹来安装。
+不同 host 的安装命令可能不同；关键是保留整个文件夹，避免 references、
+templates、schemas、scripts 和 examples 丢失。
+
 ## 在 Codex 中安装
 
 ### 对话式安装
@@ -51,7 +68,7 @@
 安装稳定版，在 Codex 中输入：
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.9.0/rigorous-reviewer
 ```
 
 如果你想安装 `main` 分支上的最新开发版，则输入：
@@ -68,7 +85,7 @@ Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/t
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.8.0/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v1.9.0/rigorous-reviewer
 ```
 
 执行后重启 Codex。
@@ -111,6 +128,7 @@ rigorous-reviewer/
 │   ├── calibration_protocol.md
 │   ├── failure_mode_playbook.md
 │   ├── external_scientific_skills_bridge.md
+│   ├── mcp_capabilities.md
 │   ├── article_specific_literature_mapping.md
 │   ├── cns_reviewer_requirements.md
 │   ├── reviewer_output_standards.md
@@ -149,6 +167,26 @@ re-review 模式。skill 目录内只保留对 agent 审稿流程直接有用的
 
 Markdown 审稿报告默认在对话中输出。若保存具体稿件的 `.md` 报告，默认只保留
 在本地，除非用户明确要求发布或推送。
+
+## 可选 MCP 能力
+
+MCP 支持是可选的，并由宿主 agent 提供。这个仓库不捆绑、也不要求 MCP server。
+当某个 agent 运行时暴露 MCP tools、resources 或 prompts 时，
+`rigorous-reviewer` 可以通过 `references/mcp_capabilities.md` 将它们用于
+边界清楚的支持任务：
+
+- 论文和引用检索
+- 公共科学数据库核验
+- 官方指南、公共标准和 venue policy 的 web/search 检查
+- 本地 PDF、补充材料、图表、代码和已保存报告的 filesystem/document 处理
+- GitHub 或代码 artifact 检查
+- citation manager 或 bibliography 标准化
+- 本地 benchmark、schema 和 golden fixture evaluation
+- 临床/监管、数学/证明、化学和材料数据库检查
+
+MCP 结果只能作为证据输入，不能替代最终审稿判断。向任何联网或第三方 MCP
+服务发送保密 manuscript、私人附件、本地路径、未发表数据、credential 或个人
+身份信息前，必须先获得用户明确同意。
 
 ## 可选 K-Dense Companion Skills
 
@@ -212,6 +250,10 @@ Supplementary Material: 可选
 [ARRIVE](https://arriveguidelines.org/arrive-guidelines)、
 [SPIRIT](https://www.spirit-statement.org/spirit-statement/) 和
 [TRIPOD](https://www.bmj.com/content/350/bmj.g7594) 等生物/医学报告规范。
+
+本仓库的打包和可选工具路由设计参考了公开 Agent Skills 和 MCP 概念：
+skill 作为含 `SKILL.md` 和附带资源的文件夹分发；MCP 则独立暴露宿主提供的
+resources、prompts 和 tools，用于数据访问和外部动作。
 
 ## 参考与致谢
 
