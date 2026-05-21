@@ -4,9 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Standard-Agent_Skills-blueviolet.svg)](https://agentskills.io/specification)
-[![Version](https://img.shields.io/badge/Version-v2.0.2-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.1.0-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB.svg)](pyproject.toml)
-[![Works with](https://img.shields.io/badge/Works_with-Codex_%7C_Claude_Code_%7C_Cursor-blue.svg)](docs/agent_compatibility_matrix.md)
+[![Works with](https://img.shields.io/badge/Works_with-Codex_%7C_Claude_Code_%7C_Cursor-blue.svg)](docs/compatibility/agent_matrix.md)
 
 `Rigorous Reviewer` 是一个可移植的 Agent Skill，用于顶刊级严格科学审稿。
 它可以让兼容的 agent host 对 manuscript、proposal、preprint、图表、方法、
@@ -33,9 +33,9 @@ agent host 安装。该 skill 支持 MCP-aware 工作流，但不捆绑、也不
   `schemas/`、`scripts/`、`examples/` 和 `agents/`。
 - **MCP-backed skill policy**：宿主提供 MCP 时，可用于检索、解析、计算、
   source verification 和验证；最终审稿判断仍由 skill 完成。
-- **可选 companion-skill bridge**：可与 K-Dense scientific skills 协作完成
-  paper lookup、database verification、literature review、critical thinking 和
-  secondary scoring。
+- **可选 companion-skill bridge**：可与 K-Dense、Life Science Research、
+  bioinformatics、simulation、software-engineering、writing/output 和 design
+  companion 协作，作为边界清晰的证据检索、校准、验证或输出转换支持。
 - **验证套件**：installability smoke test、trigger keyword checker、Markdown
   validator、structured JSON linter、golden fixtures、unit tests、合成 benchmark
   和公开来源 semantic-lite benchmark。
@@ -109,7 +109,7 @@ agent host 安装。该 skill 支持 MCP-aware 工作流，但不捆绑、也不
 在 Codex 中输入：
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.1.0/rigorous-reviewer
 ```
 
 安装后重启 Codex，让 skill metadata 重新加载。
@@ -118,7 +118,7 @@ Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/t
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.1.0/rigorous-reviewer
 ```
 
 安装后重启 agent host。
@@ -143,7 +143,7 @@ python rigorous-reviewer/scripts/check_installable_skill.py --skill-dir rigorous
 
 ### 版本固定
 
-使用 release tag `v2.0.2` 可获得可复现安装。只有在明确想安装未发布修改时才使用
+使用 release tag `v2.1.0` 可获得可复现安装。只有在明确想安装未发布修改时才使用
 `main`：
 
 ```text
@@ -297,6 +297,7 @@ rigorous-reviewer/
 │   ├── review_report.schema.json
 │   ├── issue.schema.json
 │   ├── evidence_ledger.schema.json
+│   ├── external_companion_evidence.schema.json
 │   ├── trigger_keywords.schema.json
 │   └── score.schema.json
 └── templates/
@@ -314,6 +315,11 @@ tests/
 benchmarks/v1.0/
 benchmarks/v1.1-public/
 docs/
+├── README.md
+├── compatibility/
+│   └── agent_matrix.md
+└── routing/
+    └── trigger_keyword_support.md
 SECURITY.md
 CONTRIBUTING.md
 CHANGELOG.md
@@ -339,13 +345,29 @@ CHANGELOG.md
 MCP 结果必须带 provenance，且不能替代最终 Markdown review、evidence ledger、
 issue-block logic 或 editorial recommendation。
 
-### 可选 K-Dense companion skills
+### 可选 companion ecosystem
 
-本 skill 可通过 `references/external_scientific_skills_bridge.md` 可选调用
-[K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)
-中的已安装 skills。
+Rigorous Reviewer 可以在当前 host 已暴露相关能力时使用外部 skills、官方插件、
+MCP tools 或 host-provided capabilities。这些 companion 只提供证据、验证、
+分析或输出转换支持，永远不能替代最终 reviewer judgment。
 
-推荐 companion skills：
+推荐 companion：
+
+- ChatGPT Life Science Research：公共 life-science database evidence。
+- [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)：
+  paper/database/literature lookup 和 critical-thinking cross-checks。
+- GPTomics/bioSkills：omics 与 bioinformatics workflow cross-checks。
+- HeshamFS/materials-simulation-skills：simulation、numerical、convergence 和
+  HPC reproducibility support。
+- Yuan1z0825/nature-skills：scientific review 完成后的 rebuttal、paper polishing、
+  citation、figure 和 paper-to-PPT。
+- guizang-ppt-skill / open-design / taste-skill：结论固定后的 slide deck、
+  visual summary 或 design output。
+- [mattpocock/skills](https://github.com/mattpocock/skills)：相关 code artifact、
+  test strategy、debugging 和 engineering handoff support。
+
+具体调用、隐私、provenance 和冲突规则见
+`references/external_scientific_skills_bridge.md`。K-Dense companion 可单独安装：
 
 ```text
 Use $skill-installer to install https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/scientific-skills/paper-lookup
@@ -355,7 +377,7 @@ Use $skill-installer to install https://github.com/K-Dense-AI/scientific-agent-s
 Use $skill-installer to install https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/scientific-skills/scholar-evaluation
 ```
 
-不要把 K-Dense 代码 vendored 到本仓库；companion skills 应单独安装，并遵守其原始许可证。
+不要把 companion 代码 vendored 到本仓库；companion skills 应单独安装，并遵守其原始许可证。
 
 ## 验证与 Benchmarks
 
@@ -468,7 +490,7 @@ A: 不能。它用于结构化 critique、evidence mapping 和 failure-mode disc
   author = {{Felix-owo}},
   title = {Rigorous Reviewer: A Portable Agent Skill for Scientific Peer Review},
   year = {2026},
-  version = {2.0.2},
+  version = {2.1.0},
   url = {https://github.com/Felix-owo/Rigorous-Reviewer}
 }
 ```
@@ -476,7 +498,7 @@ A: 不能。它用于结构化 critique、evidence mapping 和 failure-mode disc
 ### Plain text
 
 ```text
-Rigorous Reviewer v2.0.2. A portable Agent Skill for scientific peer review.
+Rigorous Reviewer v2.1.0. A portable Agent Skill for scientific peer review.
 https://github.com/Felix-owo/Rigorous-Reviewer
 ```
 

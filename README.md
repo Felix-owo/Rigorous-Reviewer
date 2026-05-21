@@ -4,9 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Standard-Agent_Skills-blueviolet.svg)](https://agentskills.io/specification)
-[![Version](https://img.shields.io/badge/Version-v2.0.2-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.1.0-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB.svg)](pyproject.toml)
-[![Works with](https://img.shields.io/badge/Works_with-Codex_%7C_Claude_Code_%7C_Cursor-blue.svg)](docs/agent_compatibility_matrix.md)
+[![Works with](https://img.shields.io/badge/Works_with-Codex_%7C_Claude_Code_%7C_Cursor-blue.svg)](docs/compatibility/agent_matrix.md)
 
 `Rigorous Reviewer` is a portable Agent Skill for elite scientific peer review.
 It turns a compatible agent host into a top-journal-style reviewer for
@@ -40,9 +40,10 @@ resistant.
 - **MCP-backed skill policy**: optional host-provided MCP tools can support
   retrieval, parsing, computation, source verification, and validation while the
   skill remains the reviewer decision-maker.
-- **Optional companion-skill bridge**: K-Dense scientific skills can support
-  paper lookup, database verification, literature review, critical thinking, and
-  secondary scoring when installed separately.
+- **Optional companion-skill bridge**: K-Dense, Life Science Research,
+  bioinformatics, simulation, software-engineering, writing/output, and design
+  companions can support bounded evidence gathering or transformations when
+  installed separately.
 - **Validation suite**: installability smoke test, trigger keyword checker,
   Markdown report validator, structured JSON linter, golden fixtures, unit
   tests, synthetic benchmark set, and public-source semantic-lite benchmark.
@@ -125,7 +126,7 @@ Each release should preserve:
 Ask Codex:
 
 ```text
-Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
+Use $skill-installer to install https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.1.0/rigorous-reviewer
 ```
 
 Restart Codex after installation so the skill metadata is reloaded.
@@ -134,7 +135,7 @@ Restart Codex after installation so the skill metadata is reloaded.
 
 ```bash
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.0.2/rigorous-reviewer
+  --url https://github.com/Felix-owo/Rigorous-Reviewer/tree/v2.1.0/rigorous-reviewer
 ```
 
 Restart the agent host after installation.
@@ -160,7 +161,7 @@ manual copy or the Codex `$skill-installer` flow above.
 
 ### Version pinning
 
-Use the release tag `v2.0.2` for reproducible installs. Use the `main` branch
+Use the release tag `v2.1.0` for reproducible installs. Use the `main` branch
 only when you intentionally want unreleased changes:
 
 ```text
@@ -339,6 +340,7 @@ rigorous-reviewer/
 │   ├── review_report.schema.json
 │   ├── issue.schema.json
 │   ├── evidence_ledger.schema.json
+│   ├── external_companion_evidence.schema.json
 │   ├── trigger_keywords.schema.json
 │   └── score.schema.json
 └── templates/
@@ -356,6 +358,11 @@ tests/
 benchmarks/v1.0/
 benchmarks/v1.1-public/
 docs/
+├── README.md
+├── compatibility/
+│   └── agent_matrix.md
+└── routing/
+    └── trigger_keyword_support.md
 SECURITY.md
 CONTRIBUTING.md
 CHANGELOG.md
@@ -383,13 +390,30 @@ as:
 MCP results must be recorded with provenance and must not replace the final
 Markdown review, evidence ledger, issue-block logic, or recommendation.
 
-### Optional K-Dense companion skills
+### Optional companion ecosystem
 
-This skill can optionally call installed skills from
-[K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)
-through `references/external_scientific_skills_bridge.md`.
+Rigorous Reviewer can use external skills, official plugins, MCP tools, or
+host-provided capabilities when they are visible in the current host. These
+companions are optional and never replace the final reviewer judgment.
 
-Recommended companion skills:
+Recommended companions:
+
+- ChatGPT Life Science Research: public life-science database evidence.
+- [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills):
+  paper/database/literature lookup and critical-thinking cross-checks.
+- GPTomics/bioSkills: omics and bioinformatics workflow cross-checks.
+- HeshamFS/materials-simulation-skills: simulation, numerical, convergence, and
+  HPC reproducibility support.
+- Yuan1z0825/nature-skills: rebuttal, paper polishing, citation, figure, and
+  paper-to-PPT after scientific review.
+- guizang-ppt-skill / open-design / taste-skill: slide deck, visual summary, or
+  design output after conclusions are fixed.
+- [mattpocock/skills](https://github.com/mattpocock/skills): code artifact,
+  test strategy, debugging, and engineering handoff support when relevant.
+
+Use `references/external_scientific_skills_bridge.md` for the exact invocation,
+privacy, provenance, and conflict rules. K-Dense companions can be installed
+separately with:
 
 ```text
 Use $skill-installer to install https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/scientific-skills/paper-lookup
@@ -399,8 +423,8 @@ Use $skill-installer to install https://github.com/K-Dense-AI/scientific-agent-s
 Use $skill-installer to install https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/scientific-skills/scholar-evaluation
 ```
 
-Do not vendor K-Dense code into this repository. Companion skills are installed
-separately and remain under their own licenses.
+Do not vendor companion code into this repository. Companion skills are
+installed separately and remain under their own licenses.
 
 ## Validation and Benchmarks
 
@@ -527,7 +551,7 @@ If you use this skill in a research workflow, cite the repository and version.
   author = {{Felix-owo}},
   title = {Rigorous Reviewer: A Portable Agent Skill for Scientific Peer Review},
   year = {2026},
-  version = {2.0.2},
+  version = {2.1.0},
   url = {https://github.com/Felix-owo/Rigorous-Reviewer}
 }
 ```
@@ -535,7 +559,7 @@ If you use this skill in a research workflow, cite the repository and version.
 ### Plain text
 
 ```text
-Rigorous Reviewer v2.0.2. A portable Agent Skill for scientific peer review.
+Rigorous Reviewer v2.1.0. A portable Agent Skill for scientific peer review.
 https://github.com/Felix-owo/Rigorous-Reviewer
 ```
 

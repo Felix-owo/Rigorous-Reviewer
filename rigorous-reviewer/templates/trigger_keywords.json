@@ -107,7 +107,12 @@
     "method critique",
     "statistics critique",
     "benchmark critique",
-    "revision feasibility"
+    "revision feasibility",
+    "database-backed claim review",
+    "omics evidence sufficiency",
+    "variant evidence sufficiency",
+    "drug-target claim review",
+    "code artifact scientific review"
   ],
   "negative_routing_keywords": [
     "protocol",
@@ -131,6 +136,14 @@
     "citation formatting",
     "literature lookup only",
     "database lookup only",
+    "gene lookup only",
+    "variant lookup only",
+    "drug lookup only",
+    "protein structure lookup only",
+    "dataset lookup only",
+    "public accession lookup only",
+    "presentation generation only",
+    "slide design only",
     "code debugging only"
   ],
   "routing_rules": [

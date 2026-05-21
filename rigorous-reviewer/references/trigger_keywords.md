@@ -108,6 +108,11 @@ These terms should increase confidence only when paired with a scientific manusc
 - statistics critique
 - benchmark critique
 - revision feasibility
+- database-backed claim review
+- omics evidence sufficiency
+- variant evidence sufficiency
+- drug-target claim review
+- code artifact scientific review
 
 ## Negative routing
 
@@ -120,6 +125,8 @@ Do not trigger `rigorous-reviewer` by default for tasks that primarily ask for:
 - slide generation or paper-to-PPT conversion
 - citation formatting only
 - literature/database lookup only
+- gene/variant/drug/protein-structure/dataset/public-accession lookup only
+- presentation generation or slide design only
 - code debugging only
 
 Route these to the corresponding installed skill when available. Trigger `rigorous-reviewer` only if the user explicitly asks for scientific critique, evidence sufficiency, claim stress-testing, or final reviewer judgment.

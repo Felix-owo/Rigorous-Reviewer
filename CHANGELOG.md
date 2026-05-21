@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.1.0
+
+- Expands `references/external_scientific_skills_bridge.md` into a general companion capability bridge covering K-Dense, official Life Science Research, bioinformatics, simulation, writing/output, design, and software-engineering companions.
+- Adds optional structured `external_companion_evidence` schema support and strict linter checks so companion outputs must retain concrete source, database, repository, accession, or standard identifiers.
+- Adds lookup-only negative routing terms and evidence-review weak triggers for database-backed, omics, variant, drug-target, and code-artifact review requests.
+- Updates README companion ecosystem guidance, install links, benchmark metadata, and installability checks for the v2.1.0 release.
+
 ## v2.0.2
 
 - Fixes the trigger keyword portability test so CI uses a cross-platform temporary directory instead of the macOS-only `/private/tmp` path.

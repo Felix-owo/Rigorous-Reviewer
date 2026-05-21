@@ -34,6 +34,12 @@
     "external_scientific_skills_used": {
       "type": "array"
     },
+    "external_companion_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "external_companion_evidence.schema.json"
+      }
+    },
     "mcp_capabilities_used": {
       "type": "array"
     },

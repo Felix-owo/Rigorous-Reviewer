@@ -31,6 +31,7 @@ REQUIRED_FILES = [
     "schemas/review_report.schema.json",
     "schemas/issue.schema.json",
     "schemas/evidence_ledger.schema.json",
+    "schemas/external_companion_evidence.schema.json",
     "schemas/trigger_keywords.schema.json",
     "agents/openai.yaml",
 ]

@@ -20,6 +20,17 @@
     "devils_advocate": "The causal claim may reflect confounding."
   },
   "external_scientific_skills_used": [],
+  "external_companion_evidence": [
+    {
+      "companion_class": "paper_lookup",
+      "tool_or_skill": "$paper-lookup",
+      "query_or_task": "synthetic benchmark causal standard",
+      "returned_identifier": "DOI:10.0000/rr.synthetic.standard",
+      "evidence_role": "context",
+      "claim_affected": "central mechanism",
+      "limitation": "Synthetic fixture for validator regression only."
+    }
+  ],
   "issues": [
     {
       "severity": "Critical",

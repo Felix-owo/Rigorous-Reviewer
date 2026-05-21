@@ -33,7 +33,10 @@ class TriggerKeywordTests(unittest.TestCase):
             self.assertIn(term, strong)
         for term in ["严格审稿", "顶刊审稿", "决定性证据", "替代解释"]:
             self.assertIn(term, chinese)
-        for term in ["protocol", "sop", "figure styling", "database lookup only"]:
+        weak = " ".join(data["weak_context_keywords"]).lower()
+        for term in ["omics evidence sufficiency", "drug-target claim review"]:
+            self.assertIn(term, weak)
+        for term in ["protocol", "sop", "figure styling", "database lookup only", "gene lookup only", "slide design only"]:
             self.assertIn(term, negative)
 
     def test_patch_standard_frontmatter(self):

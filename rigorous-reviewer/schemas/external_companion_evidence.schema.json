@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "external_companion_evidence.schema.json",
+  "type": "object",
+  "required": [
+    "companion_class",
+    "tool_or_skill",
+    "query_or_task",
+    "returned_identifier",
+    "evidence_role",
+    "claim_affected",
+    "limitation"
+  ],
+  "properties": {
+    "companion_class": {
+      "type": "string",
+      "minLength": 3
+    },
+    "tool_or_skill": {
+      "type": "string",
+      "minLength": 2
+    },
+    "query_or_task": {
+      "type": "string",
+      "minLength": 3
+    },
+    "returned_identifier": {
+      "type": "string",
+      "minLength": 3
+    },
+    "evidence_role": {
+      "enum": ["supports", "weakens", "narrows", "neutral", "context"]
+    },
+    "claim_affected": {
+      "type": "string",
+      "minLength": 3
+    },
+    "limitation": {
+      "type": "string",
+      "minLength": 3
+    }
+  },
+  "additionalProperties": true
+}

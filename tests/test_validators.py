@@ -136,6 +136,16 @@ class ValidatorTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("non-empty source_ids", result.stderr)
 
+    def test_strict_structured_review_rejects_vague_companion_identifier(self):
+        report = json.loads((ROOT / "tests/fixtures/json/valid_structured_review.json").read_text(encoding="utf-8"))
+        report["external_companion_evidence"][0]["returned_identifier"] = "unknown"
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "vague_companion_identifier.json"
+            path.write_text(json.dumps(report), encoding="utf-8")
+            result = run_script(LINTER, path, "--strict")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("returned_identifier must not be vague", result.stderr)
+
     def test_benchmark_definitions_are_valid(self):
         result = run_script(BENCHMARK, "--benchmark-root", ROOT / "benchmarks/v1.0")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

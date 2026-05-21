@@ -55,7 +55,7 @@ Use this skill when the user asks for rigorous scientific peer review, claim str
 
 Do **not** trigger `rigorous-reviewer` by default when the task is only about:
 
-{bullet_list(negative, 18)}
+{bullet_list(negative, 32)}
 
 ### Routing precedence
 

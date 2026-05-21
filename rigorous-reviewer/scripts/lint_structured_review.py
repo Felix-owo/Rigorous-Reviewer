@@ -21,9 +21,19 @@ SUPPORT_RE = re.compile(r"\b(support|supports|supporting|strengthen|strengthens|
 WEAKEN_RE = re.compile(r"\b(narrow|narrows|narrowing|weaken|weakens|refut|force narrowing)\b|削弱|反驳", re.I)
 SOURCE_RE = re.compile(
     r"(doi|pmid|pmcid|arxiv|https?://|clinicaltrials|geo|sra|arrayexpress|"
-    r"guideline|standard|benchmark|dataset|accession|rrid|search target)",
+    r"guideline|standard|benchmark|dataset|accession|rrid|search target|manual|"
+    r"chembl|bindingdb|chebi|cbioportal|civic|cellxgene|biostudies|alphafold|"
+    r"pdb|uniprot|github|commit|zenodo|figshare|dryad|osf)",
     re.I,
 )
+COMPANION_IDENTIFIER_RE = re.compile(
+    r"(doi:|pmid:|pmcid:|arxiv:|https?://|clinicaltrials|geo:|sra:|arrayexpress|"
+    r"guideline|standard|benchmark|dataset|accession|rrid|manual|chembl|"
+    r"bindingdb|chebi|cbioportal|civic|cellxgene|biostudies|alphafold|pdb|"
+    r"uniprot|github|commit|zenodo|figshare|dryad|osf)",
+    re.I,
+)
+VAGUE_IDENTIFIER_RE = re.compile(r"^(n/?a|none|unknown|not available|not found|unresolved|tbd|to be determined)$", re.I)
 
 
 def load_json(path: Path) -> Any:
@@ -140,6 +150,22 @@ def validate_strict_review(report: Any, schema: dict[str, Any]) -> list[str]:
                 errors.append(f"{path}: decisive_readout lacks a support condition")
             if not WEAKEN_RE.search(decisive_readout):
                 errors.append(f"{path}: decisive_readout lacks a weakening/refuting/narrowing condition")
+
+    companion_evidence = report.get("external_companion_evidence")
+    if companion_evidence is not None:
+        if not isinstance(companion_evidence, list):
+            errors.append("$.external_companion_evidence: strict mode requires an array")
+        else:
+            for idx, item in enumerate(companion_evidence):
+                path = f"$.external_companion_evidence[{idx}]"
+                if not isinstance(item, dict):
+                    errors.append(f"{path}: strict mode requires an object")
+                    continue
+                returned_identifier = str(item.get("returned_identifier", "")).strip()
+                if VAGUE_IDENTIFIER_RE.match(returned_identifier):
+                    errors.append(f"{path}: returned_identifier must not be vague or unresolved")
+                elif not COMPANION_IDENTIFIER_RE.search(returned_identifier):
+                    errors.append(f"{path}: returned_identifier needs a concrete source, accession, DOI, URL, repository, standard, or database handle")
 
     recommendation = report.get("overall_recommendation")
     if critical_present and recommendation in {"Accept", "Minor Revision"}:

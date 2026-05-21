@@ -11,7 +11,7 @@ description: >
   calibration, optional companion skills or MCP capabilities, and red-line
   checks before producing one comprehensive evidence-grounded review.
 metadata:
-  version: "2.0.2"
+  version: "2.1.0"
   supported_hosts: "Agent Skills compatible hosts; Codex through skill-installer or direct folder install."
   compatibility: "Portable SKILL.md package. MCP is optional and host-provided; no MCP server is required or bundled."
   mcp_required: "false"
@@ -114,6 +114,18 @@ Do **not** trigger `rigorous-reviewer` by default when the task is only about:
 - figure beautification
 - PPT
 - slides
+- citation formatting
+- literature lookup only
+- database lookup only
+- gene lookup only
+- variant lookup only
+- drug lookup only
+- protein structure lookup only
+- dataset lookup only
+- public accession lookup only
+- presentation generation only
+- slide design only
+- code debugging only
 
 ### Routing precedence
 
@@ -186,8 +198,12 @@ Load by phase:
   top-journal threshold judgment.
 - `references/reviewer_output_standards.md` before drafting literature/source
   search hints, revision actions, recommendation, and the complete output.
-- `references/external_scientific_skills_bridge.md` when K-Dense companion skills
-  are installed or when the user asks for external scientific-skill support.
+- `references/external_scientific_skills_bridge.md` when K-Dense, official Life
+  Science Research, bioinformatics, simulation, writing/output, design, or
+  software-engineering companion skills are installed or when the user asks for
+  external skill support. Use companions only as bounded evidence, validation,
+  analysis, or output-transformation support; never as replacements for reviewer
+  judgment.
 - `references/mcp_tool_use_policy.md` when the host exposes MCP servers/tools or
   the user asks which MCP capabilities can strengthen the review.
 - `references/trigger_keywords.md` and `templates/trigger_keywords.json` when
@@ -290,9 +306,12 @@ Use the six-domain standards rather than generic rigor language:
 - Do not write generic comments such as "more controls are needed" unless the
   exact control, interpretation change, and decisive readout are named.
 
-## Optional K-Dense Companion Skills
+## Optional Companion Skills
 
-Use installed companion skills only when visible in the current skills list:
+Use installed companion skills only when visible in the current skills list.
+Companions support bounded lookup, calibration, workflow sanity checks, code or
+artifact triage, or output transformation. They must not change severity,
+recommendation, evidence sufficiency, or final reviewer judgment.
 
 - `$paper-lookup`: DOI/PMID/arXiv lookup, paper discovery, open-access lookup,
   citation graph checks, and anchor-paper discovery.
@@ -304,6 +323,14 @@ Use installed companion skills only when visible in the current skills list:
 - `$scientific-critical-thinking`: risk of bias, GRADE-style confidence,
   confounding, causal inference, and logical-fallacy cross-checks.
 - `$scholar-evaluation`: secondary scoring sanity check only.
+- Official Life Science Research capabilities: public life-science entity,
+  database, protein, compound, pathway, omics-study, preprint, and clinical
+  evidence context.
+- Bioinformatics workflow companions: assay-specific omics QC, pipeline,
+  reproducibility, batch-effect, metadata, and public reanalysis planning.
+- Simulation, numerical, software-engineering, writing/output, presentation, or
+  design companions: use only for the bounded support classes described in
+  `external_scientific_skills_bridge.md`.
 
 If a companion skill is unavailable, do not claim it was used. Fall back to the
 built-in evidence dossier, search hints, calibration protocol, and red-line audit.
@@ -354,4 +381,7 @@ user asks for a document, file, export, or archive.
 
 If the user asks for machine-readable output, create a JSON artifact matching
 `schemas/review_report.schema.json`; do not replace the normal Markdown review
-unless the user explicitly asks for JSON-only output.
+unless the user explicitly asks for JSON-only output. If external companions are
+used, record them in the optional `external_companion_evidence` array with the
+tool/skill, query, returned identifier, affected claim, evidence role, and
+limitation.
