@@ -1,0 +1,20 @@
+{
+  "handoff_id": "handoff-weak-protocol-claim",
+  "skill_context": "cross-skill",
+  "claim_readout_map": [
+    {
+      "claim_id": "C1",
+      "claim_text": "The manuscript claims the assay decisively establishes a new biological mechanism.",
+      "evidence_role": "decisive",
+      "readout_id": "R1",
+      "readout_supports": "Mechanism-specific signal if controls and QC pass.",
+      "protocol_step_or_method": "Assay quantification and validation step",
+      "parameter_authority": "recommended_unvalidated",
+      "qc_gate": "Positive control and negative control must bracket the assay signal with predefined pass/fail threshold.",
+      "failure_mode": "An unvalidated parameter could create a false-positive mechanism signal.",
+      "manuscript_impact": "The claim remains plausible but cannot be treated as decisively supported.",
+      "revision_action": "add_validation",
+      "source_ids": ["M1", "S1"]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "claim_readout_handoff.schema.json",
+  "type": "object",
+  "required": ["handoff_id", "skill_context", "claim_readout_map"],
+  "additionalProperties": true,
+  "properties": {
+    "handoff_id": { "type": "string", "minLength": 3 },
+    "skill_context": {
+      "type": "string",
+      "enum": ["rigorous-reviewer", "biological-protocol-reviewer", "cross-skill"]
+    },
+    "claim_readout_map": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "claim_text",
+          "evidence_role",
+          "readout_id",
+          "readout_supports",
+          "protocol_step_or_method",
+          "parameter_authority",
+          "qc_gate",
+          "failure_mode",
+          "manuscript_impact",
+          "revision_action",
+          "source_ids"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "claim_id": { "type": "string", "minLength": 2 },
+          "claim_text": { "type": "string", "minLength": 8 },
+          "evidence_role": {
+            "type": "string",
+            "enum": ["decisive", "supporting", "contextual", "exploratory"]
+          },
+          "readout_id": { "type": "string", "minLength": 2 },
+          "readout_supports": { "type": "string", "minLength": 8 },
+          "protocol_step_or_method": { "type": "string", "minLength": 4 },
+          "parameter_authority": {
+            "type": "string",
+            "enum": [
+              "original",
+              "local_validated",
+              "external_benchmark",
+              "vendor_manual",
+              "institutional_sop",
+              "recommended_unvalidated",
+              "unresolved",
+              "not_applicable"
+            ]
+          },
+          "qc_gate": { "type": "string", "minLength": 8 },
+          "failure_mode": { "type": "string", "minLength": 8 },
+          "manuscript_impact": { "type": "string", "minLength": 8 },
+          "revision_action": {
+            "type": "string",
+            "enum": [
+              "add_control",
+              "add_validation",
+              "add_qc_gate",
+              "narrow_claim",
+              "mark_preliminary",
+              "author_input_needed",
+              "no_action_needed"
+            ]
+          },
+          "source_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

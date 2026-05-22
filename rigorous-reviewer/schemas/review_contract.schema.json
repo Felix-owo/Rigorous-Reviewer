@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review_contract.schema.json",
+  "type": "object",
+  "required": [
+    "review_id",
+    "skill_version",
+    "contract_status",
+    "material_basis",
+    "central_claim_dependency_map",
+    "decisive_evidence_thresholds",
+    "mandatory_reviewer_dimensions",
+    "failure_conditions",
+    "evidence_that_changes_recommendation",
+    "prohibited_post_hoc_standard_shifts"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "review_id": { "type": "string" },
+    "skill_version": { "type": "string", "minLength": 8 },
+    "contract_status": {
+      "type": "string",
+      "enum": ["draft", "locked", "partial_material_contract", "amended"]
+    },
+    "material_basis": {
+      "type": "object",
+      "required": ["materials_available", "missing_decisive_material"],
+      "additionalProperties": true,
+      "properties": {
+        "materials_available": { "type": "array" },
+        "missing_decisive_material": { "type": "array" }
+      }
+    },
+    "central_claim_dependency_map": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "claim", "decisive_evidence_needed"],
+        "additionalProperties": true,
+        "properties": {
+          "claim_id": { "type": "string", "minLength": 1 },
+          "claim": { "type": "string", "minLength": 8 },
+          "depends_on": { "type": "array" },
+          "decisive_evidence_needed": { "type": "string", "minLength": 8 },
+          "fragile_assumption": { "type": "string" }
+        }
+      }
+    },
+    "decisive_evidence_thresholds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "threshold_id",
+          "claim_id",
+          "support_condition",
+          "weakening_or_refuting_condition",
+          "claim_narrowing_condition"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "threshold_id": { "type": "string", "minLength": 1 },
+          "claim_id": { "type": "string", "minLength": 1 },
+          "support_condition": { "type": "string", "minLength": 8 },
+          "weakening_or_refuting_condition": { "type": "string", "minLength": 8 },
+          "claim_narrowing_condition": { "type": "string", "minLength": 8 }
+        }
+      }
+    },
+    "mandatory_reviewer_dimensions": {
+      "type": "array",
+      "minItems": 3
+    },
+    "failure_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["condition_id", "severity_floor", "condition", "affected_claim_id"],
+        "additionalProperties": true,
+        "properties": {
+          "condition_id": { "type": "string", "minLength": 1 },
+          "severity_floor": {
+            "type": "string",
+            "enum": ["Minor Revision", "Major Revision", "Reject"]
+          },
+          "condition": { "type": "string", "minLength": 8 },
+          "affected_claim_id": { "type": "string", "minLength": 1 },
+          "can_be_resolved_by": { "type": "string" }
+        }
+      }
+    },
+    "evidence_that_changes_recommendation": {
+      "type": "object",
+      "required": ["strengthen", "weaken", "force_claim_narrowing"],
+      "additionalProperties": true,
+      "properties": {
+        "strengthen": { "type": "array" },
+        "weaken": { "type": "array" },
+        "force_claim_narrowing": { "type": "array" }
+      }
+    },
+    "prohibited_post_hoc_standard_shifts": {
+      "type": "array",
+      "minItems": 1
+    },
+    "contract_amendments": { "type": "array" }
+  }
+}

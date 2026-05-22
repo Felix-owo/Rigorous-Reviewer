@@ -29,6 +29,10 @@ jobs:
         run: python -m py_compile rigorous-reviewer/scripts/*.py
       - name: Validate installable skill package
         run: python rigorous-reviewer/scripts/check_installable_skill.py --skill-dir rigorous-reviewer
+      - name: Validate version consistency
+        run: python rigorous-reviewer/scripts/check_version_consistency.py
+      - name: Run bundled regression fixtures
+        run: python rigorous-reviewer/scripts/run_regression_fixtures.py
       - name: Validate trigger keyword overlay
         run: python rigorous-reviewer/scripts/apply_trigger_keywords.py --skill-md rigorous-reviewer/SKILL.md --check
       - name: Validate Markdown review fixtures

@@ -6,6 +6,59 @@
       "rationale": "Associative evidence is present, but perturbation and rescue are missing."
     }
   ],
+  "pre_review_contract": {
+    "review_id": "synthetic-causal-mechanism",
+    "skill_version": "rigorous-reviewer v2.1.3",
+    "contract_status": "locked",
+    "material_basis": {
+      "materials_available": ["synthetic abstract", "figures", "methods summary"],
+      "missing_decisive_material": []
+    },
+    "central_claim_dependency_map": [
+      {
+        "claim_id": "C1",
+        "claim": "Pathway X is a causal driver of phenotype Y.",
+        "depends_on": ["M1"],
+        "decisive_evidence_needed": "Perturbation and rescue evidence with donor-level replication.",
+        "fragile_assumption": "Association can be interpreted as mechanism."
+      }
+    ],
+    "decisive_evidence_thresholds": [
+      {
+        "threshold_id": "T1",
+        "claim_id": "C1",
+        "support_condition": "Perturbing pathway X changes phenotype Y and rescue restores it.",
+        "weakening_or_refuting_condition": "Perturbation does not alter phenotype Y or rescue fails.",
+        "claim_narrowing_condition": "Only association or prioritization evidence remains."
+      }
+    ],
+    "mandatory_reviewer_dimensions": ["novelty", "methods_statistics", "reproducibility"],
+    "failure_conditions": [
+      {
+        "condition_id": "F1",
+        "severity_floor": "Major Revision",
+        "condition": "Causal mechanism claim lacks perturbation or equivalent causal evidence.",
+        "affected_claim_id": "C1",
+        "can_be_resolved_by": "Add perturbation/rescue or narrow the claim."
+      }
+    ],
+    "evidence_that_changes_recommendation": {
+      "strengthen": ["Perturbation and rescue support the mechanism."],
+      "weaken": ["Perturbation fails or confounding explains the signal."],
+      "force_claim_narrowing": ["Only associative evidence remains."]
+    },
+    "prohibited_post_hoc_standard_shifts": ["Do not replace the causal-evidence threshold with prediction accuracy."]
+  },
+  "claim_maturity_gate": [
+    {
+      "claim_id": "C1",
+      "current_maturity": 2,
+      "evidence_basis": "Associative evidence is present, but perturbation and rescue are missing.",
+      "blocking_loophole": "Batch, composition, or stress artifacts could explain the association.",
+      "maturity_upgrade_readout": "Perturbing pathway X changes phenotype Y and rescue restores it.",
+      "required_narrowing": "Narrow to association or candidate prioritization if causal evidence is not added."
+    }
+  ],
   "field_evidence_map": [
     {
       "field": "biology",

@@ -1,0 +1,94 @@
+{
+  "category_scores": [
+    {
+      "category": "logic_proof_evidential_support",
+      "score": 6.5,
+      "rationale": "The method is well controlled, but the manuscript claim exceeds the validated readout."
+    }
+  ],
+  "pre_review_contract": {
+    "review_id": "review-overclaim-fixture",
+    "skill_version": "rigorous-reviewer v2.1.3",
+    "contract_status": "locked",
+    "material_basis": {
+      "materials_available": ["main text", "methods", "figures"],
+      "missing_decisive_material": []
+    },
+    "central_claim_dependency_map": [
+      {
+        "claim_id": "C1",
+        "claim": "The method proves a general mechanism across systems.",
+        "depends_on": ["R1"],
+        "decisive_evidence_needed": "Independent system-level validation with positive and negative controls.",
+        "fragile_assumption": "The local SOP readout generalizes beyond the tested system."
+      }
+    ],
+    "decisive_evidence_thresholds": [
+      {
+        "threshold_id": "T1",
+        "claim_id": "C1",
+        "support_condition": "Independent validation supports the same mechanism in a second system.",
+        "weakening_or_refuting_condition": "The second system fails or shows a conflicting mechanism.",
+        "claim_narrowing_condition": "The result supports only the tested local system."
+      }
+    ],
+    "mandatory_reviewer_dimensions": ["novelty", "methods_statistics", "reproducibility"],
+    "failure_conditions": [
+      {
+        "condition_id": "F1",
+        "severity_floor": "Major Revision",
+        "condition": "No independent validation for a general mechanism claim.",
+        "affected_claim_id": "C1",
+        "can_be_resolved_by": "Add independent validation or narrow the claim."
+      }
+    ],
+    "evidence_that_changes_recommendation": {
+      "strengthen": ["Second-system validation supports the claim."],
+      "weaken": ["Second-system validation refutes the claim."],
+      "force_claim_narrowing": ["Only local-system validation remains."]
+    },
+    "prohibited_post_hoc_standard_shifts": ["Do not replace independent validation with rhetorical narrowing after scoring."],
+    "contract_amendments": []
+  },
+  "claim_maturity_gate": [
+    {
+      "claim_id": "C1",
+      "current_maturity": 2,
+      "evidence_basis": "Local SOP readout is controlled, but independent generalization is absent.",
+      "blocking_loophole": "System-specific effect.",
+      "maturity_upgrade_readout": "Independent validation supports the same mechanism in a second system.",
+      "required_narrowing": "Claim only the tested local system if validation is absent."
+    }
+  ],
+  "field_evidence_map": ["C1 depends on R1 and independent validation."],
+  "calibration": {},
+  "reviewer_panel_synthesis": {},
+  "issues": [
+    {
+      "severity": "Major",
+      "title": "General mechanism claim exceeds validated readout",
+      "specific_problem": "The manuscript presents a broad mechanism claim from a locally validated protocol readout.",
+      "why_serious_or_important": "This threatens the central interpretation because local method validity does not establish generality.",
+      "manuscript_evidence": "The figures show only the tested local system.",
+      "external_standard": "https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards",
+      "impact": "The broad mechanism claim remains unsupported without independent validation.",
+      "alternative_explanation_or_loophole": "A system-specific effect could explain the observed readout.",
+      "resolution": "Add independent validation or narrow the claim to the tested system.",
+      "decisive_readout": "A second-system result supports the claim; a failed or divergent result weakens/refutes it.",
+      "source_ids": ["S1"]
+    }
+  ],
+  "revision_actions": ["Add independent validation or narrow the claim."],
+  "evidence_ledger": [
+    {
+      "source_id": "S1",
+      "source": "Nature Portfolio reporting standards",
+      "source_type": "official_policy",
+      "supports": ["M1"],
+      "decision_role": "supporting",
+      "identifier": "https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards"
+    }
+  ],
+  "red_line_self_audit": ["pass"],
+  "overall_recommendation": "Major Revision"
+}

@@ -32,7 +32,24 @@ write every issue as a professional issue block with an evidence ledger.
 - Transparency, Reproducibility & Reporting: 5/10 - Code is promised but not
   linked; preprocessing and hyperparameter search are underspecified.
 
-## 2) Field Evidence Map
+## 2) Pre-Review Contract Snapshot
+- Contract status: locked.
+- Material basis: main text, figures, methods, and stated code availability.
+- Central claim dependency: C1, model-selected features identify a causal
+  disease mechanism.
+- Decisive evidence threshold: leakage-free external validation plus
+  perturbation/rescue or an equivalent orthogonal mechanism test.
+- Failure condition: predictive performance without causal validation keeps the
+  mechanistic claim at Major Revision or forces claim narrowing.
+- Prohibited post-hoc shift: do not replace mechanism evidence with polished
+  interpretation of feature importance.
+
+## 3) Claim Maturity Gate
+| Claim | Current maturity | Evidence basis | Blocking loophole | Upgrade readout | Required narrowing |
+| --- | ---: | --- | --- | --- | --- |
+| C1: model-selected features identify a causal disease mechanism | 2 | Predictive association and feature ranking are present, but orthogonal mechanism evidence is missing. | Cohort leakage, disease severity, cell composition, and batch structure can explain the signal. | Independent cohort validation plus perturbation/rescue changes the phenotype in the predicted direction. | Narrow to candidate prioritization if mechanism validation is absent. |
+
+## 4) Field Evidence Map
 - Central claim under review: model-selected features identify a causal disease
   mechanism.
 - Domain and fusion map: computational biology, machine learning, disease
@@ -46,7 +63,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Main loophole or false-positive risks: cohort leakage, cell composition,
   disease severity, batch effects, and post hoc pathway interpretation.
 
-## 3) Calibration Against Gold / Near-Gold Papers
+## 5) Calibration Against Gold / Near-Gold Papers
 - Anchor set: 8 anchors, including 4 accepted benchmark/method papers, 2
   cautionary leakage studies, and 2 external-validation papers.
 - Innovation calibration: similar to accepted applied-method papers, weaker than
@@ -57,7 +74,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Confidence adjustment: maintain Major Revision rather than Reject because the
   claim can be narrowed to predictive prioritization if mechanism is not proven.
 
-## 4) Reviewer Panel Synthesis
+## 6) Reviewer Panel Synthesis
 - EIC: topic is potentially broad, but central mechanism claim is not yet
   top-journal level.
 - Methods / Statistics Reviewer: benchmark split and external validation are the
@@ -71,10 +88,10 @@ write every issue as a professional issue block with an evidence ledger.
 - Synthesizer: central claim should be narrowed unless external validation and
   perturbational evidence support the bridge.
 
-## 5) External Scientific Skills Used
+## 7) External Scientific Skills Used
 - Not applicable in this compact example.
 
-## 6) Identified Issues
+## 8) Identified Issues
 - [Critical] Mechanistic claim is not established by predictive performance.
   具体问题：The abstract and Figure 4 interpret model-selected features as a
   causal disease mechanism, but the evidence shown is model association and
@@ -113,7 +130,7 @@ write every issue as a professional issue block with an evidence ledger.
   association disappears after composition/severity adjustment, or if
   perturbation does not affect the phenotype.
 
-## 7) Literature / Source Search Hints
+## 9) Literature / Source Search Hints
 - Evidence gap / claim tested: whether model feature importance can support the
   stated mechanistic conclusion.
 - Preferred sources: primary method papers, external-validation benchmarks,
@@ -127,7 +144,7 @@ write every issue as a professional issue block with an evidence ledger.
   narrowing.
 - Citation target: Critical issue on mechanism overclaim.
 
-## 8) Revision Suggested Actions
+## 10) Revision Suggested Actions
 ### Essential for supporting the main claim
 - Target: Figure 4, Methods, Discussion.
 - Required revision: external validation plus orthogonal perturbation/rescue or
@@ -151,7 +168,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Replace mechanism-discovery wording with candidate-prioritization wording if
   no perturbation/rescue is added.
 
-## 9) Evidence Ledger
+## 11) Evidence Ledger
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
 | M1 | Figure 4 and Discussion | manuscript-internal | Critical issue on mechanism overclaim | decisive | Figure 4; Discussion |
@@ -159,7 +176,7 @@ write every issue as a professional issue block with an evidence ledger.
 | S1 | External-validation and leakage-control literature | search target | Critical issue on predictive-to-mechanistic bridge | decisive search target | query in section 7 |
 | S2 | Biological perturbation/rescue standard | search target | required mechanism validation | decisive search target | query in section 7 |
 
-## 10) Red-Line Self-Audit
+## 12) Red-Line Self-Audit
 - Citation support: fixed with source targets; real reviews should replace
   search targets with article-specific citations.
 - Manuscript-internal evidence: pass.
@@ -168,7 +185,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Panel traceability: pass.
 - Markdown/report validation: pass for structure.
 
-## 11) Overall Recommendation
+## 13) Overall Recommendation
 - Major Revision
 - Rationale: The work is promising as a predictive and hypothesis-generating
   study, but the central mechanistic claim remains unsupported until the

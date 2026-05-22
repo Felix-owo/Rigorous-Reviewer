@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.1.3
+
+- Adds Agent Skill package compliance checks for version consistency across
+  `SKILL.md`, templates, and regression fixtures.
+- Adds regression fixtures for the pre-review contract, claim-maturity gate, and
+  cross-skill claim-readout handoff introduced after v2.1.0.
+- Updates CI-facing validation so installability checks also execute the
+  package version consistency gate.
+
 ## v2.1.0
 
 - Expands `references/external_scientific_skills_bridge.md` into a general companion capability bridge covering K-Dense, official Life Science Research, bioinformatics, simulation, writing/output, design, and software-engineering companions.

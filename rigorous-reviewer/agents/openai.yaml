@@ -2,6 +2,6 @@ interface:
   display_name: "Rigorous Reviewer"
   short_description: "Portable top-journal scientific peer review"
   brand_color: "#2563EB"
-  default_prompt: "Use $rigorous-reviewer to perform a comprehensive Markdown top-journal-level review of this manuscript, including panel synthesis, calibration anchors, optional MCP or companion-skill evidence checks, professional issue blocks, evidence gaps, an evidence ledger, and decisive revision actions."
+  default_prompt: "Use $rigorous-reviewer to perform a comprehensive Markdown top-journal-level review of this manuscript, including pre-review contract lock, claim maturity gate, cross-skill claim-readout handoff when methods evidence is central, evidence isolation, panel synthesis, calibration anchors, optional MCP or companion-skill evidence checks, professional issue blocks, evidence gaps, an evidence ledger, and decisive revision actions."
 policy:
   allow_implicit_invocation: true

@@ -17,6 +17,8 @@ from pathlib import Path
 
 REQUIRED_SECTIONS = [
     "Category Scores",
+    "Pre-Review Contract Snapshot",
+    "Claim Maturity Gate",
     "Field Evidence Map",
     "Calibration Against Gold / Near-Gold Papers",
     "Reviewer Panel Synthesis",
@@ -171,7 +173,7 @@ def validate_issue_block(severity: str, title: str, block: str, strict: bool = F
 
 def evidence_ledger_present(text: str) -> bool:
     return (
-        "## 9) Evidence Ledger" in text
+        bool(re.search(r"^##\s+\d+\)\s+Evidence Ledger\s*$", text, re.MULTILINE))
         and "| ID | Source | Type | Supports / challenges | Decision role | Identifier / link |" in text
     )
 
@@ -198,6 +200,8 @@ def validate(path: Path, strict: bool = False) -> list[str]:
         errors.append("missing Evidence Ledger table with required columns")
 
     if strict:
+        if "Cross-Skill Claim-Readout Handoff" in text and "parameter authority" not in text.lower():
+            errors.append("Cross-Skill Claim-Readout Handoff must include parameter authority")
         recommendation = section_text(text, "Overall Recommendation")
         if recommendation and not any(decision in recommendation for decision in RECOMMENDATIONS):
             errors.append("Overall Recommendation must include Accept, Minor Revision, Major Revision, or Reject")

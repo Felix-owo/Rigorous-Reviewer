@@ -17,7 +17,25 @@
 - Literature, Frontier & Benchmark Awareness: <score>/10 - <brief rationale>
 - Transparency, Reproducibility & Reporting: <score>/10 - <brief rationale>
 
-## 2) Field Evidence Map
+## 2) User-Supplied Material Handling
+
+Include only when the user supplied multiple files, prior reviews, datasets,
+figures, code, protocols, or source lists.
+
+| Material | Status | Reason if excluded | Role in review |
+| --- | --- | --- | --- |
+| <file/source> | screened / used / excluded | <reason> | <claim/evidence/limitation> |
+
+## 3) Pre-Review Contract Snapshot
+
+- Contract status: <locked / partial_material_contract / amended / not saved>
+- Central claim dependency map: <claim -> required evidence -> dependent figure/table/result/proof/model>
+- Decisive evidence thresholds: <what would support vs weaken/narrow each central claim>
+- Failure conditions: <conditions that force Major Revision or Reject>
+- Prohibited post-hoc standard shifts: <standards not weakened during review>
+- Contract amendments: <none or reason/evidence>
+
+## 4) Field Evidence Map
 
 - Central claim under review: <claim>
 - Domain and fusion map: <biology/chemistry/physics/mathematics/medicine/CS/intersection>
@@ -26,7 +44,22 @@
 - Current frontier and provisional sources: <recent accepted work and preprints, labeled by status>
 - Main loophole or false-positive risks: <risks>
 
-## 3) Calibration Against Gold / Near-Gold Papers
+## 5) Claim Maturity Gate
+
+| Claim ID | Current maturity | Evidence basis | Blocking loophole | Maturity upgrade readout | Required narrowing if unresolved |
+| --- | --- | --- | --- | --- | --- |
+| <C1> | Level 0 / 1 / 2 / 3 | <internal + external evidence> | <loophole> | <decisive readout> | <claim wording> |
+
+## 6) Cross-Skill Claim-Readout Handoff
+
+Include when a claim depends on biological protocol-derived evidence, SOP
+readouts, or method execution quality.
+
+| Claim ID | Claim | Evidence role | Readout ID | Protocol step/method | Parameter authority | QC gate | Failure mode | Manuscript impact | Revision action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| <C1> | <claim> | decisive/supporting/contextual/exploratory | <R1> | <method/SOP section> | <authority> | <threshold/control/fail action> | <risk> | <impact> | <action> |
+
+## 7) Calibration Against Gold / Near-Gold Papers
 
 - Anchor set: <number and source types>
 - Closest positive anchors: <citations and relevance>
@@ -36,7 +69,15 @@
 - FNR/FPR estimate: <numeric only if labeled anchors support it; otherwise qualitative>
 - Confidence adjustment: <how calibration changes severity or recommendation>
 
-## 4) Reviewer Panel Synthesis
+## 8) Figure Claim Audit
+
+Include when figures/tables/panels are central to claim support.
+
+| Figure/table | Claim defended | Decisive panel/readout | Contextual panel/readout | Main control/stat/source-data gap | Survival test |
+| --- | --- | --- | --- | --- | --- |
+| <ID> | <claim> | <panel/metric> | <panel/metric> | <gap or pass> | <claim survives/fails without figure> |
+
+## 9) Reviewer Panel Synthesis
 
 - EIC: <main editorial judgment>
 - Methods / Statistics Reviewer: <main technical judgment>
@@ -45,11 +86,11 @@
 - Devil's Advocate: <strongest counter-argument>
 - Synthesizer: <integrated claim-dependency conclusion>
 
-## 5) External Scientific Skills Used
+## 10) External Scientific Skills Used
 
 - <include only if companion skills were actually used or if non-use explains a limitation>
 
-## 6) Identified Issues
+## 11) Identified Issues
 
 - [Critical/Major/Minor] <short title>
   具体问题：<exact problematic claim/figure/table/model/proof/experiment/cohort/benchmark>
@@ -62,7 +103,7 @@
   解决：<specific experiment/analysis/control/benchmark/proof repair/validation/rewrite>
   决定性 readout：<supporting result vs weakening/refuting or claim-narrowing result>
 
-## 7) Literature / Source Search Hints
+## 12) Literature / Source Search Hints
 
 - Evidence gap / claim tested: <claim or missing standard>
 - Preferred sources: <primary papers / guidelines / datasets / structures / theorem sources / clinical registries / benchmarks / preprints as provisional>
@@ -70,7 +111,7 @@
 - Decision-changing evidence: <what would strengthen, weaken, or narrow the conclusion>
 - Citation target: <which issue or revision action this search supports>
 
-## 8) Revision Suggested Actions
+## 13) Revision Suggested Actions
 
 ### Essential for supporting the main claim
 
@@ -92,23 +133,37 @@
 
 - <precise wording, annotation, methods, source, code/data, or citation fixes>
 
-## 9) Evidence Ledger
+## 14) Review-to-Revision Action Map
+
+Include only when the user asks for revision strategy, rebuttal preparation, or
+lab-facing revision planning.
+
+| Issue ID | Severity | Required action | Manuscript location | Evidence needed | Response posture |
+| --- | --- | --- | --- | --- | --- |
+| <issue> | <Critical/Major/Minor> | <label from revision_response_bridge.md> | <section/figure/table> | <source/readout> | <posture> |
+
+## 15) Evidence Ledger
 
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
 | M1 | <figure/table/method/proof/code/source in manuscript> | manuscript-internal | <issue/action> | decisive/supporting/cautionary | <location> |
 | S1 | <external source> | primary/guideline/benchmark/dataset/standard | <issue/action/calibration> | decisive/supporting/cautionary/search target | <DOI/PMID/arXiv/URL/accession> |
 
-## 10) Red-Line Self-Audit
+## 16) Red-Line Self-Audit
 
 - Citation support: <pass/fixed>
 - Manuscript-internal evidence: <pass/fixed>
 - Decisive readouts: <pass/fixed>
+- Pre-review contract respected: <pass/fixed/not applicable>
+- Claim maturity gate: <pass/fixed>
+- Cross-skill claim-readout handoff: <pass/fixed/not applicable>
+- Evidence isolation: <pass/fixed>
+- Figure-claim audit: <pass/fixed/not applicable>
 - Search-hint coverage: <pass/fixed>
 - Panel traceability: <pass/fixed>
 - Markdown/report validation: <pass/fixed/not applicable>
 
-## 11) Overall Recommendation
+## 17) Overall Recommendation
 
 - Decision: <Accept / Minor Revision / Major Revision / Reject>
 - Rationale: <one paragraph tied to scores, severity distribution, claim dependency, novelty, and feasibility>

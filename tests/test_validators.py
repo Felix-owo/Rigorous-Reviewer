@@ -53,19 +53,30 @@ class ValidatorTests(unittest.TestCase):
 ## 1) Category Scores
 - Top-Journal Novelty & Significance: 5/10 - Limited by causal evidence.
 
-## 2) Field Evidence Map
+## 2) Pre-Review Contract Snapshot
+- Contract status: locked.
+- Central claim dependency: C1, the model makes a causal biological claim.
+- Decisive evidence threshold: perturbation with rescue supports the mechanism.
+- Failure condition: no perturbation or rescue keeps the mechanism claim at Major Revision.
+
+## 3) Claim Maturity Gate
+| Claim | Current maturity | Evidence basis | Blocking loophole | Upgrade readout | Required narrowing |
+| --- | ---: | --- | --- | --- | --- |
+| C1 | 2 | Association is present without perturbation or rescue. | Batch composition or stress response. | Perturbation with rescue supports the claim. | Narrow to association if causal evidence is absent. |
+
+## 4) Field Evidence Map
 - Central claim under review: The model makes a causal biological claim.
 
-## 3) Calibration Against Gold / Near-Gold Papers
+## 5) Calibration Against Gold / Near-Gold Papers
 - Anchor set: Synthetic benchmark.
 
-## 4) Reviewer Panel Synthesis
+## 6) Reviewer Panel Synthesis
 - EIC: Major Revision.
 
-## 5) External Scientific Skills Used
+## 7) External Scientific Skills Used
 - None.
 
-## 6) Identified Issues
+## 8) Identified Issues
 - [Major] Causal claim is under-supported
   Specific problem: The manuscript interprets association as mechanism without a perturbation or rescue test.
   Why serious: The conclusion depends on causal evidence rather than correlation.
@@ -77,22 +88,22 @@ class ValidatorTests(unittest.TestCase):
   Resolution: Add perturbation and rescue, or narrow the conclusion to association.
   Decisive readout: Perturbation with rescue would support the claim; failure to perturb or rescue would weaken the mechanism and force narrowing.
 
-## 7) Literature / Source Search Hints
+## 9) Literature / Source Search Hints
 - Evidence gap / claim tested: causal mechanism.
 
-## 8) Revision Suggested Actions
+## 10) Revision Suggested Actions
 ### Essential for supporting the main claim
 - Target: central mechanism.
 
-## 9) Evidence Ledger
+## 11) Evidence Ledger
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
 | S1 | Synthetic benchmark standard | benchmark | Major issue | decisive | DOI:10.0000/rr.synthetic.standard |
 
-## 10) Red-Line Self-Audit
+## 12) Red-Line Self-Audit
 - Citation support: pass
 
-## 11) Overall Recommendation
+## 13) Overall Recommendation
 - Decision: Major Revision
 """
         with tempfile.TemporaryDirectory() as tmpdir:

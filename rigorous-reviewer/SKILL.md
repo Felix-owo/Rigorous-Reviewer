@@ -11,11 +11,14 @@ description: >
   calibration, optional companion skills or MCP capabilities, and red-line
   checks before producing one comprehensive evidence-grounded review.
 metadata:
-  version: "2.1.0"
+  version: "2.1.3"
   supported_hosts: "Agent Skills compatible hosts; Codex through skill-installer or direct folder install."
   compatibility: "Portable SKILL.md package. MCP is optional and host-provided; no MCP server is required or bundled."
   mcp_required: "false"
   mcp_tool_use_policy: "references/mcp_tool_use_policy.md"
+  data_access_level: "raw_or_verified"
+  task_type: "open-ended scientific peer review"
+  ground_truth_policy: "Rubrics and calibration anchors define standards, not answer keys; gold labels are runtime-supplied only."
 license: MIT
 ---
 
@@ -194,6 +197,37 @@ Load by phase:
   paper-specific evidence dossier and search strategy.
 - `references/calibration_protocol.md` before novelty, FNR/FPR, balanced
   accuracy, and gold/near-gold calibration.
+- `references/claim_maturity_gate.md` before final recommendation to assign
+  Level 0-3 maturity for central claims independently from journal decision.
+- `references/pre_review_contract_protocol.md`,
+  `templates/review_contract_template.json`, and
+  `schemas/review_contract.schema.json` after claim reconstruction and before
+  panel synthesis when the task involves a manuscript, proposal, benchmark,
+  dataset, proof, or central scientific claim. Use
+  `scripts/check_review_contract.py` when a saved `Review_Contract.json` is
+  created.
+- `references/phase_boundary_rules.md` before multi-stage or long-form reviews,
+  especially when saving intermediate artifacts or resuming across sessions.
+- `references/evidence_isolation_policy.md` before using user-supplied
+  material, calibration anchors, companion outputs, MCP outputs, or public
+  datasets as evidence.
+- `references/cross_skill_claim_readout_handoff.md`,
+  `schemas/claim_readout_handoff.schema.json`, and
+  `scripts/check_claim_readout_handoff.py` when a manuscript claim depends on
+  biological protocol-derived evidence, SOP-generated readouts, method
+  execution quality, or a BPR output.
+- `references/figure_claim_audit.md` before reviewing figures, panels, tables,
+  figure legends, source data, graphical abstracts, or image/plot-heavy claims.
+- `references/manuscript_rhetoric_vs_evidence.md` before evaluating polished
+  manuscripts, journal-fit claims, or language/style-heavy drafts.
+- `references/revision_response_bridge.md` and
+  `templates/review_to_revision_plan.md` when the user asks to turn the review
+  into a revision strategy, reviewer-response map, lab-meeting outline, or
+  rebuttal-preparation handoff. Do not use these to soften reviewer severity.
+- `references/chinese_researcher_mode.md` when the user writes in Chinese or
+  asks for Chinese author-facing action items.
+- `references/module_maturity.md` when auditing, maintaining, or extending this
+  skill package.
 - `references/cns_reviewer_requirements.md` before editorial recommendation and
   top-journal threshold judgment.
 - `references/reviewer_output_standards.md` before drafting literature/source
@@ -215,35 +249,63 @@ Load by phase:
 - `schemas/review_report.schema.json` and `scripts/lint_structured_review.py`
   only when the user requests machine-readable JSON output or when validating a
   structured review artifact.
+- `scripts/run_regression_fixtures.py` only when maintaining the skill package
+  or checking that bundled examples still satisfy validators.
 
 ## Core Workflow
 
 1. **Reconstruct the paper.** State the authors' strongest take-home message,
    central claim dependency, strongest claim, most fragile claim, and decisive
    evidence threshold.
-2. **Identify domains.** Map the manuscript to biology, chemistry, physics,
+2. **Screen user-supplied material first.** Do not silently skip supplied
+   manuscripts, supplements, figures, datasets, prior reviews, reviewer
+   comments, code, or protocols. Record exclusions and reasons using
+   `evidence_isolation_policy.md`.
+3. **Lock the pre-review contract.** Before final severity or recommendation,
+   define central claim dependencies, decisive evidence thresholds, failure
+   conditions, and prohibited post-hoc standard shifts. Findings may add
+   manuscript-specific detail later but must not weaken or silently replace the
+   locked failure conditions.
+4. **Identify domains.** Map the manuscript to biology, chemistry, physics,
    mathematics, medicine, computer science, and any fusion bridge claim. Use
    `six_domain_review_standards.md`.
-3. **Build an evidence dossier.** Use manuscript-internal evidence plus external
+5. **Build an evidence dossier.** Use manuscript-internal evidence plus external
    anchors: landmark papers, canonical methods, standards, benchmarks, theorem
    sources, datasets, trials, contrary evidence, and current accepted work.
-4. **Calibrate.** Use `calibration_protocol.md` to compare against gold,
+6. **Calibrate.** Use `calibration_protocol.md` to compare against gold,
    near-gold, negative, and boundary anchors. Estimate FNR/FPR/balanced accuracy
    only when labeled anchors make that defensible.
-5. **Use companion skills if available.** Follow
+7. **Assign claim maturity.** Use Level 0-3 maturity for each central claim so
+   the report separates speculative, plausible, locally supported, and
+   independently robust conclusions from the final journal recommendation.
+8. **Map claim-to-readout dependencies when relevant.** If a claim depends on
+   biological protocol-derived evidence, map claim, readout, protocol step,
+   parameter authority, QC gate, failure mode, manuscript impact, and revision
+   action before scoring the claim.
+9. **Use companion skills if available.** Follow
    `external_scientific_skills_bridge.md`. Companion skills supply bounded
    evidence inputs; they do not replace this reviewer's judgment.
-6. **Use MCP capabilities if available.** Follow
+10. **Use MCP capabilities if available.** Follow
    `references/mcp_tool_use_policy.md`. Treat MCP tools, resources, and prompts
    as optional evidence-gathering, parsing, computation, source-verification, or
    validation routes, never as a required dependency or replacement for reviewer
    synthesis.
-7. **Run reviewer-panel passes.** Generate separate EIC, methods/statistics,
+11. **Respect phase boundaries.** Intake, evidence audit, reviewer passes, and
+   editorial synthesis have separate write permissions. Final recommendation and
+   revision roadmap belong only after evidence audit and panel synthesis.
+12. **Audit figure-claim contracts when relevant.** For each central figure or
+   table, identify the defended claim, decisive panel, contextual panel,
+   quantification, statistics, controls, source data, and whether the claim
+   survives without that figure.
+13. **Separate rhetoric from evidence.** Do not let polished writing, journal
+   style, or strong narrative flow compensate for weak claim precision,
+   insufficient evidence, causal overreach, or reproducibility gaps.
+14. **Run reviewer-panel passes.** Generate separate EIC, methods/statistics,
    domain, interdisciplinary, Devil's Advocate, and editorial synthesis findings
    before final writing.
-8. **Score and rank issues.** Use `rubric.json`; rank by claim dependency and
+15. **Score and rank issues.** Use `rubric.json`; rank by claim dependency and
    severity, not rhetorical intensity.
-9. **Write professional issue blocks, not short comments.** Every Critical,
+16. **Write professional issue blocks, not short comments.** Every Critical,
    Major, and Minor issue must be written as a self-contained reviewer
    mini-review. Critical/Major issues must not be compressed into one-line or
    two-line bullets. Each issue must contain: specific problem, why it is
@@ -252,24 +314,24 @@ Load by phase:
    support. In Chinese reports, use these labels exactly: `具体问题：`,
    `为什么严重：` or `为什么重要：`, `证据：`, `影响：`, `替代解释/漏洞：`,
    `解决：`, and `决定性 readout：`.
-10. **Convert to action.** Separate essential revisions from important but
+17. **Convert to action.** Separate essential revisions from important but
    non-decisive improvements and wording/reporting fixes.
-11. **Generate search hints.** Every central evidence gap needs targeted source
+18. **Generate search hints.** Every central evidence gap needs targeted source
     routes, search strings, and decision-changing evidence.
-12. **Recommend.** Choose Accept, Minor Revision, Major Revision, or Reject from
+19. **Recommend.** Choose Accept, Minor Revision, Major Revision, or Reject from
     unresolved claim dependency, novelty, severity distribution, loophole burden,
     and revision feasibility.
-13. **Format as Markdown.** Default to a Markdown report in chat. Save a `.md`
+20. **Format as Markdown.** Default to a Markdown report in chat. Save a `.md`
     file only when the user explicitly asks for a file, archive, or document.
     When saving, use `templates/review_report_template.md`, include an evidence
     ledger, and do not commit or publish manuscript-specific review reports
     unless the user explicitly requests that.
-14. **Audit and rewrite.** Apply `failure_mode_playbook.md`; rewrite any section
+21. **Audit and rewrite.** Apply `failure_mode_playbook.md`; rewrite any section
     that fails a red line before returning the report.
-15. **Validate saved reports.** If a `.md` report file is created, run
+22. **Validate saved reports.** If a `.md` report file is created, run
     `scripts/validate_review_report.py <report.md>` and fix any failures before
     handing it back.
-16. **Validate structured artifacts.** If a JSON review artifact is created, run
+23. **Validate structured artifacts.** If a JSON review artifact is created, run
     `scripts/lint_structured_review.py <report.json>` and fix any schema
     failures before handing it back.
 
@@ -359,22 +421,30 @@ Use `templates/review_report_template.md` for the complete output skeleton and
 must include:
 
 1. Category scores with brief rationales.
-2. Field evidence map.
-3. Calibration against gold / near-gold / negative / boundary anchors.
-4. Reviewer panel synthesis.
-5. External scientific skills used, only if actually used or needed to explain a
+2. User-supplied material handling when materials beyond the main manuscript were
+   provided.
+3. Pre-review contract snapshot: central claim dependency, decisive evidence
+   thresholds, failure conditions, and prohibited post-hoc shifts.
+4. Claim maturity gate with Level 0-3 status and upgrade readout.
+5. Cross-skill claim-readout handoff when protocol-derived evidence is central.
+6. Field evidence map.
+7. Calibration against gold / near-gold / negative / boundary anchors.
+8. Figure claim audit when figure/table claims are central.
+9. Reviewer panel synthesis.
+10. External scientific skills used, only if actually used or needed to explain a
    limitation.
-6. MCP capabilities used, only if actually used or needed to explain a
+11. MCP capabilities used, only if actually used or needed to explain a
    limitation.
-7. Critical / Major / Minor issues with the full professional issue-block logic
+12. Critical / Major / Minor issues with the full professional issue-block logic
    chain. If an issue lacks `具体问题` / seriousness or importance / evidence /
    impact / resolution / decisive readout, rewrite it before returning the
    report.
-8. Literature / source search hints tied to evidence gaps.
-9. Revision suggested actions grouped by decisiveness.
-10. Evidence ledger linking sources to issues and revision actions.
-11. Red-line self-audit.
-12. Overall recommendation and minimum bar for a stronger decision.
+13. Literature / source search hints tied to evidence gaps.
+14. Revision suggested actions grouped by decisiveness, with optional
+    review-to-revision action map only when requested.
+15. Evidence ledger linking sources to issues and revision actions.
+16. Red-line self-audit.
+17. Overall recommendation and minimum bar for a stronger decision.
 
 Default output is Markdown in the conversation. Create a `.md` file only when the
 user asks for a document, file, export, or archive.
@@ -385,3 +455,9 @@ unless the user explicitly asks for JSON-only output. If external companions are
 used, record them in the optional `external_companion_evidence` array with the
 tool/skill, query, returned identifier, affected claim, evidence role, and
 limitation.
+
+If a cross-skill handoff JSON artifact is created, validate it:
+
+```bash
+python3 scripts/check_claim_readout_handoff.py Claim_Readout_Handoff.json
+```

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -28,6 +29,7 @@ REQUIRED_FILES = [
     "scripts/score_benchmark_semantic.py",
     "scripts/apply_trigger_keywords.py",
     "scripts/check_installable_skill.py",
+    "scripts/check_version_consistency.py",
     "schemas/review_report.schema.json",
     "schemas/issue.schema.json",
     "schemas/evidence_ledger.schema.json",
@@ -124,6 +126,12 @@ def validate_skill(skill_dir: Path) -> list[str]:
                 "Run: python rigorous-reviewer/scripts/apply_trigger_keywords.py --skill-md rigorous-reviewer/SKILL.md. "
                 f"Missing: {missing_trigger_terms}"
             )
+
+    version_check = skill_dir / "scripts" / "check_version_consistency.py"
+    if version_check.exists():
+        result = subprocess.run([sys.executable, str(version_check.resolve())], cwd=skill_dir, text=True)
+        if result.returncode:
+            errors.append("scripts/check_version_consistency.py failed")
 
     return errors
 

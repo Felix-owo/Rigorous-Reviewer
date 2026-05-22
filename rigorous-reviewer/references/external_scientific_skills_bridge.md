@@ -15,6 +15,7 @@ artifacts, checks, or outputs.
 - Companion Capability Scope
 - Invocation Rule
 - Recommended K-Dense Scientific Companion Skills
+- Academic Research Pipeline / Integrity Companions
 - Official Life Science Research Plugin / Skill
 - Bioinformatics Workflow Companions
 - Domain-Specific Simulation / Computation Companions
@@ -102,6 +103,60 @@ copy full third-party skills into this repository.
 
 Do not install K-Dense `$peer-review` as a default companion. It overlaps with
 the core reviewer role and can create trigger ambiguity.
+
+## Academic Research Pipeline / Integrity Companions
+
+Use installed skills or plugin capabilities from
+`Imbad0202/academic-research-skills` or its Codex-native sibling distribution
+only when they are visible in the current host or when the user explicitly asks
+to use them. Treat them as research-pipeline, integrity, corpus, citation, and
+revision-traceability companions, not as replacement reviewers.
+
+Most useful support classes:
+
+- `Material Passport` / passport-like state: preserve source corpus,
+  claim-audit, provenance, reset-boundary, and resumability metadata for long
+  reviews.
+- Corpus-first literature handling: pre-screen user-curated papers or PDFs,
+  record no-silent-skip exclusions, and use external search only to fill gaps.
+- Integrity gates: claim verification, citation faithfulness, data provenance,
+  temporal consistency, and AI-failure-mode checks before or after review.
+- Revision traceability: map reviewer issues to author changes, residual
+  concerns, and re-review checkpoints.
+- Benchmark-report integrity: check whether claimed benchmark comparisons expose
+  data access, gold labels, leakage controls, and evaluation limits.
+- Writing/output support after judgment: revision coaching, response roadmap,
+  citation-format conversion, disclosure language, or paper-format export.
+
+Potentially relevant visible skill names or commands may include
+`$academic-research-suite`, `academic-pipeline`, `academic-paper`,
+`academic-paper-reviewer`, `deep-research`, or `ars-*` aliases. Use the exact
+name exposed by the host; do not assume these are installed.
+
+Do not use for:
+
+- final evidence-sufficiency judgment;
+- final Accept / Minor / Major / Reject recommendation;
+- changing Critical/Major/Minor severity;
+- overriding this skill's pre-review contract, reviewer-panel synthesis, or
+  evidence ledger;
+- running `academic-paper-reviewer` as a default parallel reviewer, because it
+  overlaps with Rigorous Reviewer's core role and can create trigger ambiguity;
+- sending confidential manuscripts, private PDFs, unpublished data, local paths,
+  credentials, or personal information to a networked service without explicit
+  user approval.
+
+Minimum evidence to bring back:
+
+```text
+ARS companion or command:
+Companion class: corpus / passport / integrity / citation / revision / output
+Input material handled:
+Returned artifact or identifier:
+Claim, citation, corpus item, or revision affected:
+Evidence role: supports / weakens / narrows / flags / context
+Limitation and data-access level:
+```
 
 ## Official Life Science Research Plugin / Skill
 
