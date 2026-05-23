@@ -8,17 +8,23 @@
   ],
   "pre_review_contract": {
     "review_id": "synthetic-causal-mechanism",
-    "skill_version": "rigorous-reviewer v2.3.0",
+    "skill_version": "rigorous-reviewer v2.3.1",
     "contract_status": "locked",
     "material_basis": {
-      "materials_available": ["synthetic abstract", "figures", "methods summary"],
+      "materials_available": [
+        "synthetic abstract",
+        "figures",
+        "methods summary"
+      ],
       "missing_decisive_material": []
     },
     "central_claim_dependency_map": [
       {
         "claim_id": "C1",
         "claim": "Pathway X is a causal driver of phenotype Y.",
-        "depends_on": ["M1"],
+        "depends_on": [
+          "M1"
+        ],
         "decisive_evidence_needed": "Perturbation and rescue evidence with donor-level replication.",
         "fragile_assumption": "Association can be interpreted as mechanism."
       }
@@ -32,7 +38,11 @@
         "claim_narrowing_condition": "Only association or prioritization evidence remains."
       }
     ],
-    "mandatory_reviewer_dimensions": ["novelty", "methods_statistics", "reproducibility"],
+    "mandatory_reviewer_dimensions": [
+      "novelty",
+      "methods_statistics",
+      "reproducibility"
+    ],
     "failure_conditions": [
       {
         "condition_id": "F1",
@@ -43,11 +53,19 @@
       }
     ],
     "evidence_that_changes_recommendation": {
-      "strengthen": ["Perturbation and rescue support the mechanism."],
-      "weaken": ["Perturbation fails or confounding explains the signal."],
-      "force_claim_narrowing": ["Only associative evidence remains."]
+      "strengthen": [
+        "Perturbation and rescue support the mechanism."
+      ],
+      "weaken": [
+        "Perturbation fails or confounding explains the signal."
+      ],
+      "force_claim_narrowing": [
+        "Only associative evidence remains."
+      ]
     },
-    "prohibited_post_hoc_standard_shifts": ["Do not replace the causal-evidence threshold with prediction accuracy."]
+    "prohibited_post_hoc_standard_shifts": [
+      "Do not replace the causal-evidence threshold with prediction accuracy."
+    ]
   },
   "claim_maturity_gate": [
     {
@@ -78,7 +96,7 @@
       "companion_class": "paper_lookup",
       "tool_or_skill": "$paper-lookup",
       "query_or_task": "synthetic benchmark causal standard",
-      "returned_identifier": "DOI:10.0000/rr.synthetic.standard",
+      "returned_identifier": "benchmark:rr.synthetic.standard",
       "evidence_role": "context",
       "claim_affected": "central mechanism",
       "limitation": "Synthetic fixture for validator regression only."
@@ -91,13 +109,21 @@
       "specific_problem": "The central mechanism is asserted without perturbation or rescue evidence.",
       "why_serious_or_important": "The missing causal evidence directly affects the main conclusion.",
       "manuscript_evidence": "Association-only results are used to support causal wording.",
-      "external_standard": "Synthetic benchmark standard S1, DOI:10.0000/rr.synthetic.standard.",
+      "external_standard": "Synthetic benchmark standard S1, benchmark:rr.synthetic.standard.",
       "impact": "The main claim must be downgraded unless causal evidence is added.",
       "alternative_explanation_or_loophole": "Batch, composition, or stress artifacts could explain the pattern.",
       "resolution": "Add perturbation and rescue or narrow the claim to association.",
       "decisive_readout": "Perturbation-induced phenotype change with rescue would support the causal claim; failure to change or rescue would weaken the claim and force narrowing to association.",
-      "linked_claims": ["central mechanism"],
-      "source_ids": ["S1"]
+      "linked_claims": [
+        "C1"
+      ],
+      "source_ids": [
+        "S1"
+      ],
+      "manuscript_artifact_ids": [
+        "M1"
+      ],
+      "manuscript_location": "synthetic abstract and results summary"
     }
   ],
   "revision_actions": [
@@ -111,11 +137,23 @@
       "source_id": "S1",
       "source": "Synthetic benchmark standard",
       "source_type": "benchmark",
-      "supports": ["Critical causal claim issue"],
+      "supports": [
+        "Critical causal claim issue"
+      ],
       "decision_role": "decisive",
-      "identifier": "DOI:10.0000/rr.synthetic.standard"
+      "identifier": "benchmark:rr.synthetic.standard"
     }
   ],
-  "red_line_self_audit": ["Issue has decisive readout."],
-  "overall_recommendation": "Major Revision"
+  "red_line_self_audit": [
+    "Issue has decisive readout."
+  ],
+  "overall_recommendation": "Major Revision",
+  "assumption_ledger": [
+    {
+      "assumption": "The synthetic fixture contains no real primary literature source.",
+      "source_or_absence": "Synthetic benchmark identifier only.",
+      "possible_bias_direction": "Prevents treating the benchmark handle as a real citation.",
+      "updating_evidence": "Replace with article-specific primary papers, guidelines, or benchmark sources in a real review."
+    }
+  ]
 }

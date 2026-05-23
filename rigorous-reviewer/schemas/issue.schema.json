@@ -16,7 +16,11 @@
   ],
   "properties": {
     "severity": {
-      "enum": ["Critical", "Major", "Minor"]
+      "enum": [
+        "Critical",
+        "Major",
+        "Minor"
+      ]
     },
     "title": {
       "type": "string",
@@ -65,6 +69,40 @@
       "items": {
         "type": "string"
       }
+    },
+    "manuscript_artifact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "figure_id": {
+      "type": "string",
+      "minLength": 2
+    },
+    "table_id": {
+      "type": "string",
+      "minLength": 2
+    },
+    "method_id": {
+      "type": "string",
+      "minLength": 2
+    },
+    "proof_step": {
+      "type": "string",
+      "minLength": 2
+    },
+    "dataset_id": {
+      "type": "string",
+      "minLength": 2
+    },
+    "code_artifact_id": {
+      "type": "string",
+      "minLength": 2
+    },
+    "manuscript_location": {
+      "type": "string",
+      "minLength": 2
     }
   },
   "additionalProperties": true

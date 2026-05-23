@@ -14,7 +14,7 @@ BENCHMARK = ROOT / "rigorous-reviewer" / "scripts" / "score_benchmark.py"
 
 def run_script(script, *args):
     return subprocess.run(
-        [sys.executable, str(script), *map(str, args)],
+        [sys.executable, "-S", str(script), *map(str, args)],
         cwd=ROOT,
         text=True,
         stdout=subprocess.PIPE,
@@ -82,7 +82,7 @@ class ValidatorTests(unittest.TestCase):
   Why serious: The conclusion depends on causal evidence rather than correlation.
   Evidence:
   - Manuscript-internal evidence: The provided results only show co-variation between marker and phenotype.
-  - External evidence / standard: Synthetic benchmark standard, DOI:10.0000/rr.synthetic.standard.
+  - External evidence / standard: Synthetic benchmark standard, benchmark:rr.synthetic.standard.
   Impact: The central mechanism remains overclaimed and should be narrowed.
   Alternative explanation / loophole: Batch composition or stress response could produce the same association.
   Resolution: Add perturbation and rescue, or narrow the conclusion to association.
@@ -98,7 +98,7 @@ class ValidatorTests(unittest.TestCase):
 ## 11) Evidence Ledger
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
-| S1 | Synthetic benchmark standard | benchmark | Major issue | decisive | DOI:10.0000/rr.synthetic.standard |
+| S1 | Synthetic benchmark standard | benchmark | Major issue | decisive | benchmark:rr.synthetic.standard |
 
 ## 12) Red-Line Self-Audit
 - Citation support: pass
@@ -146,6 +146,28 @@ class ValidatorTests(unittest.TestCase):
             result = run_script(LINTER, path, "--strict")
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("non-empty source_ids", result.stderr)
+
+
+    def test_strict_structured_review_requires_linked_claim_ids(self):
+        report = json.loads((ROOT / "tests/fixtures/json/valid_structured_review.json").read_text(encoding="utf-8"))
+        report["issues"][0]["linked_claims"] = ["unmapped claim"]
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "bad_linked_claims.json"
+            path.write_text(json.dumps(report), encoding="utf-8")
+            result = run_script(LINTER, path, "--strict")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("linked_claims not present in claim_maturity_gate", result.stderr)
+
+    def test_strict_structured_review_requires_artifact_traceability(self):
+        report = json.loads((ROOT / "tests/fixtures/json/valid_structured_review.json").read_text(encoding="utf-8"))
+        report["issues"][0].pop("manuscript_artifact_ids", None)
+        report["issues"][0].pop("manuscript_location", None)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "missing_artifact_trace.json"
+            path.write_text(json.dumps(report), encoding="utf-8")
+            result = run_script(LINTER, path, "--strict")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("require a manuscript artifact trace", result.stderr)
 
     def test_strict_structured_review_rejects_vague_companion_identifier(self):
         report = json.loads((ROOT / "tests/fixtures/json/valid_structured_review.json").read_text(encoding="utf-8"))

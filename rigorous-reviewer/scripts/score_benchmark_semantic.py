@@ -73,9 +73,27 @@ def severity_ok(text: str, minimum_severity: str) -> bool:
     )
 
 
+def recommendation_lines(text: str) -> list[str]:
+    """Return explicit decision/recommendation lines only.
+
+    This avoids treating negated prose such as "do not Accept" as an actual
+    Accept recommendation.
+    """
+    lines: list[str] = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip().lstrip("-* ").strip()
+        if re.match(r"^(decision|recommendation|overall recommendation)\s*:", line, re.I):
+            lines.append(line)
+    return lines
+
+
 def forbidden_recommendations(text: str, forbidden: list[str]) -> list[str]:
-    text_norm = normalize(text)
-    return [rec for rec in forbidden if contains_phrase(text_norm, rec)]
+    explicit_lines = recommendation_lines(text)
+    if not explicit_lines:
+        return []
+    explicit_text = "\n".join(explicit_lines)
+    explicit_norm = normalize(explicit_text)
+    return [rec for rec in forbidden if contains_phrase(explicit_norm, rec)]
 
 
 def has_decisive_readout(text: str) -> bool:

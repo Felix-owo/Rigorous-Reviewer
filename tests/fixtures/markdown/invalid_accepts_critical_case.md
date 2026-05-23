@@ -35,7 +35,7 @@
   为什么严重：This is central because the paper's novelty and conclusion depend on the claim being causal rather than descriptive, and an unresolved causal gap changes the editorial decision.
   证据：
   - 稿件内部证据：The synthetic methods include association only and omit perturbation, rescue, temporal ordering, and independent validation.
-  - 外部证据/标准：Synthetic benchmark standard S1, DOI:10.0000/rr.synthetic.standard, defines decisive causal evidence as the required standard.
+  - 外部证据/标准：Synthetic benchmark standard S1, benchmark:rr.synthetic.standard, defines decisive causal evidence as the required standard.
   影响：The central conclusion remains unsupported unless the authors either add decisive evidence or narrow the claim.
   替代解释/漏洞：Confounding, reverse causality, batch structure, and post hoc interpretation could generate the observed pattern.
   解决：Add perturbation/rescue and donor-level validation or rewrite the claim as association.
@@ -63,7 +63,7 @@
 
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
-| S1 | Synthetic standard | benchmark | causal validation issue | decisive | DOI:10.0000/rr.synthetic.standard |
+| S1 | Synthetic standard | benchmark | causal validation issue | decisive | benchmark:rr.synthetic.standard |
 
 ## 10) Red-Line Self-Audit
 
