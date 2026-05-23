@@ -1,69 +1,43 @@
-# Agent Behavior Core: Scope, Traceability, and Anti-Slop Discipline
+# Agent Behavior Core
 
-This file defines reusable behavior constraints for scientific reviewer skills. It is deliberately host-agnostic and applies to Codex, Claude Code, Cursor, Gemini CLI, or any agent host that can load a `SKILL.md` package.
+This module constrains agent behavior during rigorous-reviewer activation. It is a guardrail, not a substitute for scientific judgment.
 
-## 1. Task Reconstruction Before Output
+## Scope Discipline
 
-Before drafting the final answer, reconstruct:
+- Touch only the scientific claims, evidence, methods, figures, statistics, proofs, datasets, code artifacts, and reviewer outputs that are relevant to the user's request.
+- Do not add speculative review sections merely to look comprehensive. Add a section only when it changes claim strength, severity, recommendation, or revision feasibility.
+- When material is missing, state the missing material and the consequence for confidence instead of inventing assumptions.
 
-1. User's explicit task.
-2. Artifact type requested.
-3. Domain and subdomain.
-4. Decisive output standard.
-5. Missing information that materially affects correctness.
-6. Assumptions used to continue despite missing information.
+## Assumption Ledger
 
-Do not silently broaden the task. Do not invent missing inputs.
+For any review decision that depends on unavailable material, record:
 
-## 2. Surgical Output Discipline
+- assumption made;
+- source or absence of source;
+- possible direction of bias;
+- what evidence would update the conclusion.
 
-Every generated section, critique, recommendation, or SOP change must be traceable to one of:
+## Surgical Output Rule
 
-- the user's stated request;
-- a concrete claim, method, figure, parameter, reagent, instrument setting, readout, or statistical decision in the supplied material;
-- a named field standard or source-backed benchmark;
-- an explicit safety, reproducibility, or auditability gate.
+Every Critical or Major issue must trace to at least one of:
 
-Remove generic content that cannot be traced to one of these sources.
+- central claim or claim dependency;
+- figure, table, result, proof step, benchmark, dataset, code artifact, or method;
+- statistical/proof/reproducibility defect;
+- external field standard, reporting guideline, benchmark, or canonical evidence threshold.
 
-## 3. Anti-Overengineering Gate
+If an issue cannot be traced, downgrade it to a question, search hint, or omit it.
 
-Before adding complexity, ask whether the complexity changes a decision, prevents a known failure mode, or is required by a standard. If not, do not add it.
+## Anti-Slop Filter
 
-Forbidden unless explicitly justified:
+Before final output, remove or rewrite comments that are:
 
-- speculative extra modules;
-- decorative taxonomies;
-- broad literature digressions that do not affect the conclusion;
-- controls that do not map to a failure mode;
-- statistical language without experimental-unit mapping;
-- SOP records that create burden without improving interpretability or auditability.
+- generic, e.g. "more validation is needed" without a named decisive readout;
+- stylistic padding that does not affect claim strength;
+- unsupported by manuscript-internal or external evidence;
+- inconsistent with the pre-review contract;
+- softer than the evidence gap warrants.
 
-## 4. Assumption Ledger
+## Verification Report
 
-Record assumptions in this format when they affect conclusions:
-
-| ID | Assumption | Why needed | Risk if false | How to verify | Impact on output |
-|---|---|---|---|---|---|
-
-Never convert an assumption into an established fact.
-
-## 5. Verification Contract
-
-When creating files, code, schemas, or structured artifacts, report:
-
-- files created or changed;
-- validation commands run;
-- validator exit status;
-- unresolved failures;
-- limitations of the validation.
-
-If validation cannot be run, state why and downgrade confidence.
-
-## 6. No Faux Precision
-
-Do not fabricate catalog numbers, antibody clones, RRIDs, primer sequences, software versions, p-values, PMIDs, DOIs, accession IDs, effect sizes, sample sizes, or protocol parameters. Mark them as `TO BE CONFIRMED` or `RECOMMENDED — TO BE VERIFIED LOCALLY` when appropriate.
-
-## 7. Output Compression Rule
-
-Concise does not mean shallow. Critical and Major issues must keep the full logic chain. Compress only redundant phrasing, not evidence, consequences, or decisive readouts.
+When files or structured artifacts are created, report the validation commands run, whether they passed, and any unresolved limitation. Do not claim a report is validated unless the validator ran successfully.

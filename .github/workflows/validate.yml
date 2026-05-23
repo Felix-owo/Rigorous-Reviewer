@@ -41,6 +41,8 @@ jobs:
           python rigorous-reviewer/scripts/validate_review_report.py rigorous-reviewer/examples/full_review_example.md
       - name: Validate structured JSON fixture
         run: python rigorous-reviewer/scripts/lint_structured_review.py tests/fixtures/json/valid_structured_review.json --strict
+      - name: Validate release metadata consistency
+        run: python rigorous-reviewer/scripts/check_release_metadata.py
       - name: Validate benchmark definitions
         run: |
           python rigorous-reviewer/scripts/score_benchmark.py --benchmark-root benchmarks/v1.0
