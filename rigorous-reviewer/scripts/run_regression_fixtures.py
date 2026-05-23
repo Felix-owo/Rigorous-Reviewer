@@ -1,18 +1,39 @@
 #!/usr/bin/env python3
-"""Smoke-test bundled regression fixtures for package structure only."""
+"""Run Rigorous Reviewer regression fixtures."""
+
 from __future__ import annotations
-import json, sys
+
+import subprocess
+import sys
 from pathlib import Path
 
-root = Path(__file__).resolve().parents[1]
-fixtures = list((root / "benchmarks" / "fixtures").glob("*.json"))
-if not fixtures:
-    print("No fixtures found", file=sys.stderr)
-    raise SystemExit(1)
-for f in fixtures:
-    data = json.loads(f.read_text(encoding="utf-8"))
-    for key in ["name", "task", "expected_gates"]:
-        if key not in data:
-            print(f"{f}: missing {key}", file=sys.stderr)
-            raise SystemExit(1)
-print(f"Regression fixture smoke test: PASS ({len(fixtures)} fixture(s))")
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "examples" / "regression_fixtures"
+
+
+def run(cmd: list[str]) -> int:
+    print("$ " + " ".join(cmd))
+    result = subprocess.run(cmd, text=True)
+    return result.returncode
+
+
+def main() -> int:
+    if not FIXTURES.exists():
+        print(f"No regression fixtures found: {FIXTURES}")
+        return 0
+    failures = 0
+    for path in sorted(FIXTURES.glob("*.json")):
+        if path.name.startswith("handoff_"):
+            failures += run([sys.executable, str(ROOT / "scripts" / "check_claim_readout_handoff.py"), str(path)])
+        elif path.name.startswith("contract_"):
+            failures += run([sys.executable, str(ROOT / "scripts" / "check_review_contract.py"), str(path)])
+        elif path.name.startswith("review_"):
+            failures += run([sys.executable, str(ROOT / "scripts" / "lint_structured_review.py"), str(path)])
+        else:
+            print(f"Skipping unrecognized fixture: {path.name}")
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

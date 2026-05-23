@@ -1,0 +1,38 @@
+{
+  "fixture_id": "claim_strength_fixture",
+  "skill": "rigorous-reviewer",
+  "skill_version": "rigorous-reviewer v2.3.0",
+  "purpose": "Regression fixture for claim-strength calibration and overclaim detection.",
+  "central_claim": {
+    "claim_id": "C1",
+    "text": "Pathway X is a causal driver of phenotype Y.",
+    "claimed_strength": "causal mechanism",
+    "supported_strength": "association / candidate prioritization"
+  },
+  "available_evidence": [
+    {
+      "source_id": "M1",
+      "source_type": "manuscript-internal",
+      "description": "Feature ranking and pathway enrichment associate pathway X with phenotype Y."
+    },
+    {
+      "source_id": "S1",
+      "source_type": "benchmark",
+      "identifier": "DOI:10.0000/rr.synthetic.causal-standard",
+      "description": "Synthetic standard requiring perturbation/rescue or equivalent causal design for mechanism claims."
+    }
+  ],
+  "blocking_loopholes": [
+    "batch confounding",
+    "cell-composition shift",
+    "disease severity confounding",
+    "stress-response correlation",
+    "post-hoc feature interpretation"
+  ],
+  "expected_reviewer_action": {
+    "severity_floor": "Major Revision",
+    "required_narrowing": "candidate prioritization associated with phenotype Y",
+    "decisive_support_readout": "Perturbation of pathway X changes phenotype Y in the predicted direction and rescue restores it under donor-level replication.",
+    "decisive_weakening_readout": "The effect disappears after donor-level modeling, perturbation does not change phenotype Y, or composition/severity explains the signal."
+  }
+}

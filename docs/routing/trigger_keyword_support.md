@@ -10,7 +10,7 @@ This overlay adds explicit trigger-keyword routing for `rigorous-reviewer`.
 - `rigorous-reviewer/scripts/apply_trigger_keywords.py` — deterministic patcher for `SKILL.md`.
 - `tests/test_trigger_keywords.py` — unit tests for the registry and patcher.
 
-## Maintain in v2.1.3
+## Maintain in v2.3.0
 
 After editing trigger terms, run:
 

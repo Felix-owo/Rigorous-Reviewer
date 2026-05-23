@@ -10,6 +10,7 @@ This file records benchmark definition validity and, when available, scored mode
 | v2.0.2 | v1.1-public | PASS | No | N/A | N/A | CI portability patch for the absolute-path trigger registry regression test. |
 | v2.1.0 | v1.1-public | PASS | No | N/A | N/A | Adds optional companion capability bridge expansion, external companion evidence schema/linting, and companion-aware trigger routing. |
 | v2.1.3 | v1.1-public | PASS | No | N/A | N/A | Adds package compliance checks, version consistency validation, and bundled regression fixtures. |
+| v2.3.0 | v1.1-public | PASS | No | N/A | N/A | Clean replacement release from v2.1.3 baseline with MPL-2.0, traceability modules, and release metadata validation. |
 
 ## How to update
 
@@ -21,7 +22,7 @@ This file records benchmark definition validity and, when available, scored mode
 python rigorous-reviewer/scripts/score_benchmark_semantic.py \
   --benchmark-root benchmarks/v1.1-public \
   --outputs-dir outputs \
-  --json > benchmarks/results/v2.1.3_public_outputs.json
+  --json > benchmarks/results/v2.3.0_public_outputs.json
 ```
 
 4. Compute mean score and pass rate from the JSON.
