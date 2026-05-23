@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.3.1
+
+Validation hardening patch.
+
+- Adds a real pre-review contract regression fixture and unit coverage for `check_review_contract.py`.
+- Adds `check_claim_strength_fixture.py` and wires the claim-strength fixture into CI.
+- Machine-enforces Critical/Major issue traceability against `claim_maturity_gate` and `evidence_ledger` in strict structured-review linting.
+- Adds explicit Assumption Ledger fields to the Markdown report template and structured JSON schema.
+- Replaces synthetic fake DOI handles with non-citation `benchmark:rr.synthetic.*` identifiers.
+- Tightens benchmark recommendation parsing so negated phrases such as "do not Accept" are not counted as an Accept recommendation.
+- Expands release metadata drift checks for docs, leaderboard, agent metadata, validation report, and claim-strength fixtures.
+- Adds Python 3.13 to the GitHub Actions validation matrix.
+
 ## v2.3.0
 
 - Clean replacement release built from the validated v2.1.3 baseline to avoid schema/validator drift introduced by partial hotfixes.

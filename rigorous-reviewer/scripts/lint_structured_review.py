@@ -21,19 +21,30 @@ SUPPORT_RE = re.compile(r"\b(support|supports|supporting|strengthen|strengthens|
 WEAKEN_RE = re.compile(r"\b(narrow|narrows|narrowing|weaken|weakens|refut|force narrowing)\b|削弱|反驳", re.I)
 SOURCE_RE = re.compile(
     r"(doi|pmid|pmcid|arxiv|https?://|clinicaltrials|geo|sra|arrayexpress|"
-    r"guideline|standard|benchmark|dataset|accession|rrid|search target|manual|"
+    r"guideline|standard|benchmark|fixture:|synthetic:|dataset|accession|rrid|search target|manual|"
     r"chembl|bindingdb|chebi|cbioportal|civic|cellxgene|biostudies|alphafold|"
     r"pdb|uniprot|github|commit|zenodo|figshare|dryad|osf)",
     re.I,
 )
 COMPANION_IDENTIFIER_RE = re.compile(
     r"(doi:|pmid:|pmcid:|arxiv:|https?://|clinicaltrials|geo:|sra:|arrayexpress|"
-    r"guideline|standard|benchmark|dataset|accession|rrid|manual|chembl|"
+    r"guideline|standard|benchmark:|fixture:|synthetic:|dataset|accession|rrid|manual|chembl|"
     r"bindingdb|chebi|cbioportal|civic|cellxgene|biostudies|alphafold|pdb|"
     r"uniprot|github|commit|zenodo|figshare|dryad|osf)",
     re.I,
 )
 VAGUE_IDENTIFIER_RE = re.compile(r"^(n/?a|none|unknown|not available|not found|unresolved|tbd|to be determined)$", re.I)
+TRACEABILITY_FIELDS = {
+    "artifact_ids",
+    "manuscript_artifact_ids",
+    "figure_id",
+    "table_id",
+    "method_id",
+    "proof_step",
+    "dataset_id",
+    "code_artifact_id",
+    "manuscript_location",
+}
 
 
 def load_json(path: Path) -> Any:
@@ -104,6 +115,22 @@ def validate_schema(value: Any, schema: dict[str, Any], path: str = "$") -> list
     return errors
 
 
+def non_empty_string(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def non_empty_string_list(value: Any) -> bool:
+    return isinstance(value, list) and bool(value) and all(non_empty_string(item) for item in value)
+
+
+def issue_has_traceable_artifact(issue: dict[str, Any]) -> bool:
+    for field in TRACEABILITY_FIELDS:
+        value = issue.get(field)
+        if non_empty_string(value) or non_empty_string_list(value):
+            return True
+    return False
+
+
 def validate_strict_review(report: Any, schema: dict[str, Any]) -> list[str]:
     """Add review-specific checks beyond the portable schema subset."""
     if not isinstance(report, dict):
@@ -121,6 +148,24 @@ def validate_strict_review(report: Any, schema: dict[str, Any]) -> list[str]:
         for item in evidence_ledger
         if isinstance(item, dict) and isinstance(item.get("source_id"), str)
     }
+
+    claim_maturity_gate = report.get("claim_maturity_gate", [])
+    claim_ids = {
+        item.get("claim_id")
+        for item in claim_maturity_gate
+        if isinstance(item, dict) and isinstance(item.get("claim_id"), str)
+    }
+
+    contract_claims = report.get("pre_review_contract", {}).get("central_claim_dependency_map", [])
+    contract_claim_ids = {
+        item.get("claim_id")
+        for item in contract_claims
+        if isinstance(item, dict) and isinstance(item.get("claim_id"), str)
+    }
+    if claim_ids and contract_claim_ids:
+        missing_from_contract = sorted(claim_ids - contract_claim_ids)
+        if missing_from_contract:
+            errors.append(f"$.claim_maturity_gate: claim_ids not present in pre_review_contract: {missing_from_contract}")
 
     issues = report.get("issues", [])
     critical_present = False
@@ -151,6 +196,21 @@ def validate_strict_review(report: Any, schema: dict[str, Any]) -> list[str]:
             if not WEAKEN_RE.search(decisive_readout):
                 errors.append(f"{path}: decisive_readout lacks a weakening/refuting/narrowing condition")
 
+            if severity in {"Critical", "Major"}:
+                linked_claims = issue.get("linked_claims")
+                if not non_empty_string_list(linked_claims):
+                    errors.append(f"{path}: Critical/Major issues require non-empty linked_claims")
+                elif claim_ids:
+                    missing_claims = [claim for claim in linked_claims if claim not in claim_ids]
+                    if missing_claims:
+                        errors.append(f"{path}: linked_claims not present in claim_maturity_gate: {missing_claims}")
+                if not issue_has_traceable_artifact(issue):
+                    errors.append(
+                        f"{path}: Critical/Major issues require a manuscript artifact trace "
+                        "(manuscript_artifact_ids, figure_id, table_id, method_id, proof_step, "
+                        "dataset_id, code_artifact_id, or manuscript_location)"
+                    )
+
     companion_evidence = report.get("external_companion_evidence")
     if companion_evidence is not None:
         if not isinstance(companion_evidence, list):
@@ -165,7 +225,10 @@ def validate_strict_review(report: Any, schema: dict[str, Any]) -> list[str]:
                 if VAGUE_IDENTIFIER_RE.match(returned_identifier):
                     errors.append(f"{path}: returned_identifier must not be vague or unresolved")
                 elif not COMPANION_IDENTIFIER_RE.search(returned_identifier):
-                    errors.append(f"{path}: returned_identifier needs a concrete source, accession, DOI, URL, repository, standard, or database handle")
+                    errors.append(
+                        f"{path}: returned_identifier needs a concrete source, accession, DOI, URL, "
+                        "repository, standard, benchmark, fixture, or database handle"
+                    )
 
     recommendation = report.get("overall_recommendation")
     if critical_present and recommendation in {"Accept", "Minor Revision"}:

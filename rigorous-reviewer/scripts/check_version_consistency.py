@@ -29,6 +29,7 @@ def main() -> int:
     for relpath in [
         "templates/review_contract_template.json",
         "examples/regression_fixtures/review_strong_sop_overclaimed_manuscript.json",
+        "examples/regression_fixtures/contract_valid_claim_dependency.json",
     ]:
         if expected not in read(ROOT / relpath):
             errors.append(f"{relpath} does not contain {expected!r}")

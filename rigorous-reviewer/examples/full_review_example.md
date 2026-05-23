@@ -63,7 +63,13 @@ write every issue as a professional issue block with an evidence ledger.
 - Main loophole or false-positive risks: cohort leakage, cell composition,
   disease severity, batch effects, and post hoc pathway interpretation.
 
-## 5) Calibration Against Gold / Near-Gold Papers
+## 5) Assumption Ledger
+| Assumption | Source / absence of source | Possible bias direction | Evidence that would update conclusion |
+| --- | --- | --- | --- |
+| The example has no source data or code audit. | Stated code availability only. | May understate or overstate reproducibility risk. | Public code, data, and rerun logs that reproduce the main results. |
+| No exact field-specific source is bundled in this compact example. | Search targets are used as placeholders for real article review. | May make external standard severity less precise. | Article-specific accepted papers, guidelines, or benchmark sources. |
+
+## 6) Calibration Against Gold / Near-Gold Papers
 - Anchor set: 8 anchors, including 4 accepted benchmark/method papers, 2
   cautionary leakage studies, and 2 external-validation papers.
 - Innovation calibration: similar to accepted applied-method papers, weaker than
@@ -74,7 +80,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Confidence adjustment: maintain Major Revision rather than Reject because the
   claim can be narrowed to predictive prioritization if mechanism is not proven.
 
-## 6) Reviewer Panel Synthesis
+## 7) Reviewer Panel Synthesis
 - EIC: topic is potentially broad, but central mechanism claim is not yet
   top-journal level.
 - Methods / Statistics Reviewer: benchmark split and external validation are the
@@ -88,10 +94,10 @@ write every issue as a professional issue block with an evidence ledger.
 - Synthesizer: central claim should be narrowed unless external validation and
   perturbational evidence support the bridge.
 
-## 7) External Scientific Skills Used
+## 8) External Scientific Skills Used
 - Not applicable in this compact example.
 
-## 8) Identified Issues
+## 9) Identified Issues
 - [Critical] Mechanistic claim is not established by predictive performance.
   具体问题：The abstract and Figure 4 interpret model-selected features as a
   causal disease mechanism, but the evidence shown is model association and
@@ -130,7 +136,7 @@ write every issue as a professional issue block with an evidence ledger.
   association disappears after composition/severity adjustment, or if
   perturbation does not affect the phenotype.
 
-## 9) Literature / Source Search Hints
+## 10) Literature / Source Search Hints
 - Evidence gap / claim tested: whether model feature importance can support the
   stated mechanistic conclusion.
 - Preferred sources: primary method papers, external-validation benchmarks,
@@ -144,7 +150,7 @@ write every issue as a professional issue block with an evidence ledger.
   narrowing.
 - Citation target: Critical issue on mechanism overclaim.
 
-## 10) Revision Suggested Actions
+## 11) Revision Suggested Actions
 ### Essential for supporting the main claim
 - Target: Figure 4, Methods, Discussion.
 - Required revision: external validation plus orthogonal perturbation/rescue or
@@ -168,7 +174,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Replace mechanism-discovery wording with candidate-prioritization wording if
   no perturbation/rescue is added.
 
-## 11) Evidence Ledger
+## 12) Evidence Ledger
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
 | M1 | Figure 4 and Discussion | manuscript-internal | Critical issue on mechanism overclaim | decisive | Figure 4; Discussion |
@@ -176,7 +182,7 @@ write every issue as a professional issue block with an evidence ledger.
 | S1 | External-validation and leakage-control literature | search target | Critical issue on predictive-to-mechanistic bridge | decisive search target | query in section 7 |
 | S2 | Biological perturbation/rescue standard | search target | required mechanism validation | decisive search target | query in section 7 |
 
-## 12) Red-Line Self-Audit
+## 13) Red-Line Self-Audit
 - Citation support: fixed with source targets; real reviews should replace
   search targets with article-specific citations.
 - Manuscript-internal evidence: pass.
@@ -185,7 +191,7 @@ write every issue as a professional issue block with an evidence ledger.
 - Panel traceability: pass.
 - Markdown/report validation: pass for structure.
 
-## 13) Overall Recommendation
+## 14) Overall Recommendation
 - Major Revision
 - Rationale: The work is promising as a predictive and hypothesis-generating
   study, but the central mechanistic claim remains unsupported until the

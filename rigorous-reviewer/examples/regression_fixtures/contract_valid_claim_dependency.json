@@ -1,0 +1,62 @@
+{
+  "review_id": "synthetic-contract-claim-dependency",
+  "skill_version": "rigorous-reviewer v2.3.1",
+  "contract_status": "locked",
+  "material_basis": {
+    "title": "Synthetic causal mechanism manuscript",
+    "abstract_or_summary": "A synthetic manuscript asserts that pathway X causally drives phenotype Y using association-only evidence.",
+    "target_venue": "top-journal biology benchmark fixture",
+    "materials_available": ["synthetic abstract", "figure summary", "methods summary"],
+    "missing_decisive_material": []
+  },
+  "central_claim_dependency_map": [
+    {
+      "claim_id": "C1",
+      "claim": "Pathway X is a causal driver of phenotype Y.",
+      "depends_on": ["M1", "S1"],
+      "decisive_evidence_needed": "Perturbation and rescue or an equivalent causal design with donor-level replication.",
+      "fragile_assumption": "Association between pathway score and phenotype can be interpreted as mechanism."
+    }
+  ],
+  "decisive_evidence_thresholds": [
+    {
+      "threshold_id": "T1",
+      "claim_id": "C1",
+      "support_condition": "Perturbing pathway X changes phenotype Y in the predicted direction and rescue restores it.",
+      "weakening_or_refuting_condition": "Perturbation does not change phenotype Y, rescue fails, or donor-level adjustment removes the signal.",
+      "claim_narrowing_condition": "Only association or candidate-prioritization evidence remains."
+    }
+  ],
+  "mandatory_reviewer_dimensions": [
+    "novelty",
+    "domain_validity",
+    "methods_statistics",
+    "reproducibility",
+    "alternative_explanations",
+    "reporting_transparency"
+  ],
+  "failure_conditions": [
+    {
+      "condition_id": "F1",
+      "severity_floor": "Major Revision",
+      "condition": "The central causal mechanism claim lacks perturbation, rescue, temporal ordering, or equivalent causal evidence.",
+      "affected_claim_id": "C1",
+      "can_be_resolved_by": "Add causal evidence or narrow the claim to association/candidate prioritization."
+    }
+  ],
+  "evidence_that_changes_recommendation": {
+    "strengthen": [
+      "Independent perturbation and rescue support the pathway-to-phenotype mechanism."
+    ],
+    "weaken": [
+      "Donor-level modeling, perturbation failure, or composition adjustment removes the pathway-phenotype signal."
+    ],
+    "force_claim_narrowing": [
+      "Only enrichment or feature-ranking association remains."
+    ]
+  },
+  "prohibited_post_hoc_standard_shifts": [
+    "Do not replace the pre-locked causal-evidence threshold with prediction accuracy or pathway-enrichment plausibility."
+  ],
+  "contract_amendments": []
+}

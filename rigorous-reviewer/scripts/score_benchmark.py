@@ -45,11 +45,28 @@ def check_definitions(root: Path) -> list[str]:
     return errors
 
 
+def recommendation_lines(text: str) -> list[str]:
+    lines: list[str] = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip().lstrip("-* ").strip()
+        if re.match(r"^(decision|recommendation|overall recommendation)\s*:", line, re.I):
+            lines.append(line)
+    return lines
+
+
+def forbidden_recommendations(text: str, forbidden: list[str]) -> list[str]:
+    explicit = "\n".join(recommendation_lines(text))
+    if not explicit:
+        return []
+    lowered = normalize(explicit)
+    return [rec for rec in forbidden if normalize(rec) in lowered]
+
+
 def score_output(text: str, spec: dict) -> dict:
     lowered = normalize(text)
     must_detect = spec.get("must_detect", [])
     detected = [term for term in must_detect if normalize(term) in lowered]
-    forbidden_found = [rec for rec in spec.get("forbidden_recommendations", []) if rec.lower() in lowered]
+    forbidden_found = forbidden_recommendations(text, spec.get("forbidden_recommendations", []))
     min_severity = spec.get("minimum_severity", "Minor")
     severity_ok = any(sev.lower() in lowered for sev, rank in VALID_SEVERITIES.items() if rank >= VALID_SEVERITIES[min_severity])
     return {

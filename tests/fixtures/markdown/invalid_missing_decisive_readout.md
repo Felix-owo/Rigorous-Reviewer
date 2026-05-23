@@ -27,7 +27,7 @@
   为什么严重：The conclusion depends on a validation layer that is not present.
   证据：
   - 稿件内部证据：The synthetic methods omit validation.
-  - 外部证据/标准：Synthetic benchmark standard S1, DOI:10.0000/rr.synthetic.standard.
+  - 外部证据/标准：Synthetic benchmark standard S1, benchmark:rr.synthetic.standard.
   影响：The main claim remains unsupported.
   替代解释/漏洞：Artifact or confounding could explain the result.
   解决：Add the validation experiment.
@@ -55,7 +55,7 @@
 
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
-| S1 | Synthetic standard | benchmark | validation issue | decisive | DOI:10.0000/rr.synthetic.standard |
+| S1 | Synthetic standard | benchmark | validation issue | decisive | benchmark:rr.synthetic.standard |
 
 ## 10) Red-Line Self-Audit
 

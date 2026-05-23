@@ -74,7 +74,7 @@ SEVERITY_RE = re.compile(r"^\s*[-*]\s*\[(Critical|Major|Minor)\]\s+(.+)$", re.MU
 HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
 SOURCE_RE = re.compile(
     r"(doi|pmid|pmcid|arxiv|https?://|clinicaltrials|geo|sra|arrayexpress|"
-    r"guideline|standard|benchmark|dataset|accession|rrid|search target)",
+    r"guideline|standard|benchmark|fixture:|synthetic:|dataset|accession|rrid|search target)",
     re.I,
 )
 RECOMMENDATIONS = ["Accept", "Minor Revision", "Major Revision", "Reject"]

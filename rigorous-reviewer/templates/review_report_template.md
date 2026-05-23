@@ -44,13 +44,19 @@ figures, code, protocols, or source lists.
 - Current frontier and provisional sources: <recent accepted work and preprints, labeled by status>
 - Main loophole or false-positive risks: <risks>
 
-## 5) Claim Maturity Gate
+## 5) Assumption Ledger
+
+| Assumption | Source / absence of source | Possible bias direction | Evidence that would update conclusion |
+| --- | --- | --- | --- |
+| <assumption> | <source or missing material> | <toward/against central claim or severity> | <data/control/source that would change judgment> |
+
+## 6) Claim Maturity Gate
 
 | Claim ID | Current maturity | Evidence basis | Blocking loophole | Maturity upgrade readout | Required narrowing if unresolved |
 | --- | --- | --- | --- | --- | --- |
 | <C1> | Level 0 / 1 / 2 / 3 | <internal + external evidence> | <loophole> | <decisive readout> | <claim wording> |
 
-## 6) Cross-Skill Claim-Readout Handoff
+## 7) Cross-Skill Claim-Readout Handoff
 
 Include when a claim depends on biological protocol-derived evidence, SOP
 readouts, or method execution quality.
@@ -59,7 +65,7 @@ readouts, or method execution quality.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | <C1> | <claim> | decisive/supporting/contextual/exploratory | <R1> | <method/SOP section> | <authority> | <threshold/control/fail action> | <risk> | <impact> | <action> |
 
-## 7) Calibration Against Gold / Near-Gold Papers
+## 8) Calibration Against Gold / Near-Gold Papers
 
 - Anchor set: <number and source types>
 - Closest positive anchors: <citations and relevance>
@@ -69,7 +75,7 @@ readouts, or method execution quality.
 - FNR/FPR estimate: <numeric only if labeled anchors support it; otherwise qualitative>
 - Confidence adjustment: <how calibration changes severity or recommendation>
 
-## 8) Figure Claim Audit
+## 9) Figure Claim Audit
 
 Include when figures/tables/panels are central to claim support.
 
@@ -77,7 +83,7 @@ Include when figures/tables/panels are central to claim support.
 | --- | --- | --- | --- | --- | --- |
 | <ID> | <claim> | <panel/metric> | <panel/metric> | <gap or pass> | <claim survives/fails without figure> |
 
-## 9) Reviewer Panel Synthesis
+## 10) Reviewer Panel Synthesis
 
 - EIC: <main editorial judgment>
 - Methods / Statistics Reviewer: <main technical judgment>
@@ -86,11 +92,11 @@ Include when figures/tables/panels are central to claim support.
 - Devil's Advocate: <strongest counter-argument>
 - Synthesizer: <integrated claim-dependency conclusion>
 
-## 10) External Scientific Skills Used
+## 11) External Scientific Skills Used
 
 - <include only if companion skills were actually used or if non-use explains a limitation>
 
-## 11) Identified Issues
+## 12) Identified Issues
 
 - [Critical/Major/Minor] <short title>
   具体问题：<exact problematic claim/figure/table/model/proof/experiment/cohort/benchmark>
@@ -103,7 +109,7 @@ Include when figures/tables/panels are central to claim support.
   解决：<specific experiment/analysis/control/benchmark/proof repair/validation/rewrite>
   决定性 readout：<supporting result vs weakening/refuting or claim-narrowing result>
 
-## 12) Literature / Source Search Hints
+## 13) Literature / Source Search Hints
 
 - Evidence gap / claim tested: <claim or missing standard>
 - Preferred sources: <primary papers / guidelines / datasets / structures / theorem sources / clinical registries / benchmarks / preprints as provisional>
@@ -111,7 +117,7 @@ Include when figures/tables/panels are central to claim support.
 - Decision-changing evidence: <what would strengthen, weaken, or narrow the conclusion>
 - Citation target: <which issue or revision action this search supports>
 
-## 13) Revision Suggested Actions
+## 14) Revision Suggested Actions
 
 ### Essential for supporting the main claim
 
@@ -133,7 +139,7 @@ Include when figures/tables/panels are central to claim support.
 
 - <precise wording, annotation, methods, source, code/data, or citation fixes>
 
-## 14) Review-to-Revision Action Map
+## 15) Review-to-Revision Action Map
 
 Include only when the user asks for revision strategy, rebuttal preparation, or
 lab-facing revision planning.
@@ -142,14 +148,14 @@ lab-facing revision planning.
 | --- | --- | --- | --- | --- | --- |
 | <issue> | <Critical/Major/Minor> | <label from revision_response_bridge.md> | <section/figure/table> | <source/readout> | <posture> |
 
-## 15) Evidence Ledger
+## 16) Evidence Ledger
 
 | ID | Source | Type | Supports / challenges | Decision role | Identifier / link |
 | --- | --- | --- | --- | --- | --- |
 | M1 | <figure/table/method/proof/code/source in manuscript> | manuscript-internal | <issue/action> | decisive/supporting/cautionary | <location> |
 | S1 | <external source> | primary/guideline/benchmark/dataset/standard | <issue/action/calibration> | decisive/supporting/cautionary/search target | <DOI/PMID/arXiv/URL/accession> |
 
-## 16) Red-Line Self-Audit
+## 17) Red-Line Self-Audit
 
 - Citation support: <pass/fixed>
 - Manuscript-internal evidence: <pass/fixed>
@@ -163,7 +169,7 @@ lab-facing revision planning.
 - Panel traceability: <pass/fixed>
 - Markdown/report validation: <pass/fixed/not applicable>
 
-## 17) Overall Recommendation
+## 18) Overall Recommendation
 
 - Decision: <Accept / Minor Revision / Major Revision / Reject>
 - Rationale: <one paragraph tied to scores, severity distribution, claim dependency, novelty, and feasibility>
