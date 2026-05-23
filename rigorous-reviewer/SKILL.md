@@ -11,7 +11,7 @@ description: >
   fixtures while preserving the original rigorous-reviewer workflow.
 allow_implicit_invocation: true
 metadata:
-  version: "2.2.1"
+  version: "2.2.2"
   upstream_base: "Felix-owo/Rigorous-Reviewer v2.1.3"
   package_type: "portable-agent-skill"
   mcp_required: "false"

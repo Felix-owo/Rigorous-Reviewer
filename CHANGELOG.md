@@ -1,5 +1,28 @@
 # Changelog
 
+## v2.2.2
+
+- Fixes `scripts/validate_review_report.py` so the GitHub Actions Markdown fixture job can pass `--strict`.
+- Synchronizes `SKILL.md`, review-contract template, and regression fixture versions to `rigorous-reviewer v2.2.2`.
+- Synchronizes README badges, install URLs, citation examples, Python package metadata, and license text with the MPL-2.0 / v2.2.2 release.
+- Adds `scripts/check_release_metadata.py` to prevent future README / pyproject / changelog drift.
+
+## v2.2.1
+
+- Finalizes skill metadata version after the v2.2.0 development metadata release.
+- Synchronizes review contract and regression fixture skill versions.
+- Restores standard trigger keyword overlay markers required by installability checks.
+- Fixes installable skill package validation.
+
+## v2.2.0
+
+- Switches repository and skill metadata license to MPL-2.0.
+- Adds agent behavior core for scope discipline, assumption control, anti-slop filtering, and verification.
+- Adds issue traceability and scope-discipline rules.
+- Adds final verification contract.
+- Adds regression fixture and validation script scaffolding.
+- Preserves portable Agent Skill structure for Codex-compatible installation.
+
 ## v2.1.3
 
 - Adds Agent Skill package compliance checks for version consistency across
