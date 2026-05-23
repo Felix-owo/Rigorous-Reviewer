@@ -11,7 +11,7 @@ description: >
   fixtures while preserving the original rigorous-reviewer workflow.
 allow_implicit_invocation: true
 metadata:
-  version: "2.2.0-dev"
+  version: "2.2.1"
   upstream_base: "Felix-owo/Rigorous-Reviewer v2.1.3"
   package_type: "portable-agent-skill"
   mcp_required: "false"
@@ -23,13 +23,125 @@ license: MPL-2.0
 
 # Rigorous Reviewer
 
+<!-- RR_TRIGGER_KEYWORDS_START -->
 ## Trigger Keywords and Routing
 
 Use this skill when the user asks for rigorous scientific peer review, claim stress-testing, evidence sufficiency assessment, novelty evaluation, hidden-loophole detection, or journal-level recommendation for manuscripts, preprints, proposals, datasets, figures, proofs, computational models, benchmarks, or code artifacts.
 
-Strong triggers include: `rigorous review`, `scientific peer review`, `manuscript review`, `preprint review`, `proposal review`, `grant review`, `referee report`, `reviewer 2`, `editorial recommendation`, `top-journal review`, `CNS-level review`, `journal-level estimate`, `claim strength`, `decisive evidence`, `evidence sufficiency`, `alternative explanation`, `hidden loophole`, `critical flaw`, `novelty claim`, `overclaiming`, `reproducibility audit`, `statistical validity`, `严格审稿`, `顶刊审稿`, `CNS审稿`, `论文审稿`, `审稿意见`, `期刊级别评估`, `能发什么期刊`, `中心claim`, `决定性证据`, `证据链`, `替代解释`, `隐藏漏洞`, `关键缺陷`.
+### Strong English triggers
 
-Do **not** trigger by default for pure protocol/SOP rewriting, language polishing, citation formatting, figure beautification, slide generation, or database lookup only. If the manuscript claim depends on protocol-derived evidence, use this skill for the scientific judgment and request/use Biological Protocol Reviewer only as a bounded readout-readiness support layer.
+- rigorous review
+- scientific peer review
+- manuscript review
+- preprint review
+- proposal review
+- grant review
+- referee report
+- reviewer 2
+- editorial recommendation
+- top-journal review
+- Nature review
+- Cell review
+- Science review
+- CNS-level review
+- journal-level estimate
+- accept minor revision major revision reject
+- central claim
+- claim strength
+- decisive evidence
+- evidence sufficiency
+- evidence ledger
+- alternative explanation
+- hidden loophole
+- critical flaw
+- major issue
+- minor issue
+- red-line audit
+- novelty claim
+- overclaiming
+- reproducibility audit
+- methodological loophole
+- statistical validity
+
+### Strong Chinese triggers
+
+- 严格审稿
+- 科学审稿
+- 顶刊审稿
+- CNS审稿
+- Nature审稿
+- Cell审稿
+- Science审稿
+- 论文审稿
+- 预印本审稿
+- 基金评审
+- proposal审查
+- 审稿意见
+- 评审意见
+- reviewer 2
+- 期刊级别评估
+- 能发什么期刊
+- 顶刊水平
+- 中心claim
+- 中心结论
+- 主要结论
+- 决定性证据
+- 证据是否充分
+- 证据链
+- 替代解释
+- 隐藏漏洞
+- 关键缺陷
+- 致命缺陷
+- Major revision
+
+### Negative routing hints
+
+Do **not** trigger `rigorous-reviewer` by default when the task is only about:
+
+- protocol
+- SOP
+- bench protocol
+- wet-lab protocol
+- experimental procedure
+- 实验protocol
+- 实验步骤
+- 操作流程
+- SOP审查
+- bench note
+- polish
+- copyedit
+- language editing
+- Nature-style polishing
+- figure styling
+- figure beautification
+- PPT
+- slides
+- citation formatting
+- literature lookup only
+- database lookup only
+- gene lookup only
+- variant lookup only
+- drug lookup only
+- protein structure lookup only
+- dataset lookup only
+- public accession lookup only
+- presentation generation only
+- slide design only
+- code debugging only
+
+### Routing precedence
+
+1. **Condition:** The user asks whether a manuscript, preprint, proposal, figure set, dataset, proof, model, code artifact, or central scientific claim is convincing, publishable, novel, or sufficiently supported.
+   **Action:** Use rigorous-reviewer.
+2. **Condition:** The user asks to rewrite or audit a biological protocol, SOP, bench note, or wet-lab workflow for execution readiness.
+   **Action:** Route to biological-protocol-reviewer if installed; otherwise state that this skill can only review the scientific claim and protocol-derived evidence, not generate a full SOP.
+3. **Condition:** The user asks only for language polishing, figure styling, reviewer response drafting, citation formatting, or paper-to-PPT conversion.
+   **Action:** Do not trigger rigorous-reviewer unless the user explicitly asks for scientific critique or claim stress-testing.
+4. **Condition:** The user asks only for paper lookup, database lookup, citation graph search, or public accession verification.
+   **Action:** Use lookup/database companion skills if installed; trigger rigorous-reviewer only for synthesis and final scientific judgment.
+
+The complete trigger registry is stored in `templates/trigger_keywords.json`; the human-readable routing guide is `references/trigger_keywords.md`.
+<!-- RR_TRIGGER_KEYWORDS_END -->
 
 ## Mission
 

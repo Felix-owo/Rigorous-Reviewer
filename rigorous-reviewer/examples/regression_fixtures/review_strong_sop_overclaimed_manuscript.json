@@ -8,7 +8,7 @@
   ],
   "pre_review_contract": {
     "review_id": "review-overclaim-fixture",
-    "skill_version": "rigorous-reviewer v2.1.3",
+    "skill_version": "rigorous-reviewer v2.2.1",
     "contract_status": "locked",
     "material_basis": {
       "materials_available": ["main text", "methods", "figures"],
