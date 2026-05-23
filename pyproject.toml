@@ -1,10 +1,10 @@
 [project]
 name = "rigorous-reviewer-skill"
-version = "2.1.3"
+version = "2.2.2"
 description = "Portable agent skill for rigorous scientific peer review with benchmark, schema, and installability checks."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { text = "MPL-2.0" }
 authors = [{ name = "Felix-owo" }]
 keywords = ["agent-skill", "peer-review", "scientific-review", "benchmark", "schema-validation"]
 classifiers = [
@@ -12,7 +12,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
   "Topic :: Scientific/Engineering",
 ]
 
