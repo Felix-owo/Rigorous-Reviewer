@@ -1,0 +1,9 @@
+{
+  "name": "claim_strength_fixture",
+  "task": "Detect overclaiming and missing decisive evidence in a mock manuscript claim.",
+  "expected_gates": [
+    "central_claim_dependency_map",
+    "issue_traceability",
+    "recommendation_consistency"
+  ]
+}
